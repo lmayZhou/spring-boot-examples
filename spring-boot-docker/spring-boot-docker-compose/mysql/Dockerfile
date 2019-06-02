@@ -13,7 +13,7 @@ ENV MYSQL_ROOT_HOST '%'
 ENV AUTO_RUN_DIR ./docker-entrypoint-initdb.d
 
 # 定义初始化sql文件
-ENV INIT_SQL sw-docker.sql
+ENV INIT_SQL spring-boot-docker-compose.sql
 
 # 把要执行的sql文件放到/docker-entrypoint-initdb.d/目录下，容器会自动执行这个sql
 COPY ./$INIT_SQL $AUTO_RUN_DIR/

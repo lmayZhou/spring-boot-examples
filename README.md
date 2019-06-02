@@ -1,37 +1,37 @@
-# spring-boot-examples
+# sspring-boot-examples
 
-#### 介绍
-Spring Boot 项目学习案例，仅供参考！如有更好的方案和建议，欢迎互相交流！
+#### 项目介绍
+&emsp;&emsp;Spring Boot 项目学习案例，仅供参考！如有更好的方案和想法，欢迎互相交流！
 
-#### 软件架构
-软件架构说明
+#### 项目结构
+    spring-boot-examples            # Spring Boot 项目案例
+        - examples-common           # 项目公共资源 Model
+        - spring-boot-websocket     # WebSocket Demo Model
+        - ...                       # 待续
+        pom.xml                     # Maven 资源库配置文件
 
-
-#### 安装教程
-
-1. xxxx
-2. xxxx
-3. xxxx
-
-#### 使用说明
-
-1. xxxx
-2. xxxx
-3. xxxx
+#### 项目架构
+1. JDK 8
+2. Spring Boot 2
+3. Maven
+4. Guava
+5. Gson
+6. lombok
+7. log4j2
+8. Spring Scheduled
+9. ...
 
 #### 参与贡献
+1. 2018年12月5日: 初始化项目
+2. 2018年12月5日: 初始化 examples-common
+3. 2018年12月5日: 初始化 spring-boot-websocket
+4. 2018年12月6日: 实现websocket功能
+5. 2018年12月6日: 编写 README.md
 
-1. Fork 本仓库
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
-
-
-#### 码云特技
-
-1. 使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2. 码云官方博客 [blog.gitee.com](https://blog.gitee.com)
-3. 你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解码云上的优秀开源项目
-4. [GVP](https://gitee.com/gvp) 全称是码云最有价值开源项目，是码云综合评定出的优秀开源项目
-5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+#### 联系我
+    * QQ: 379839355
+    * QQ群: [Æ┊Java✍交流┊Æ](https://jq.qq.com/?_wv=1027&k=5Dqlg2L)
+    * QQ群: [Cute Python](https://jq.qq.com/?_wv=1027&k=58hW2jl)
+    * Email: lmay@lmaye.com
+    * Home: [lmaye.com](https://www.lmaye.com)
+    * GitHub: [lmayZhou](https://github.com/lmayZhou)

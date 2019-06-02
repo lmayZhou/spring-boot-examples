@@ -6,6 +6,7 @@
     <artifactId>spring-boot-websocket</artifactId>
     <version>1.0.1-SNAPSHOT</version>
     <name>spring-boot-websocket</name>
+    <packaging>jar</packaging>
     <description>Websocket project for Spring Boot</description>
 
     <!-- lookup parent from repository -->
@@ -13,7 +14,6 @@
         <groupId>com.lmaye</groupId>
         <artifactId>spring-boot-examples</artifactId>
         <version>1.0.1-SNAPSHOT</version>
-        <relativePath/>
     </parent>
 
     <properties>
@@ -41,11 +41,6 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
 
@@ -59,17 +54,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-freemarker</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <dependency>

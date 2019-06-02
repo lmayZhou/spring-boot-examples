@@ -6,6 +6,7 @@
     <artifactId>examples-common</artifactId>
     <version>1.0.1-SNAPSHOT</version>
     <name>examples-common</name>
+    <packaging>jar</packaging>
     <description>Examples Common project for Spring Boot</description>
 
     <!-- lookup parent from repository -->
@@ -13,7 +14,6 @@
         <groupId>com.lmaye</groupId>
         <artifactId>spring-boot-examples</artifactId>
         <version>1.0.1-SNAPSHOT</version>
-        <relativePath/>
     </parent>
 
     <properties>

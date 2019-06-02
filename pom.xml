@@ -6,6 +6,7 @@
     <artifactId>spring-boot-examples</artifactId>
     <version>1.0.1-SNAPSHOT</version>
     <name>spring-boot-examples</name>
+    <packaging>pom</packaging>
     <description>Examples project for Spring Boot</description>
 
     <!-- lookup parent from repository -->
@@ -80,6 +81,17 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>

@@ -3,16 +3,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.lmaye</groupId>
-    <artifactId>spring-boot-docker</artifactId>
+    <artifactId>spring-boot-dockerfile</artifactId>
     <version>1.0.1-SNAPSHOT</version>
-    <name>spring-boot-docker</name>
-    <packaging>pom</packaging>
-    <description>Docker project for Spring Boot</description>
+    <name>spring-boot-dockerfile</name>
+    <packaging>jar</packaging>
+    <description>Dockerfile project for Spring Boot</description>
 
     <!-- lookup parent from repository -->
     <parent>
         <groupId>com.lmaye</groupId>
-        <artifactId>spring-boot-examples</artifactId>
+        <artifactId>spring-boot-docker</artifactId>
         <version>1.0.1-SNAPSHOT</version>
     </parent>
 
@@ -22,15 +22,16 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
-    <modules>
-        <module>spring-boot-dockerfile</module>
-        <module>spring-boot-docker-compose</module>
-    </modules>
-
     <dependencies>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

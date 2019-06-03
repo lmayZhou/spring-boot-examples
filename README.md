@@ -1,4 +1,4 @@
-# sspring-boot-examples
+# spring-boot-examples
 
 #### 项目介绍
 &emsp;&emsp;Spring Boot 项目学习案例，仅供参考！如有更好的方案和想法，欢迎互相交流！

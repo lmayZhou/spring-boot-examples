@@ -11,5 +11,4 @@ public class SpringBootWebsocketApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpringBootWebsocketApplication.class, args);
     }
-
 }

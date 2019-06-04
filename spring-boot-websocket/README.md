@@ -1,41 +1,30 @@
-# spring-boot-websocket
+# Spring Boot Websocket(2.x版本)
 
 #### 项目介绍
-&emsp;&emsp;spring-boot-websocket 属于Spring Boot集成WebSocket实例，简单的实现基本的功能演示;
-项目学习案例，仅供参考！如有更好的方案和想法，欢迎互相交流！
+&emsp;&emsp;Spring Boot(2.x版本) 整合 WebSocket实例，简单的实现基本的功能演示;
+WebSocket整合实践案例，仅供学习参考！如有更好的方案和idea，欢迎互相交流！如您觉得该项目对您有所帮助，欢迎点击右上方的Star标记，给予支持！！！谢谢 ~ ~
 
 #### 项目结构
-    spring-boot-websocket                       # WebSocket Demo
-        - src                                   # 源文件目录
-            -- main                             # 主目录
-                -- java                         # Java 源文件目录
-                    -- com.lmay.websocket       # Java 包路径
-                        -- config               # 项目配置类
-                        -- controller           # 控制器
-                        -- exception            # 自定义异常
-                        -- handler              # 处理器
-                        -- service              # 服务层
-                            -- impl             # 服务实现类
-                        -- task                 # Spring 定时任务
-                        WebSocketApplication    # 应用启动
-                -- resources                    # 项目资源目录
-                    -- static                   # 静态资源
-                    -- templates                # HTML模版
-                    application.yml             # 项目配置文件
-                    log4j2.xml                  # 日志配置文件
-            -- test                             # 测试目录
-        pom.xml                                 # Maven 资源库配置文件
-
-#### 项目架构
-1. JDK 8
-2. Spring Boot 2
-3. Maven
-4. Guava
-5. Gson
-6. lombok
-7. log4j2
-8. Spring Scheduled
-9. ...
+    spring-boot-websocket                               # WebSocket Demo
+        - src                                           # 源文件目录
+            -- main                                     # 主目录
+                -- java                                 # Java 源文件目录
+                    -- com.lmaye.spring.boot.websocket  # Java 包路径
+                        -- config                       # 项目配置类
+                        -- controller                   # 控制器
+                        -- exception                    # 自定义异常
+                        -- handler                      # 处理器
+                        -- service                      # 服务层
+                            -- impl                     # 服务实现类
+                        -- task                         # Spring 定时任务
+                        SpringBootWebsocketApplication  # 应用启动
+                -- resources                            # 项目资源目录
+                    -- static                           # 静态资源
+                    -- templates                        # HTML模版
+                    application.yml                     # 项目配置文件
+                    log4j2.xml                          # 日志配置文件
+            -- test                                     # 测试目录
+        pom.xml                                         # Maven 资源库配置文件
 
 ### WebSocket
 &emsp;&emsp;WebSocket 是 HTML5 开始提供的一种在单个 TCP 连接上进行全双工通讯的协议。<br/>
@@ -63,6 +52,8 @@ WebSocket 使得客户端和服务器之间的数据交换变得更加简单，�
 1. 2018年12月5日: 初始化项目
 2. 2018年12月5日: 初始化 spring-boot-websocket
 3. 2018年12月6日: 实现websocket功能
+4. 2019年06月3日: 优化 Maven pom.xml [文件]
+5. 2019年06月4日: 更新 README.md [文档]
 
 #### 联系我
     * QQ: 379839355

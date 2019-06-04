@@ -24,7 +24,9 @@
     </properties>
 
     <modules>
+        <!-- Dockerfile Module -->
         <module>spring-boot-dockerfile</module>
+        <!-- Docker Compose Module -->
         <module>spring-boot-docker-compose</module>
     </modules>
 

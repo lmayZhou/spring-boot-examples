@@ -10,8 +10,11 @@
     <description>Examples project for Spring Boot</description>
 
     <modules>
+        <!-- 案例公共资源 -->
         <module>examples-common</module>
+        <!-- WebSocket Module -->
         <module>spring-boot-websocket</module>
+        <!-- Docker Module -->
         <module>spring-boot-docker</module>
     </modules>
 </project>

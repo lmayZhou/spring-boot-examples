@@ -27,22 +27,22 @@
 8. 2019年06月4日: 更新 README.md [文档]
 
 ### 相关文章
-####『 Spring Boot 2.x 快速教程 』
+#### 『 Spring Boot 2.x 快速教程 』
 - [Spring Boot 整合 WebSocket](https://www.lmaye.com/2018/12/06/20181206163745/)
 
-####『 Centos 7 快速教程 』
+#### 『 Centos 7 快速教程 』
 - [Centos 7 静态IP设置](https://www.lmaye.com/2017/12/22/20180809103359/)
 - [Linux增加bash脚本为service，开机自启服务脚本配置](https://www.lmaye.com/2017/12/23/20180809103413/)
 - [Centos7 安装 Docker CE](hhttps://www.lmaye.com/2019/04/28/20190428183357/)
 - [Centos7 安装 JDK1.8](https://www.lmaye.com/2019/04/29/20190429005630/)
 - [Centos 安装较高版本Ruby2.2+（RVM 安装）](https://www.lmaye.com/2019/01/24/20190124223042/)
 
-####『 Docker 快速教程 』
+#### 『 Docker 快速教程 』
 - [Docker 安装 MongoDB](https://www.lmaye.com/2019/05/06/20190506232452/)
 - [Docker 安装 MySQL 8.0](https://www.lmaye.com/2019/05/22/20190522162930/)
 - [Dockerfile 部署MySql 8并初始化数据脚本](https://www.lmaye.com/2019/06/02/20190602133656/)
 
-####『 Redis 快速教程 』
+#### 『 Redis 快速教程 』
 - [Redis 配置文件详解](https://www.lmaye.com/2018/09/06/20180906002632/)
 - [Redis Cluster 集群](https://www.lmaye.com/2019/01/24/20190124212849/)
 - [Redis 配置集群遇到问题及解决方法](https://www.lmaye.com/2019/01/24/20190124223656/)

@@ -1,7 +1,7 @@
 # Spring Boot Websocket(2.x版本)
 
 #### 项目介绍
-&emsp;&emsp;Spring Boot(2.x版本) 整合 WebSocket实例，简单的实现基本的功能演示;
+&emsp;&emsp;Spring Boot(2.x版本) 整合 WebSocket实例，简单的实现基本的浏览器和服务器之间的数据交互通讯功能;
 WebSocket整合实践案例，仅供学习参考！如有更好的方案和idea，欢迎互相交流！如您觉得该项目对您有所帮助，欢迎点击右上方的Star标记，给予支持！！！谢谢 ~ ~
 
 #### 项目结构

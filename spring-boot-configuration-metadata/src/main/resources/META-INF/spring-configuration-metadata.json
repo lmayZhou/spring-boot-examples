@@ -12,21 +12,21 @@
       "name": "blog.host",
       "type": "java.lang.String",
       "sourceType": "com.lmaye.spring.boot.configuration.metadata.properties.BlogProperties",
-      "description": "Blog Configuration Metadata: Host.",
+      "description": "Blog Configuration Metadata: Host(主机).",
       "defaultValue": "127.0.0.1"
     },
     {
       "name": "blog.port",
       "type": "java.lang.Integer",
       "sourceType": "com.lmaye.spring.boot.configuration.metadata.properties.BlogProperties",
-      "description": "Blog Configuration Metadata: Port.",
+      "description": "Blog Configuration Metadata: Port(端口).",
       "defaultValue": 80
     },
     {
       "name": "blog.email",
       "type": "java.lang.String",
       "sourceType": "com.lmaye.spring.boot.configuration.metadata.properties.BlogProperties",
-      "description": "Blog Configuration Metadata: Email.",
+      "description": "Blog Configuration Metadata: Email(邮箱).",
       "defaultValue": "lmay@lmaye.com"
     }
   ],

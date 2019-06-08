@@ -1,4 +1,4 @@
-package com.lmaye.spring.boot.dockerfile.properties;
+package com.lmaye.spring.boot.configuration.metadata.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -17,17 +17,17 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties("blog")
 public class BlogProperties {
     /**
-     * 主机
+     * Host
      */
     private String host;
 
     /**
-     * 端口
+     * Port
      */
     private Integer port;
 
     /**
-     * 邮箱
+     * Email
      */
     private String email;
 }

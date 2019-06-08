@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: spring-boot-configuration-metadata
+
+blog:
+  host: https://www.lmaye.com
+  port: 80
+  email: lmay@lmaye.com

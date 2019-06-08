@@ -1,0 +1,48 @@
+{
+  "groups": [
+    {
+      "name": "blog",
+      "type": "com.lmaye.spring.boot.configuration.metadata.properties.BlogProperties",
+      "sourceType": "com.lmaye.spring.boot.configuration.metadata.properties.BlogProperties",
+      "description": "Blog Configuration Metadata(配置元数据)."
+    }
+  ],
+  "properties": [
+    {
+      "name": "blog.host",
+      "type": "java.lang.String",
+      "sourceType": "com.lmaye.spring.boot.configuration.metadata.properties.BlogProperties",
+      "description": "Blog Configuration Metadata: Host.",
+      "defaultValue": "127.0.0.1"
+    },
+    {
+      "name": "blog.port",
+      "type": "java.lang.Integer",
+      "sourceType": "com.lmaye.spring.boot.configuration.metadata.properties.BlogProperties",
+      "description": "Blog Configuration Metadata: Port.",
+      "defaultValue": 80
+    },
+    {
+      "name": "blog.email",
+      "type": "java.lang.String",
+      "sourceType": "com.lmaye.spring.boot.configuration.metadata.properties.BlogProperties",
+      "description": "Blog Configuration Metadata: Email.",
+      "defaultValue": "lmay@lmaye.com"
+    }
+  ],
+  "hints": [
+    {
+      "name": "blog.host",
+      "values": [
+        {
+          "value": "127.0.0.1",
+          "description": "Disable DDL handling."
+        },
+        {
+          "value": "https://www.lmaye.com",
+          "description": "Validate the schema, make no changes to the database."
+        }
+      ]
+    }
+  ]
+}

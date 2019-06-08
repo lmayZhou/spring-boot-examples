@@ -13,6 +13,8 @@ WebSocket整合实践案例，仅供学习参考！如有更好的方案和idea�
                         -- properties                               # 配置属性
                         SpringBootWebsocketApplication              # 应用启动
                 -- resources                                        # 项目资源目录
+                    -- META-INF                                     # META-INF
+                        spring-configuration-metadata.json          # 配置元数据
                     application.yml                                 # 项目配置文件
             -- test                                                 # 测试目录
         pom.xml                                                     # Maven 资源库配置文件

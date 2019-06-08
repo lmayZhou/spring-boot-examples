@@ -1,0 +1,48 @@
+{
+  "groups": [
+    {
+      "name": "blog",
+      "type": "com.lmaye.spring.boot.dockerfile.properties.BlogProperties",
+      "sourceType": "com.lmaye.spring.boot.dockerfile.properties.BlogProperties",
+      "description": "Blog Configuration Metadata"
+    }
+  ],
+  "properties": [
+    {
+      "name": "blog.host",
+      "type": "java.lang.String",
+      "sourceType": "com.lmaye.spring.boot.dockerfile.properties.BlogProperties",
+      "defaultValue": "127.0.0.1",
+      "description": "Blog Configuration Metadata: Host"
+    },
+    {
+      "name": "blog.port",
+      "type": "java.lang.Integer",
+      "sourceType": "com.lmaye.spring.boot.dockerfile.properties.BlogProperties",
+      "defaultValue": 80,
+      "description": "Blog Configuration Metadata: Port"
+    },
+    {
+      "name": "blog.email",
+      "type": "java.lang.String",
+      "sourceType": "com.lmaye.spring.boot.dockerfile.properties.BlogProperties",
+      "defaultValue": "lmay@lmaye.com",
+      "description": "Blog Configuration Metadata: Email"
+    }
+  ],
+  "hints": [
+    {
+      "name": "blog.host",
+      "values": [
+        {
+          "value": "none",
+          "description": "Disable DDL handling."
+        },
+        {
+          "value": "validate",
+          "description": "Validate the schema, make no changes to the database."
+        }
+      ]
+    }
+  ]
+}

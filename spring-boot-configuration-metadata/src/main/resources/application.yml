@@ -1,5 +1,3 @@
-
-
 spring:
   application:
     name: spring-boot-configuration-metadata

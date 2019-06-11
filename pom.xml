@@ -12,11 +12,13 @@
     <modules>
         <!-- 案例公共资源 -->
         <module>examples-common</module>
-        <!-- WebSocket Module -->
-        <module>spring-boot-websocket</module>
-        <!-- Docker Module -->
-        <module>spring-boot-docker</module>
         <!-- Configuration Metadata(配置元数据) -->
         <module>spring-boot-configuration-metadata</module>
+        <!-- Docker Module -->
+        <module>spring-boot-docker</module>
+        <!-- Elasticsearch Module -->
+        <module>spring-boot-elasticsearch</module>
+        <!-- WebSocket Module -->
+        <module>spring-boot-websocket</module>
     </modules>
 </project>

@@ -1,6 +1,8 @@
 package com.lmaye.examples.common.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -16,6 +18,7 @@ import java.util.Objects;
  * @email lmay@lmaye.com
  */
 @Data
+@ApiModel("响应结果")
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Response<T> implements Serializable {
@@ -24,16 +27,19 @@ public class Response<T> implements Serializable {
     /**
      * 响应代码
      */
+    @ApiModelProperty("响应代码")
     private Integer code;
 
     /**
      * 响应消息
      */
+    @ApiModelProperty("响应消息")
     private String msg;
 
     /**
      * 响应数据
      */
+    @ApiModelProperty("响应数据")
     private T data;
 
     /**

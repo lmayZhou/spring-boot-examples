@@ -5,7 +5,7 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 import org.springframework.stereotype.Repository;
 
 /**
- * -- 城市 Repository
+ * -- ES城市 Repository
  *
  * @author lmay.Zhou
  * @qq 379839355

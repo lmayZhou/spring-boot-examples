@@ -27,13 +27,14 @@
         <commons.lang3.version>3.4</commons.lang3.version>
         <mvel.version>2.2.2.Final</mvel.version>
         <error_prone_annotations.version>2.3.1</error_prone_annotations.version>
+        <swagger2.version>2.9.2</swagger2.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <!--<scope>provided</scope>-->
         </dependency>
 
         <dependency>
@@ -70,6 +71,13 @@
             <groupId>com.google.errorprone</groupId>
             <artifactId>error_prone_annotations</artifactId>
             <version>${error_prone_annotations.version}</version>
+        </dependency>
+
+        <!-- Swagger2 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger2.version}</version>
         </dependency>
 
         <dependency>

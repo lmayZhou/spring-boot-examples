@@ -1,0 +1,101 @@
+version: "3"
+services:
+  nginx:
+    container_name: lmay-nginx
+    image: nginx:1.16
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/www:/usr/share/nginx/html
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/logs:/var/log/nginx
+
+  es-master:
+    container_name: es-master
+    image: elasticsearch:7.1.1
+    restart: always
+    ports:
+      - 9200:9200
+      - 9300:9300
+    volumes:
+      - ./elasticsearch/master/conf/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./elasticsearch/master/data:/usr/share/elasticsearch/data:rw
+      - ./elasticsearch/master/logs:/usr/share/elasticsearch/logs:rw
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+
+  es-slave1:
+    container_name: es-slave1
+    image: elasticsearch:7.1.1
+    restart: always
+    volumes:
+      - ./elasticsearch/slave1/conf/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./elasticsearch/slave1/data:/usr/share/elasticsearch/data:rw
+      - ./elasticsearch/slave1/logs:/usr/share/elasticsearch/logs:rw
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+
+  es-slave2:
+    container_name: es-slave2
+    image: elasticsearch:7.1.1
+    restart: always
+    volumes:
+      - ./elasticsearch/slave2/conf/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./elasticsearch/slave2/data:/usr/share/elasticsearch/data:rw
+      - ./elasticsearch/slave2/logs:/usr/share/elasticsearch/logs:rw
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+
+  es-head:
+    container_name: es-head
+    image: mobz/elasticsearch-head:5
+    restart: always
+    ports:
+      - 9100:9100
+    depends_on:
+      - es-master
+
+  kibana:
+    container_name: kibana
+    image: kibana:7.1.1
+    restart: always
+    ports:
+      - 5601:5601
+    volumes:
+      - ./kibana/conf/kibana.yml:/usr/share/kibana/config/kibana.yml
+    environment:
+      - elasticsearch.hosts=http://es-master:9200
+    depends_on:
+      - es-master
+
+  logstash:
+    container_name: logstash
+    image: logstash:7.1.1
+    command: logstash -f ./logstash/conf/log4j2-gelf.conf
+    restart: always
+    ports:
+      - 9600:9600
+      - 5044:5044
+      - 4566:4566
+    depends_on:
+      - es-master
+
+  spring-boot-elasticsearch:
+    container_name: spring-boot-elasticsearch
+    image: lmay/spring-boot-elasticsearch:1.0
+    restart: always
+    build: .
+    working_dir: /home
+    volumes:
+      - ./logs:/usr/local/logs
+    ports:
+      - 60:60
+    depends_on:
+      - es-master
+      - es-slave1
+      - es-slave2
+      - es-head
+      - logstash
+    command: mvn clean spring-boot:run -Dspring-boot.run.profiles=docker

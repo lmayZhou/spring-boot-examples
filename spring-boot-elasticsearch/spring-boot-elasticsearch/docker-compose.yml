@@ -56,6 +56,8 @@ services:
       - 9100:9100
     depends_on:
       - es-master
+      - es-slave1
+      - es-slave2
 
   kibana:
     container_name: kibana
@@ -69,6 +71,8 @@ services:
       - elasticsearch.hosts=http://es-master:9200
     depends_on:
       - es-master
+      - es-slave1
+      - es-slave2
 
   logstash:
     container_name: logstash
@@ -81,21 +85,5 @@ services:
       - 4566:4566
     depends_on:
       - es-master
-
-  spring-boot-elasticsearch:
-    container_name: spring-boot-elasticsearch
-    image: lmay/spring-boot-elasticsearch:1.0
-    restart: always
-    build: .
-    working_dir: /home
-    volumes:
-      - ./logs:/usr/local/logs
-    ports:
-      - 60:60
-    depends_on:
-      - es-master
       - es-slave1
       - es-slave2
-      - es-head
-      - logstash
-    command: mvn clean spring-boot:run -Dspring-boot.run.profiles=docker

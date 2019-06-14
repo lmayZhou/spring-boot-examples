@@ -1,0 +1,17 @@
+# 集群名称
+cluster.name: "es_cluster"
+# 节点名称,这儿我直接取名为 slave1
+node.name: slave1
+# 是否可以成为master节点
+node.master: false
+# 是否允许该节点存储数据,默认开启
+node.data: true
+# 网络绑定,这里我绑定 0.0.0.0,支持外网访问
+network.host: 0.0.0.0
+# 设置对外服务的http端口，默认为9200
+http.port: 9201
+# 支持跨域访问
+http.cors.enabled: true
+http.cors.allow-origin: "*"
+# 集群发现
+discovery.seed_hosts: ["127.0.0.1:9300"]

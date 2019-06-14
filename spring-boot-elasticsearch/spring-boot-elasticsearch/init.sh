@@ -35,9 +35,9 @@ echo -e "${BLUE_COLOR}===> directory authorize success.${RES}"
 
 # 移动配置文件
 echo -e "${BLUE_COLOR}---> move [elasticsearch]config file start.${RES}"
-mv ./es-master.yml ./elasticsearch/master/conf \
-   ./es-slave1.yml ./elasticsearch/slave1/conf \
-   ./es-slave2.yml ./elasticsearch/slave2/conf
+mv ./es-master.yml ./elasticsearch/master/conf
+mv ./es-slave1.yml ./elasticsearch/slave1/conf
+mv ./es-slave2.yml ./elasticsearch/slave2/conf
 
 echo -e "${RED_COLOR}---> move [kibana]config file start.${RES}"
 mv ./kibana.yml ./kibana/conf

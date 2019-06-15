@@ -10,11 +10,16 @@ node.data: true
 network.host: 0.0.0.0
 # 设置对外服务的http端口，默认为9200
 http.port: 9200
+# 设置节点间交互的tcp端口,默认是9300
+transport.tcp.port: 9300
 # 支持跨域访问
 http.cors.enabled: true
 http.cors.allow-origin: "*"
-# xpack.security.audit.enabled: true
-# 设置节点间交互的tcp端口,默认是9300
-transport.tcp.port: 9300
+xpack.security.audit.enabled: false
 # 手动指定可以成为 mater 的所有节点的 name 或者 ip，这些配置将会在第一次选举中进行计算
-cluster.initial_master_nodes: ["127.0.0.1"]
+discovery.seed_hosts:
+  - 127.0.0.1
+cluster.initial_master_nodes:
+  - master
+# 关闭锁定内存，设置为true会报错
+bootstrap.memory_lock: false

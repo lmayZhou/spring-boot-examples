@@ -28,9 +28,11 @@ echo -e "${VIOLET_COLOR}---> create [nginx]directory start.${RES}"
 mkdir -p ./nginx/conf ./nginx/logs ./nginx/www
 echo -e "${BLUE_COLOR}===> create directory success.${RES}"
 
-# 目录授权
+# 目录授权(data/logs 都要授读/写权限)
 echo -e "${BLUE_COLOR}---> directory authorize start.${RES}"
-chmod 777 ./elasticsearch/master/data/ ./elasticsearch/slave1/data/ ./elasticsearch/slave2/data/
+chmod 777 ./elasticsearch/master/data/ ./elasticsearch/master/logs/ \
+    ./elasticsearch/slave1/data/ ./elasticsearch/slave1/logs/ \
+    ./elasticsearch/slave2/data/ ./elasticsearch/slave2/logs
 echo -e "${BLUE_COLOR}===> directory authorize success.${RES}"
 
 # 移动配置文件

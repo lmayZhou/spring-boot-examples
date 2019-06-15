@@ -1,2 +1,4 @@
-# 汉化
+server.host: "0.0.0.0"
+elasticsearch.hosts: ["http://192.168.0.189:9200"]
+# 启动 kibana 的中文界面
 i18n.locale: "zh-CN"

@@ -3,7 +3,7 @@ cluster.name: "es_cluster"
 # 节点名称,这儿我直接取名为 slave2
 node.name: slave2
 # 是否可以成为master节点
-node.master: false
+node.master: true
 # 是否允许该节点存储数据,默认开启
 node.data: true
 # 网络绑定,这里我绑定 0.0.0.0,支持外网访问
@@ -14,4 +14,9 @@ http.port: 9202
 http.cors.enabled: true
 http.cors.allow-origin: "*"
 # 集群发现
-discovery.seed_hosts: ["127.0.0.1:9300"]
+discovery.seed_hosts:
+  - 127.0.0.1
+cluster.initial_master_nodes:
+  - master
+# 关闭锁定内存，设置为true会报错
+bootstrap.memory_lock: false

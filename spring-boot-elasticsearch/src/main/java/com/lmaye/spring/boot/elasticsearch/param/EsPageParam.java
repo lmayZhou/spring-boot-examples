@@ -1,5 +1,7 @@
 package com.lmaye.spring.boot.elasticsearch.param;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 
@@ -14,6 +16,7 @@ import java.io.Serializable;
  * @since 2019/6/12 22:23 星期三
  */
 @Data
+@ApiModel("基础分页参数")
 @ToString(callSuper = true)
 public class EsPageParam implements Serializable {
     /**
@@ -24,10 +27,12 @@ public class EsPageParam implements Serializable {
     /**
      * 页码
      */
+    @ApiModelProperty(value = "页码", required = true, dataType = "Integer")
     private Integer pageNumber = 1;
 
     /**
      * 页数
      */
+    @ApiModelProperty(value = "页数", required = true, dataType = "Integer")
     private Integer pageSize = 10;
 }

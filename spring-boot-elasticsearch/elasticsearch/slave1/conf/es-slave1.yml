@@ -1,17 +1,32 @@
 # 集群名称
-cluster.name: "es_cluster"
+cluster.name: es_cluster
 # 节点名称,这儿我直接取名为 slave1
-node.name: slave1
+node.name: es-slave1
 # 是否可以成为master节点
-node.master: false
+#node.master: true
 # 是否允许该节点存储数据,默认开启
-node.data: true
+#node.data: true
 # 网络绑定,这里我绑定 0.0.0.0,支持外网访问
 network.host: 0.0.0.0
 # 设置对外服务的http端口，默认为9200
 http.port: 9201
+# 设置节点间交互的tcp端口,默认是9300
+#transport.tcp.port: 9301
+#transport.port: 9301
 # 支持跨域访问
 http.cors.enabled: true
 http.cors.allow-origin: "*"
 # 集群发现
-discovery.seed_hosts: ["127.0.0.1:9300"]
+discovery.seed_hosts:
+  - 127.0.0.1:9300
+  - 127.0.0.1:9301
+  - 127.0.0.1:9302
+cluster.initial_master_nodes:
+  - es-master
+  - es-slave1
+  - es-slave2
+# 关闭锁定内存，设置为true会报错
+#bootstrap.memory_lock: false
+gateway.recover_after_nodes: 2
+#gateway.recover_after_time: 5m
+#gateway.expected_nodes: 3

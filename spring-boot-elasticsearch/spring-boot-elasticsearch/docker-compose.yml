@@ -30,9 +30,6 @@ services:
     container_name: es-slave1
     image: elasticsearch:7.1.1
     restart: always
-    ports:
-      - 9201:9200
-      - 9301:9300
     volumes:
       - ./elasticsearch/slave1/conf/es-slave1.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - ./elasticsearch/slave1/data:/usr/share/elasticsearch/data
@@ -44,9 +41,6 @@ services:
     container_name: es-slave2
     image: elasticsearch:7.1.1
     restart: always
-    ports:
-      - 9202:9200
-      - 9302:9300
     volumes:
       - ./elasticsearch/slave2/conf/es-slave2.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - ./elasticsearch/slave2/data:/usr/share/elasticsearch/data
@@ -65,31 +59,31 @@ services:
       - es-slave1
       - es-slave2
 
-#  kibana:
-#    container_name: kibana
-#    image: kibana:7.1.1
-#    restart: always
-#    ports:
-#      - 5601:5601
-#    volumes:
-#      - ./kibana/conf/kibana.yml:/usr/share/kibana/config/kibana.yml
-#    environment:
-#      - elasticsearch.hosts=http://es-master:9200
-#    depends_on:
-#      - es-master
-#      - es-slave1
-#      - es-slave2
+  kibana:
+    container_name: kibana
+    image: kibana:7.1.1
+    restart: always
+    ports:
+      - 5601:5601
+    volumes:
+      - ./kibana/conf/kibana.yml:/usr/share/kibana/config/kibana.yml
+    environment:
+      - elasticsearch.hosts=http://es-master:9200
+    depends_on:
+      - es-master
+      - es-slave1
+      - es-slave2
 
-#  logstash:
-#    container_name: logstash
-#    image: logstash:7.1.1
-#    command: logstash -f ./logstash/conf/log4j2-gelf.conf
-#    restart: always
-#    ports:
-#      - 9600:9600
-#      - 5044:5044
-#      - 4566:4566
-#    depends_on:
-#      - es-master
-#      - es-slave1
-#      - es-slave2
+  logstash:
+    container_name: logstash
+    image: logstash:7.1.1
+    command: logstash -f ./logstash/conf/log4j2-gelf.conf
+    restart: always
+    ports:
+      - 9600:9600
+      - 5044:5044
+      - 4566:4566
+    depends_on:
+      - es-master
+      - es-slave1
+      - es-slave2

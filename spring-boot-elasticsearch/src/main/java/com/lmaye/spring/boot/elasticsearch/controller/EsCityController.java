@@ -57,7 +57,7 @@ public class EsCityController {
      */
     @DeleteMapping("/{id}")
     @ApiOperation(value = "根据城市编号删除", response = Response.class)
-    public Mono<Response> delete(@ApiParam(required=true, name="ID", value="城市编号") @PathVariable Long id) {
+    public Mono<Response> delete(@ApiParam(required = true, name = "ID", value = "城市编号") @PathVariable Long id) {
         cityService.deleteCityById(id);
         return Mono.just(Response.success("删除成功"));
     }
@@ -68,7 +68,7 @@ public class EsCityController {
      * @param param 请求参数
      * @return Mono<Response>
      */
-    @PostMapping
+    @PostMapping("/search")
     @ApiOperation(value = "搜索分页查询", response = EsCityEntity.class)
     public Mono<Response> search(@RequestBody @Valid EsSearchParam param) {
         return Mono.just(Response.success(cityService.searchCities(param)));

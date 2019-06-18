@@ -17,6 +17,7 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -59,6 +60,28 @@ public class EsCityServiceImpl implements EsCityService {
     @Override
     public void deleteCityById(Long id) {
         cityRepository.deleteById(id);
+    }
+
+    /**
+     * 搜索城市
+     * - 根据ID
+     *
+     * @param id ID
+     * @return EsCityEntity
+     */
+    @Override
+    public EsCityEntity searchById(Long id) {
+        return cityRepository.findById(id).orElse(null);
+    }
+
+    /**
+     * 搜索所有的城市
+     *
+     * @return  Iterator<EsCityEntity>
+     */
+    @Override
+    public Iterator<EsCityEntity> searchAll() {
+        return cityRepository.findAll().iterator();
     }
 
     /**

@@ -3,6 +3,7 @@ package com.lmaye.spring.boot.elasticsearch.service;
 import com.lmaye.spring.boot.elasticsearch.entity.EsCityEntity;
 import com.lmaye.spring.boot.elasticsearch.param.EsSearchParam;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -29,6 +30,22 @@ public interface EsCityService {
      * @param id ID
      */
     void deleteCityById(Long id);
+
+    /**
+     * 搜索城市
+     * - 根据ID
+     *
+     * @param id ID
+     * @return EsCityEntity
+     */
+    EsCityEntity searchById(Long id);
+
+    /**
+     * 搜索所有的城市
+     *
+     * @return  Iterator<EsCityEntity>
+     */
+    Iterator<EsCityEntity> searchAll();
 
     /**
      * 搜索城市

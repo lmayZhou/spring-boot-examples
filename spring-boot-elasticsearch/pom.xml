@@ -22,7 +22,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <swagger2.version>2.9.2</swagger2.version>
-        <elasticsearch.version>7.1.1</elasticsearch.version>
+        <!-- 版本类型异常问题: long totalHits = response.getHits().getTotalHits(); -->
+        <elasticsearch.version>6.8.0</elasticsearch.version>
         <spring-data-elasticsearch.version>3.2.0.RC1</spring-data-elasticsearch.version>
     </properties>
 

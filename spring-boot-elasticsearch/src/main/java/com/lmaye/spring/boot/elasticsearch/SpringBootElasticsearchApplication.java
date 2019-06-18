@@ -15,6 +15,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringBootElasticsearchApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringBootElasticsearchApplication.class, args);
+        try {
+            SpringApplication.run(SpringBootElasticsearchApplication.class, args);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

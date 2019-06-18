@@ -10,10 +10,10 @@ import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
 import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
-import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -71,7 +71,7 @@ public class EsCityServiceImpl implements EsCityService {
     public List<EsCityEntity> searchCities(EsSearchParam searchParam) {
         String searchContent = searchParam.getSearchContent();
         // 分页参数
-        Pageable pageable = new QPageRequest(searchParam.getPageNumber(), searchParam.getPageSize());
+        Pageable pageable = PageRequest.of(searchParam.getPageNumber(), searchParam.getPageSize());
         // 权重查询
         List<FunctionScoreQueryBuilder.FilterFunctionBuilder> filterFunctionBuilders = new ArrayList<>();
         filterFunctionBuilders.add(new FunctionScoreQueryBuilder.FilterFunctionBuilder(

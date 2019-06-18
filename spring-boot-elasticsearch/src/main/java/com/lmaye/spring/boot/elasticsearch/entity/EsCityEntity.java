@@ -22,7 +22,7 @@ import java.io.Serializable;
  */
 @Data
 @ApiModel("ES城市")
-@Document(indexName = "cityIndex", type = "city_entity")
+@Document(indexName = "city_index", type = "city_entity")
 public class EsCityEntity implements Serializable {
     /**
      * 序列化版本号

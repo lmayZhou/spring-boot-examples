@@ -86,15 +86,24 @@ public class EsCityServiceImpl implements EsCityService {
 
     /**
      * 搜索城市
-     *
+     * <pre>
+     * ES设置分页源码:
+     * if (query.getPageable().isPaged()) {
+     *      // 起始页码 = 当前页码 * 页面大小（故: 页码传入时 - 1）
+     *      startRecord = query.getPageable().getPageNumber() * query.getPageable().getPageSize();
+     *      // 页码大小
+     *      searchRequestBuilder.setSize(query.getPageable().getPageSize());
+     * }
+     * searchRequestBuilder.setFrom(startRecord);
+     * </pre>
      * @param searchParam 搜索参数
      * @return List<EsCityEntity>
      */
     @Override
     public List<EsCityEntity> searchCities(EsSearchParam searchParam) {
         String searchContent = searchParam.getSearchContent();
-        // 分页参数
-        Pageable pageable = PageRequest.of(searchParam.getPageNumber(), searchParam.getPageSize());
+        // 分页参数（传入页码 - 1）
+        Pageable pageable = PageRequest.of(searchParam.getPageNumber() - 1, searchParam.getPageSize());
         // 权重查询
         List<FunctionScoreQueryBuilder.FilterFunctionBuilder> filterFunctionBuilders = new ArrayList<>();
         filterFunctionBuilders.add(new FunctionScoreQueryBuilder.FilterFunctionBuilder(
@@ -103,7 +112,7 @@ public class EsCityServiceImpl implements EsCityService {
                 QueryBuilders.matchQuery("description", searchContent), ScoreFunctionBuilders.weightFactorFunction(2)));
         FunctionScoreQueryBuilder.FilterFunctionBuilder[] builders = new FunctionScoreQueryBuilder.FilterFunctionBuilder[filterFunctionBuilders.size()];
         filterFunctionBuilders.toArray(builders);
-        FunctionScoreQueryBuilder builder = QueryBuilders.functionScoreQuery(builders).scoreMode(FunctionScoreQuery.ScoreMode.SUM).setMinScore(5);
+        FunctionScoreQueryBuilder builder = QueryBuilders.functionScoreQuery(builders).scoreMode(FunctionScoreQuery.ScoreMode.SUM).setMinScore(2);
         // 创建搜索 DSL 查询
         SearchQuery searchQuery = new NativeSearchQueryBuilder().withPageable(pageable).withQuery(builder).build();
         log.info("\n searchCity(): searchContent [{}] \n DSL  = \n {}", searchContent, searchQuery.getQuery().toString());

@@ -70,15 +70,23 @@ services:
     depends_on:
       - es-master
 
+  filebeat:
+    container_name: filebeat
+    image: filebeat:7.1.1
+    restart: always
+    volumes:
+      - ./filebeat/conf/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+#    environment:
+#      - output.elasticsearch.hosts=http://es-master:9200
+
   logstash:
     container_name: logstash
     image: logstash:7.1.1
-    command: logstash -f ./logstash/conf/log4j2-gelf.conf
+    command: logstash -f ./logstash/conf/log4j2-file.conf
     restart: always
     ports:
       - 9600:9600
       - 5044:5044
-      - 4566:4566
     depends_on:
       - es-master
 

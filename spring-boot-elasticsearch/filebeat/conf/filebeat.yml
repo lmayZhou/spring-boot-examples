@@ -1,0 +1,4 @@
+filebeat.inputs:
+  - type: tcp
+    max_message_size: 10MiB
+    host: "0.0.0.0:9000"

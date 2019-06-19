@@ -5,8 +5,9 @@
 <configuration status="WARN" monitorInterval="30">
     <!--定义变量 -->
     <Properties>
-        <Property name="app">elasticsearch</Property>
-        <Property name="log.path">./spring-boot-elasticsearch/logs/${app}</Property>
+        <!--<Property name="app">elasticsearch</Property>-->
+        <!--<Property name="log.path">./spring-boot-elasticsearch/logs/${app}</Property>-->
+        <Property name="log.path">./spring-boot-elasticsearch/logs</Property>
     </Properties>
 
     <!--先定义所有的appender -->
@@ -27,23 +28,14 @@
             </Policies>
             <DefaultRolloverStrategy max="20"/>
         </RollingFile>
-
-        <Gelf name="logstash-gelf" host="udp:127.0.0.1" port="4566" version="1.1" ignoreExceptions="true">
-            <Field name="timestamp" pattern="%d{yyyy-MM-dd HH:mm:ss.SSS}" />
-            <Field name="logger" pattern="%logger" />
-            <Field name="level" pattern="%level" />
-            <Field name="simpleClassName" pattern="%C{1}" />
-            <Field name="className" pattern="%C" />
-            <Field name="server" pattern="%host" />
-        </Gelf>
     </Appenders>
 
     <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效 -->
     <Loggers>
         <!--过滤掉spring的一些无用的DEBUG信息 -->
-        <Logger name="org.springframework" level="INFO" additivity="false"/>
+        <!--<Logger name="org.springframework" level="INFO" additivity="false"/>-->
 
-        <Root level="INFO">
+        <Root level="DEBUG">
             <AppenderRef ref="console" />
             <AppenderRef ref="info" />
             <AppenderRef ref="logstash-gelf" />

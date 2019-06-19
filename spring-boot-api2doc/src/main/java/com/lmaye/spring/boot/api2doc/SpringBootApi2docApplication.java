@@ -18,5 +18,4 @@ public class SpringBootApi2docApplication {
     public static void main(String[] args) {
         SpringApplication.run(SpringBootApi2docApplication.class, args);
     }
-
 }

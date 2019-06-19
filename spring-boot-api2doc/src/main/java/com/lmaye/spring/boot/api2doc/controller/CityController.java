@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import java.util.Objects;
 
 /**
- * -- ES搜索引擎 Controller
+ * -- 城市管理 Controller
  *
  * @author lmay.Zhou
  * @qq 379839355
@@ -23,10 +23,10 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/city")
 @ApiComment(seeClass = CityEntity.class)
-@Api2Doc(id = "city", name = "ES 城市搜索引擎管理")
+@Api2Doc(id = "city", name = "城市管理接口")
 public class CityController {
     /**
-     * ES城市 Service
+     * 城市 Service
      */
     private final CityService cityService;
 
@@ -40,8 +40,8 @@ public class CityController {
      * @param param 请求参数
      * @return Mono<Response>
      */
-    @PostMapping
-    @ApiComment("新增")
+    @PostMapping(name = "新增", value = "")
+    @ApiComment(value = "新增", seeClass = CityEntity.class)
     public Mono<Response> save(@RequestBody @Valid @ApiComment("城市实体") CityEntity param) {
         if (Objects.isNull(cityService.saveCity(param))) {
             return Mono.just(Response.failed());
@@ -55,8 +55,8 @@ public class CityController {
      * @param id 城市编号
      * @return Mono<Response>
      */
-    @DeleteMapping("/{id}")
     @ApiComment("根据城市编号删除")
+    @DeleteMapping(name = "根据城市编号删除", value = "/{id}")
     public Mono<Response> delete(@ApiComment(value = "城市编号") @PathVariable long id) {
         cityService.deleteCityById(id);
         return Mono.just(Response.success("删除成功"));
@@ -69,8 +69,8 @@ public class CityController {
      * @param id ID
      * @return Mono<Response>
      */
-    @GetMapping("/{id}")
     @ApiComment("根据城市编号搜索")
+    @GetMapping(name = "根据城市编号搜索", value = "/{id}")
     public Mono<Response> searchById(@ApiComment("城市编号") @PathVariable long id) {
         return Mono.just(Response.success(cityService.searchById(id)));
     }
@@ -80,8 +80,8 @@ public class CityController {
      *
      * @return Mono<Response>
      */
-    @GetMapping("/all")
     @ApiComment("搜索所有的城市")
+    @GetMapping(name = "搜索所有的城市", value = "/all")
     public Mono<Response> searchAll() {
         return Mono.just(Response.success(cityService.searchAll()));
     }
@@ -92,8 +92,8 @@ public class CityController {
      * @param param 请求参数
      * @return Mono<Response>
      */
-    @PostMapping("/search")
-    @ApiComment("搜索分页查询")
+    @ApiComment(value = "搜索分页查询", seeClass = SearchParam.class)
+    @PostMapping(name = "搜索分页查询", value = "/search")
     public Mono<Response> search(@RequestBody @Valid @ApiComment("搜索参数") SearchParam param) {
         return Mono.just(Response.success(cityService.searchCities(param)));
     }

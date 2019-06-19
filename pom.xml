@@ -20,5 +20,7 @@
         <module>spring-boot-elasticsearch</module>
         <!-- WebSocket Module -->
         <module>spring-boot-websocket</module>
+        <!-- Api2doc Module -->
+        <module>spring-boot-api2doc</module>
     </modules>
 </project>

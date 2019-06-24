@@ -97,3 +97,7 @@ cluster.initial_master_nodes:
 # 支持跨域访问
 http.cors.enabled: true
 http.cors.allow-origin: "*"
+
+# 安全认证
+xpack.security.enabled: true
+http.cors.allow-headers: "Authorization"

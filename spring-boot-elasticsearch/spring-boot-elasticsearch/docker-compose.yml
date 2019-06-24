@@ -54,16 +54,16 @@ services:
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
 
-#  es-head:
-#    container_name: es-head
-#    image: mobz/elasticsearch-head:5
-#    restart: always
-#    ports:
-#      - 9100:9100
-#    depends_on:
-#      - es-master
-#      - es-slave1
-#      - es-slave2
+  es-head:
+    container_name: es-head
+    image: mobz/elasticsearch-head:5
+    restart: always
+    ports:
+      - 9100:9100
+    depends_on:
+      - es-master
+      - es-slave1
+      - es-slave2
 
 #  kibana:
 #    container_name: kibana

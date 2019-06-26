@@ -29,9 +29,9 @@ public class ElasticsearchConfig {
     @Bean
     public TransportClient transportClient() throws UnknownHostException {
         return new PreBuiltXPackTransportClient(Settings.builder()
-                .put("cluster.name", "es-cluster").put("xpack.security.user", "elastic:123456").build())
-                .addTransportAddress(new TransportAddress(InetAddress.getByName("192.168.0.189"), 9300))
-                .addTransportAddress(new TransportAddress(InetAddress.getByName("192.168.0.189"), 9301))
-                .addTransportAddress(new TransportAddress(InetAddress.getByName("192.168.0.189"), 9302));
+            .put("cluster.name", "es-cluster").put("xpack.security.user", "elastic:123456").build())
+            .addTransportAddress(new TransportAddress(InetAddress.getByName("192.168.0.189"), 9300))
+            .addTransportAddress(new TransportAddress(InetAddress.getByName("192.168.0.189"), 9301))
+            .addTransportAddress(new TransportAddress(InetAddress.getByName("192.168.0.189"), 9302));
     }
 }

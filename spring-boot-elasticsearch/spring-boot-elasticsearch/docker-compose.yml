@@ -79,7 +79,7 @@ services:
 #      - es-master
 #      - es-slave1
 #      - es-slave2
-#
+
 #  logstash:
 #    container_name: logstash
 #    image: logstash:7.1.1

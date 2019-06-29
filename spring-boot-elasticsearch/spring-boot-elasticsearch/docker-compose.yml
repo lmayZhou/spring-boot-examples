@@ -65,20 +65,20 @@ services:
       - es-slave1
       - es-slave2
 
-#  kibana:
-#    container_name: kibana
-#    image: kibana:7.1.1
-#    restart: always
-#    ports:
-#      - 5601:5601
-#    volumes:
-#      - ./kibana/conf/kibana.yml:/usr/share/kibana/config/kibana.yml
-#    environment:
-#      - elasticsearch.hosts=http://es-master:9200
-#    depends_on:
-#      - es-master
-#      - es-slave1
-#      - es-slave2
+  kibana:
+    container_name: kibana
+    image: kibana:7.1.1
+    restart: always
+    ports:
+      - 5601:5601
+    volumes:
+      - ./kibana/conf/kibana.yml:/usr/share/kibana/config/kibana.yml
+    environment:
+      - elasticsearch.hosts=http://es-master:9200
+    depends_on:
+      - es-master
+      - es-slave1
+      - es-slave2
 
 #  logstash:
 #    container_name: logstash

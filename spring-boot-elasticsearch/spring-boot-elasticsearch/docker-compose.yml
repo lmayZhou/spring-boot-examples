@@ -84,8 +84,6 @@ services:
     container_name: filebeat
     image: docker.elastic.co/beats/filebeat:7.1.1
     restart: always
-    ports:
-      - 9600:9600
     volumes:
       - ./filebeat/conf/filebeat.yml:/usr/share/filebeat/filebeat.yml
     depends_on:
@@ -106,3 +104,19 @@ services:
 #      - es-master
 #      - es-slave1
 #      - es-slave2
+
+  spring-boot-elasticsearch:
+    container_name: spring-boot-elasticsearch
+    image: lmay/spring-boot-elasticsearch:1.0
+    restart: always
+    build: .
+    working_dir: /home
+    volumes:
+      - ./logs:/usr/local/logs
+#    ports:
+#      - 60:60
+    depends_on:
+      - es-master
+      - es-slave1
+      - es-slave2
+    command: mvn clean spring-boot:run -Dspring-boot.run.profiles=docker

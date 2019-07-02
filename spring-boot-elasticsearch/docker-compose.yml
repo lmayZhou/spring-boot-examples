@@ -21,8 +21,8 @@ services:
       - 9300:9300
     volumes:
       - ./elasticsearch/master/conf/es-master.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - ./elasticsearch/master/data:/usr/share/elasticsearch/data:rw
-      - ./elasticsearch/master/logs:/usr/share/elasticsearch/logs:rw
+      - ./elasticsearch/master/data:/usr/share/elasticsearch/data
+      - ./elasticsearch/master/logs:/usr/share/elasticsearch/logs
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
 
@@ -30,10 +30,13 @@ services:
     container_name: es-slave1
     image: elasticsearch:7.1.1
     restart: always
+    ports:
+      - 9201:9200
+      - 9301:9300
     volumes:
       - ./elasticsearch/slave1/conf/es-slave1.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - ./elasticsearch/slave1/data:/usr/share/elasticsearch/data:rw
-      - ./elasticsearch/slave1/logs:/usr/share/elasticsearch/logs:rw
+      - ./elasticsearch/slave1/data:/usr/share/elasticsearch/data
+      - ./elasticsearch/slave1/logs:/usr/share/elasticsearch/logs
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
 
@@ -41,10 +44,13 @@ services:
     container_name: es-slave2
     image: elasticsearch:7.1.1
     restart: always
+    ports:
+      - 9202:9200
+      - 9302:9300
     volumes:
       - ./elasticsearch/slave2/conf/es-slave2.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      - ./elasticsearch/slave2/data:/usr/share/elasticsearch/data:rw
-      - ./elasticsearch/slave2/logs:/usr/share/elasticsearch/logs:rw
+      - ./elasticsearch/slave2/data:/usr/share/elasticsearch/data
+      - ./elasticsearch/slave2/logs:/usr/share/elasticsearch/logs
     environment:
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
 
@@ -56,6 +62,8 @@ services:
       - 9100:9100
     depends_on:
       - es-master
+      - es-slave1
+      - es-slave2
 
   kibana:
     container_name: kibana
@@ -69,26 +77,33 @@ services:
       - elasticsearch.hosts=http://es-master:9200
     depends_on:
       - es-master
+      - es-slave1
+      - es-slave2
 
   filebeat:
     container_name: filebeat
-    image: filebeat:7.1.1
+    image: docker.elastic.co/beats/filebeat:7.1.1
     restart: always
     volumes:
-      - ./filebeat/conf/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
-#    environment:
-#      - output.elasticsearch.hosts=http://es-master:9200
-
-  logstash:
-    container_name: logstash
-    image: logstash:7.1.1
-    command: logstash -f ./logstash/conf/log4j2-file.conf
-    restart: always
-    ports:
-      - 9600:9600
-      - 5044:5044
+      - ./filebeat/conf/filebeat.yml:/usr/share/filebeat/filebeat.yml
     depends_on:
       - es-master
+      - es-slave1
+      - es-slave2
+
+#  logstash:
+#    container_name: logstash
+#    image: logstash:7.1.1
+#    command: logstash -f ./logstash/conf/log4j2-gelf.conf
+#    restart: always
+#    ports:
+#      - 9600:9600
+#      - 5044:5044
+#      - 4566:4566
+#    depends_on:
+#      - es-master
+#      - es-slave1
+#      - es-slave2
 
   spring-boot-elasticsearch:
     container_name: spring-boot-elasticsearch
@@ -98,12 +113,10 @@ services:
     working_dir: /home
     volumes:
       - ./logs:/usr/local/logs
-    ports:
-      - 60:60
+#    ports:
+#      - 60:60
     depends_on:
       - es-master
       - es-slave1
       - es-slave2
-      - es-head
-      - logstash
     command: mvn clean spring-boot:run -Dspring-boot.run.profiles=docker

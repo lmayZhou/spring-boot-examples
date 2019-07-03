@@ -50,7 +50,7 @@ Changed password for user [remote_monitoring_user]
 Changed password for user [elastic]
 ```
 
-2. es-head访问地址: http://192.168.1.189:9100/?auth_user=elastic&auth_password=123456
+2. es-head访问地址: http://192.168.0.189:9100/?auth_user=elastic&auth_password=123456
 
 ### 参与贡献
 1. 2018年12月5日: 构建 spring-boot-examples [Module]

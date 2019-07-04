@@ -5,9 +5,8 @@
 <configuration status="WARN" monitorInterval="30">
     <!--定义变量 -->
     <Properties>
-        <!--<Property name="app">elasticsearch</Property>-->
-        <!--<Property name="log.path">./spring-boot-elasticsearch/logs/${app}</Property>-->
-        <Property name="log.path">./spring-boot-elasticsearch/logs</Property>
+        <Property name="app">spring-boot-elasticsearch</Property>
+        <Property name="log.path">/home/project/spring-boot-elasticsearch/logs</Property>
     </Properties>
 
     <!--先定义所有的appender -->
@@ -28,17 +27,39 @@
             </Policies>
             <DefaultRolloverStrategy max="20"/>
         </RollingFile>
+
+        <RollingFile name="warn" fileName="${log.path}/warn.log" filePattern="${log.path}/$${date:yyyy-MM}/warn-%d{yyyy-MM-dd}-%i.log.gz">
+            <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="[${app}] [%date] [%t] [%p] [%l] %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 -->
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+
+        <RollingFile name="error" fileName="${log.path}/error.log" filePattern="${log.path}/$${date:yyyy-MM}/error-%d{yyyy-MM-dd}-%i.log.gz">
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="[${app}] [%date] [%t] [%p] [%l] %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="100 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
     </Appenders>
 
     <!--然后定义logger，只有定义了logger并引入的appender，appender才会生效 -->
     <Loggers>
         <!--过滤掉spring的一些无用的DEBUG信息 -->
-        <!--<Logger name="org.springframework" level="INFO" additivity="false"/>-->
+        <Logger name="org.springframework" level="INFO" additivity="false"/>
 
         <Root level="DEBUG">
             <AppenderRef ref="console" />
             <AppenderRef ref="info" />
-            <AppenderRef ref="logstash-gelf" />
+            <AppenderRef ref="warn" />
+            <AppenderRef ref="error" />
         </Root>
     </Loggers>
 </configuration>

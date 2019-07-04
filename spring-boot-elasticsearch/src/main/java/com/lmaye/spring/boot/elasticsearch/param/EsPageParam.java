@@ -27,12 +27,12 @@ public class EsPageParam implements Serializable {
     /**
      * 页码
      */
-    @ApiModelProperty(value = "页码", required = true, dataType = "Integer")
+    @ApiModelProperty(value = "页码", required = true, dataType = "Integer", example = "1")
     private Integer pageNumber = 1;
 
     /**
      * 页数
      */
-    @ApiModelProperty(value = "页数", required = true, dataType = "Integer")
+    @ApiModelProperty(value = "页数", required = true, dataType = "Integer", example = "10")
     private Integer pageSize = 10;
 }

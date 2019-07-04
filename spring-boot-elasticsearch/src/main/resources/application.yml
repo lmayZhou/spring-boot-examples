@@ -15,7 +15,7 @@ spring:
       repositories:
         enabled: true
       cluster-name: es-cluster
-      cluster-nodes: "192.168.0.189:9300, 192.168.0.189:9301, 192.168.0.189:9302"
+      cluster-nodes: "192.168.0.10:9300, 192.168.0.10:9301, 192.168.0.10:9302"
 
 # 日志配置
 logging:

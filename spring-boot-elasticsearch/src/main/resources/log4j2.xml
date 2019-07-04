@@ -6,7 +6,7 @@
     <!--定义变量 -->
     <Properties>
         <Property name="app">spring-boot-elasticsearch</Property>
-        <Property name="log.path">/home/project/spring-boot-elasticsearch/logs</Property>
+        <Property name="log.path">/logs</Property>
     </Properties>
 
     <!--先定义所有的appender -->

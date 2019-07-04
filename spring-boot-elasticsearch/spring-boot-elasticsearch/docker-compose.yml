@@ -111,6 +111,8 @@ services:
     restart: always
     build: .
     working_dir: /home
+    volumes:
+      - ./spring-boot-elasticsearch/logs:/logs
     depends_on:
       - es-master
       - es-slave1

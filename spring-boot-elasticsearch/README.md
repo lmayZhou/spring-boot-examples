@@ -1,4 +1,4 @@
-# Spring Boot Elasticsearch(2.x版本)
+# Spring Boot Elasticsearch 7.1.1(2.x版本)
 
 #### 项目介绍
 &emsp;&emsp;Spring Boot(2.x版本) 整合 Elasticsearch实例，简单的实现基本的ES索引操作;

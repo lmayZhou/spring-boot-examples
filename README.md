@@ -14,20 +14,22 @@
         - spring-boot-docker                    # Docker部署Spring Boot项目
             -- spring-boot-docker-compose       # 基于Docker Compose部署项目
             -- spring-boot-dockerfile           # 基于Dockerfile部署项目
+        - spring-boot-spring-boot-elasticsearch # Elasticsearch 搜索引擎Module
         - spring-boot-websocket                 # WebSocket Module
         - ...                                   # 待续
         pom.xml                                 # Maven 资源库配置文件
 
 ### 参与贡献
-1. 2018年12月5日: 构建 spring-boot-examples [Module]
-2. 2018年12月5日: 初始化 examples-common [Module]
-3. 2018年12月5日: 初始化 spring-boot-websocket [Module]
-4. 2019年06月1日: 构建 spring-boot-docker [Module]
-5. 2019年06月1日: 初始化 spring-boot-dockerfile [Module]
-6. 2019年06月2日: 初始化 spring-boot-docker-compose [Module]
-7. 2019年06月3日: 优化 Maven pom.xml [文件]
-8. 2019年06月8日: 初始化 spring-boot-configuration-metadata [Module]
-9. 2019年06月9日: 更新 README.md [文档]
+ 1. 2018年12月05日: 构建 spring-boot-examples [Module]
+ 2. 2018年12月05日: 初始化 examples-common [Module]
+ 3. 2018年12月05日: 初始化 spring-boot-websocket [Module]
+ 4. 2019年06月01日: 构建 spring-boot-docker [Module]
+ 5. 2019年06月01日: 初始化 spring-boot-dockerfile [Module]
+ 6. 2019年06月02日: 初始化 spring-boot-docker-compose [Module]
+ 7. 2019年06月03日: 优化 Maven pom.xml [文件]
+ 8. 2019年06月08日: 初始化 spring-boot-configuration-metadata [Module]
+ 9. 2019年06月11日: 初始化 spring-boot-elasticsearch [Module]
+10. 2019年07月05日: 更新 README.md [文档]
 
 ### 相关文章
 #### 『 Spring Boot 2.x 快速教程 』

@@ -53,15 +53,15 @@ filebeat.inputs:
   # for Java Stack Traces or C-Line Continuation
 
   # The regexp Pattern that has to be matched. The example pattern matches all lines starting with [
-  #multiline.pattern: ^\[
+  multiline.pattern: ^\[
 
   # Defines if the pattern set under pattern should be negated or not. Default is false.
-  #multiline.negate: false
+  multiline.negate: true
 
   # Match can be set to "after" or "before". It is used to define if lines should be append to a pattern
   # that was (not) matched before or after or as long as a pattern is not matched based on negate.
   # Note: After is the equivalent to previous and before is the equivalent to to next in Logstash
-  #multiline.match: after
+  multiline.match: after
 
 
 #============================= Filebeat modules ===============================
@@ -78,15 +78,15 @@ filebeat.config.modules:
 
 #==================== Elasticsearch template setting ==========================
 # 加载一个不同的模板
-setup.template.name: "filebeat"
-setup.template.fields: "fields.yml"
+#setup.template.name: "filebeat"
+#setup.template.fields: "fields.yml"
 # 更改索引名称
-setup.template.pattern: "filebeat-*"
-setup.dashboards.index: "filebeat-*"
+#setup.template.pattern: "filebeat-*"
+#setup.dashboards.index: "filebeat-*"
 # 覆盖现有的模板
-setup.template.overwrite: true
+#setup.template.overwrite: true
 # 禁用自动模板加载
-setup.template.enabled: false
+#setup.template.enabled: false
 
 setup.template.settings:
   index.number_of_shards: 1
@@ -113,7 +113,7 @@ setup.template.settings:
 # These settings control loading the sample dashboards to the Kibana index. Loading
 # the dashboards is disabled by default and can be enabled either by setting the
 # options here or by using the `setup` command.
-#setup.dashboards.enabled: false
+setup.dashboards.enabled: false
 
 # The URL from where to download the dashboards archive. By default this URL
 # has a value which is computed based on the Beat name and version. For released
@@ -159,7 +159,7 @@ setup.kibana:
 output.elasticsearch:
   # Array of hosts to connect to.
   hosts: ["http://es-master:9200"]
-  index: "filebeat-%{[beat.version]}-%{+yyyy.MM.dd}"
+#  index: "filebeat-%{[beat.version]}-%{+yyyy.MM.dd}"
 
   # Optional protocol and basic auth credentials.
   #protocol: "https"

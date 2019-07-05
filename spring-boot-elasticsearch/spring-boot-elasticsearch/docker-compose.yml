@@ -87,6 +87,8 @@ services:
     restart: always
     volumes:
       - ./filebeat/conf/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      # 映射到容器中[作为数据源]
+      - ./logs:/home/project/spring-boot-elasticsearch/logs
       - ./filebeat/logs:/usr/share/filebeat/logs
       - ./filebeat/data:/usr/share/filebeat/data
     depends_on:

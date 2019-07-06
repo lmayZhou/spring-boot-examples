@@ -82,10 +82,15 @@ services:
 
   filebeat:
     container_name: filebeat
+    hostname: filebeat
     image: docker.elastic.co/beats/filebeat:7.1.1
     restart: always
     volumes:
       - ./filebeat/conf/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      # 映射到容器中[作为数据源]
+      - ./logs:/home/project/spring-boot-elasticsearch/logs
+      - ./filebeat/logs:/usr/share/filebeat/logs
+      - ./filebeat/data:/usr/share/filebeat/data
     depends_on:
       - es-master
       - es-slave1
@@ -109,8 +114,10 @@ services:
     container_name: spring-boot-elasticsearch
     image: lmay/spring-boot-elasticsearch:1.0
     restart: always
-    build: .
+    build: spring-boot-elasticsearch
     working_dir: /home
+    volumes:
+      - ./logs:/logs
     depends_on:
       - es-master
       - es-slave1

@@ -22,7 +22,7 @@ cluster.name: es-cluster
 # 节点名称
 node.name: es-slave2
 # 是否可以成为master节点
-node.master: false
+node.master: true
 # 是否允许该节点存储数据,默认开启
 node.data: true
 #

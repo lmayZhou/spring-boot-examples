@@ -6,17 +6,6 @@ WebSocket整合实践案例，仅供学习参考！如有更好的方案和idea�
 
 #### 项目结构
     spring-boot-elasticsearch                               # Elasticsearch Demo
-        - spring-boot-elasticsearch                         # 配置和脚本文件目录
-            docker-compose.yml                              # docker构建文件
-            Dockerfile                                      # Dockerfile文件
-            es-master.yml                                   # es主节点配置文件
-            es-slave1.yml                                   # es从节点配置文件
-            es-slave2.yml                                   # es从节点配置文件
-            fields.yml                                      # filebeat模版
-            filebeat.yml                                    # filebeat日志收集配置文件
-            init.sh                                         # 项目脚本
-            kibana.yml                                      # kibana配置文件
-            nginx.conf                                      # nginx配置文件
         - src                                               # 源文件目录
             -- main                                         # 主目录
                 -- java                                     # Java 源文件目录
@@ -34,6 +23,16 @@ WebSocket整合实践案例，仅供学习参考！如有更好的方案和idea�
                     application.yml                         # 项目配置文件
                     banner.txt                              # banner 文件
                     log4j2.xml                              # 日志配置文件
+                    docker-compose.yml                      # docker构建文件
+                    Dockerfile                              # Dockerfile文件
+                    es-master.yml                           # es主节点配置文件
+                    es-slave1.yml                           # es从节点配置文件
+                    es-slave2.yml                           # es从节点配置文件
+                    fields.yml                              # filebeat模版
+                    filebeat.yml                            # filebeat日志收集配置文件
+                    init.sh                                 # 项目脚本
+                    kibana.yml                              # kibana配置文件
+                    nginx.conf                              # nginx配置文件
             -- test                                         # 测试目录
         pom.xml                                             # Maven 资源库配置文件
 

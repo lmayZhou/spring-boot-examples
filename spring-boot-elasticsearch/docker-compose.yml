@@ -131,6 +131,8 @@ services:
     image: lmay/spring-boot-elasticsearch:1.0
     restart: always
     working_dir: /home
+    # 编译
+    build: .
     volumes:
       - ./logs:/logs
     depends_on:

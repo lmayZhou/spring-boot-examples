@@ -14,6 +14,7 @@ services:
 
   es-master:
     container_name: es-master
+    hostname: es-master
     image: elasticsearch:7.1.1
     restart: always
     ports:
@@ -67,6 +68,7 @@ services:
 
   kibana:
     container_name: kibana
+    hostname: kibana
     image: kibana:7.1.1
     restart: always
     ports:
@@ -91,30 +93,37 @@ services:
       - ./logs:/home/project/spring-boot-elasticsearch/logs
       - ./filebeat/logs:/usr/share/filebeat/logs
       - ./filebeat/data:/usr/share/filebeat/data
+    # 将指定容器连接到当前连接，可以设置别名，避免ip方式导致的容器重启动态改变的无法连接情况
+    links:
+      - logstash
     depends_on:
       - es-master
       - es-slave1
       - es-slave2
 
-#  logstash:
-#    container_name: logstash
-#    image: logstash:7.1.1
-#    command: logstash -f ./logstash/conf/log4j2-gelf.conf
-#    restart: always
-#    ports:
-#      - 9600:9600
-#      - 5044:5044
-#      - 4566:4566
-#    depends_on:
-#      - es-master
-#      - es-slave1
-#      - es-slave2
+  logstash:
+    container_name: logstash
+    hostname: logstash
+    image: logstash:7.1.1
+    command: logstash -f ./conf/logstash-filebeat.conf
+    restart: always
+    volumes:
+      # 映射到容器中
+      - ./logstash/conf/logstash-filebeat.conf:/usr/share/logstash/conf/logstash-filebeat.conf
+    environment:
+      - elasticsearch.hosts=http://es-master:9200
+    ports:
+      - 5044:5044
+    depends_on:
+      - es-master
+      - es-slave1
+      - es-slave2
 
   spring-boot-elasticsearch:
     container_name: spring-boot-elasticsearch
+    hostname: spring-boot-elasticsearch
     image: lmay/spring-boot-elasticsearch:1.0
     restart: always
-    build: spring-boot-elasticsearch
     working_dir: /home
     volumes:
       - ./logs:/logs

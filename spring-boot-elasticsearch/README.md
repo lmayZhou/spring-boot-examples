@@ -36,8 +36,31 @@ WebSocket整合实践案例，仅供学习参考！如有更好的方案和idea�
             -- test                                         # 测试目录
         pom.xml                                             # Maven 资源库配置文件
 
+### 环境搭建
+1. 安装Linux虚拟机（这里就不演示了，网上资源很多）
+
+2. 安装Docker（参考下来文章）
+   [Centos7 安装 Docker CE](hhttps://www.lmaye.com/2019/04/28/20190428183357/)
+
+3. 配置镜像加速器（下载飞快）
+   针对Docker客户端版本大于 1.10.0 的用户
+   您可以通过修改daemon配置文件/etc/docker/daemon.json来使用加速器
+```$xslt
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json <<-'EOF'
+{
+  "registry-mirrors": ["https://c7jrf4zb.mirror.aliyuncs.com"]
+}
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker
+```
+
+4. 安装docker-compose（docker部署）
+   参考地址: [Centos7 安装 Docker Compose](https://docs.docker.com/compose/install/)
+
 ### 注意事项
-1. 设置内置账号的密码（x-pack 收费此步骤忽略）
+1. 设置内置账号的密码（x-pack 收费 --> 此步骤忽略）
    es-head访问地址: http://192.168.0.10:9100/?auth_user=elastic&auth_password=123456
 ```$bash
 # 进入es容器
@@ -48,7 +71,7 @@ WebSocket整合实践案例，仅供学习参考！如有更好的方案和idea�
 Initiating the setup of passwords for reserved users elastic,apm_system,kibana,logstash_system,beats_system,remote_monitoring_user.
 You will be prompted to enter passwords as the process progresses.
 Please confirm that you would like to continue [y/N]y
-
+# 输入密码
 Enter password for [elastic]: 
 Reenter password for [elastic]: 
 Enter password for [apm_system]: 

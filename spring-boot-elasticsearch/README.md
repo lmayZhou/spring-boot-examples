@@ -36,6 +36,15 @@ WebSocket整合实践案例，仅供学习参考！如有更好的方案和idea�
             -- test                                         # 测试目录
         pom.xml                                             # Maven 资源库配置文件
 
+### Elasticsearch
+&emsp;&emsp;ElasticSearch是一个基于Lucene的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口。<br/>
+&emsp;&emsp;Elasticsearch是用Java开发的，并作为Apache许可条款下的开放源码发布，是当前流行的企业级搜索引擎。设计用于云计算中，能够达到实时搜索，
+稳定，可靠，快速，安装使用方便。官方客户端在Java、.NET（C#）、PHP、Python、Apache Groovy、Ruby和许多其他语言中都是可用的。根据DB-Engines的排名显示，
+Elasticsearch是最受欢迎的企业搜索引擎，其次是Apache Solr，也是基于Lucene。<br/>
+&emsp;&emsp;ElasticSearch 是一个分布式、高扩展、高实时的搜索与数据分析引擎。它能很方便的使大量数据具有搜索、分析和探索的能力。充分利用ElasticSearch的水平伸缩性，
+能使数据在生产环境变得更有价值。ElasticSearch 的实现原理主要分为以下几个步骤，首先用户将数据提交到Elastic Search 数据库中，再通过分词控制器去将对应的语句分词，
+将其权重和分词结果一并存入数据，当用户搜索数据时候，再根据权重将结果排名，打分，再将返回结果呈现给用户。
+
 ### 环境搭建
 1. 安装Linux虚拟机（这里就不演示了，网上资源很多）
 
@@ -60,7 +69,19 @@ sudo systemctl restart docker
    参考地址: [Centos7 安装 Docker Compose](https://docs.docker.com/compose/install/)
 
 ### 注意事项
-1. 设置内置账号的密码（x-pack 收费 --> 此步骤忽略）
+1. 启动报错: [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]（elasticsearch用户拥有的内存权限太小，至少需要262144）
+   解决办法：
+ ```$xslt
+# 修改配置sysctl.conf
+[root@localhost ~]# vi /etc/sysctl.conf
+# 添加下面配置：
+vm.max_map_count=262144
+# 重新加载：
+[root@localhost ~]# sysctl -p
+# 最后重新启动elasticsearch，即可启动成功。
+```
+
+2. 设置内置账号的密码（x-pack 收费 --> 此步骤忽略）
    es-head访问地址: http://192.168.0.10:9100/?auth_user=elastic&auth_password=123456
 ```$bash
 # 进入es容器
@@ -92,7 +113,7 @@ Changed password for user [remote_monitoring_user]
 Changed password for user [elastic]
 ```
 
-2. 加载spring-data-elasticsearch:3.2.0.RC1资源包, 兼容ES:7.1.1版本的服务
+3. 加载spring-data-elasticsearch:3.2.0.RC1资源包, 兼容ES:7.1.1版本的服务
 ```$xslt
 <!-- 配置源 -->
 <repositories>
@@ -104,14 +125,14 @@ Changed password for user [elastic]
 </repositories>
 ```
 
-3. spring-data-elasticsearch 3.2.0.RC1版本类型异常问题: long totalHits = response.getHits().getTotalHits();
+4. spring-data-elasticsearch 3.2.0.RC1版本类型异常问题: long totalHits = response.getHits().getTotalHits();
    解决方法:
 ```$xslt
 # 降低ES版本为6.8.0
 <elasticsearch.version>6.8.0</elasticsearch.version>
 ```
 
-4. 打包时引用本地项目异常提示: https://repo.spring.io/libs-snapshot找不到此jar包
+5. 打包时引用本地项目异常提示: https://repo.spring.io/libs-snapshot找不到此jar包
    解决方法: <scope>provided</scope>
 ```$xslt
 <dependency>
@@ -130,7 +151,7 @@ Changed password for user [elastic]
 </dependency>
 ```
 
-5. Spring Boot 项目访问ES时报错: Caused by: io.netty.channel.AbstractChannel$AnnotatedNoRouteToHostException: No route to host: /192.168.0.10:9302
+6. Spring Boot 项目访问ES时报错: Caused by: io.netty.channel.AbstractChannel$AnnotatedNoRouteToHostException: No route to host: /192.168.0.10:9302
    解决方法: 
 ```$bash
 # 防火墙开启ES TCP端口
@@ -141,14 +162,18 @@ Changed password for user [elastic]
 [root@localhost ~]# firewall-cmd --reload
 ```
 
-### Elasticsearch
-&emsp;&emsp;ElasticSearch是一个基于Lucene的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口。<br/>
-&emsp;&emsp;Elasticsearch是用Java开发的，并作为Apache许可条款下的开放源码发布，是当前流行的企业级搜索引擎。设计用于云计算中，能够达到实时搜索，
-稳定，可靠，快速，安装使用方便。官方客户端在Java、.NET（C#）、PHP、Python、Apache Groovy、Ruby和许多其他语言中都是可用的。根据DB-Engines的排名显示，
-Elasticsearch是最受欢迎的企业搜索引擎，其次是Apache Solr，也是基于Lucene。<br/>
-&emsp;&emsp;ElasticSearch 是一个分布式、高扩展、高实时的搜索与数据分析引擎。它能很方便的使大量数据具有搜索、分析和探索的能力。充分利用ElasticSearch的水平伸缩性，
-能使数据在生产环境变得更有价值。ElasticSearch 的实现原理主要分为以下几个步骤，首先用户将数据提交到Elastic Search 数据库中，再通过分词控制器去将对应的语句分词，
-将其权重和分词结果一并存入数据，当用户搜索数据时候，再根据权重将结果排名，打分，再将返回结果呈现给用户。
+7. Docker 命令自动补全
+```$xslt
+# 安装依赖工具bash-complete
+[root@localhost ~]# yum install -y bash-completion
+[root@localhost ~]# source /usr/share/bash-completion/completions/docker
+[root@localhost ~]# source /usr/share/bash-completion/bash_completion
+```
+
+8. 虚拟机磁盘不足: high disk watermark [90%] exceeded on [Hr7ZULQGSGCu9WDsYgLhsA][es-slave1][/usr/share/elasticsearch/data/nodes/0] free: 631.1mb[9.9%], shards will be relocated away from this node
+   解决方法: 
+   1> 磁盘扩容;
+   2> 重装虚拟机，并把磁盘存储设大一点[建议: 30G];
 
 ### 参与贡献
 1. 2019年06月11日: 初始化项目

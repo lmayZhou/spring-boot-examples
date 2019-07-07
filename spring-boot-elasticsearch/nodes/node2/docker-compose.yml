@@ -1,0 +1,46 @@
+version: "3"
+services:
+  es-slave1:
+    container_name: es-slave1
+    image: elasticsearch:7.1.1
+    restart: always
+    ports:
+      - 9200:9200
+#      - 9300:9300
+    volumes:
+      - ./elasticsearch/slave1/conf/es-slave1.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./elasticsearch/slave1/data:/usr/share/elasticsearch/data
+      - ./elasticsearch/slave1/logs:/usr/share/elasticsearch/logs
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+
+  filebeat:
+    # 容器名称
+    container_name: filebeat
+    # 主机名称
+    hostname: filebeat
+    # 镜像
+    image: docker.elastic.co/beats/filebeat:7.1.1
+    # 重启机制
+    restart: always
+    # 持久化挂载
+    volumes:
+      - ./filebeat/conf/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      # 映射到容器中[作为数据源]
+      - ./logs:/home/project/spring-boot-elasticsearch/logs
+      - ./filebeat/logs:/usr/share/filebeat/logs
+      - ./filebeat/data:/usr/share/filebeat/data
+
+  spring-boot-elasticsearch:
+    container_name: spring-boot-elasticsearch
+    hostname: spring-boot-elasticsearch
+    image: lmay/spring-boot-elasticsearch:1.0
+    restart: always
+    working_dir: /home
+    # 编译
+    build: .
+    volumes:
+      - ./logs:/logs
+    depends_on:
+      - es-slave1
+    command: mvn clean spring-boot:run -Dspring-boot.run.profiles=docker

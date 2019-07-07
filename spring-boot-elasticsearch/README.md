@@ -49,9 +49,9 @@ Elasticsearch是最受欢迎的企业搜索引擎，其次是Apache Solr，也�
 1. 安装Linux虚拟机（这里就不演示了，网上资源很多）
 
 2. 安装Docker（参考下来文章）
-   [Centos7 安装 Docker CE](hhttps://www.lmaye.com/2019/04/28/20190428183357/)
+   [Centos7 安装 Docker CE](https://www.lmaye.com/2019/04/28/20190428183357/)
 
-3. 配置镜像加速器（下载飞快）
+3. 配置镜像加速器（下载镜像飞快）
    针对Docker客户端版本大于 1.10.0 的用户
    您可以通过修改daemon配置文件/etc/docker/daemon.json来使用加速器
 ```$xslt

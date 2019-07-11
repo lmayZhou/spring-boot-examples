@@ -74,7 +74,7 @@ transport.port: 9300
 discovery.seed_hosts:
   - 192.168.0.110
   - 192.168.0.111
-  - 192.168.0.111
+  - es-node3
 #
 # Bootstrap the cluster using an initial set of master-eligible nodes:
 # 手动指定可以成为 mater 的所有节点的 name 或者 ip，这些配置将会在第一次选举中进行计算

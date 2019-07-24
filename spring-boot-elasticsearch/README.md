@@ -6,6 +6,21 @@ WebSocket整合实践案例，仅供学习参考！如有更好的方案和idea�
 
 #### 项目结构
     spring-boot-elasticsearch                               # Elasticsearch Demo
+        - nodes-cluster                                     # ES集群配置（多台）
+            -- node1-master                                 # 配置文件目录（主）
+            -- node2-slave                                  # 配置文件目录（从）
+            -- node3-slave                                  # 配置文件目录（从）
+        - nodes-stand-alone                                 # ES集群配置（单机）
+            docker-compose.yml                              # docker构建文件
+            Dockerfile                                      # Dockerfile文件
+            es-master.yml                                   # es主节点配置文件
+            es-slave1.yml                                   # es从节点配置文件
+            es-slave2.yml                                   # es从节点配置文件
+            fields.yml                                      # filebeat模版
+            filebeat.yml                                    # filebeat日志收集配置文件
+            init.sh                                         # 项目启动部署脚本
+            kibana.yml                                      # kibana配置文件
+            nginx.conf                                      # nginx配置文件
         - src                                               # 源文件目录
             -- main                                         # 主目录
                 -- java                                     # Java 源文件目录
@@ -23,18 +38,9 @@ WebSocket整合实践案例，仅供学习参考！如有更好的方案和idea�
                     application.yml                         # 项目配置文件
                     banner.txt                              # banner 文件
                     log4j2.xml                              # 日志配置文件
-                    docker-compose.yml                      # docker构建文件
-                    Dockerfile                              # Dockerfile文件
-                    es-master.yml                           # es主节点配置文件
-                    es-slave1.yml                           # es从节点配置文件
-                    es-slave2.yml                           # es从节点配置文件
-                    fields.yml                              # filebeat模版
-                    filebeat.yml                            # filebeat日志收集配置文件
-                    init.sh                                 # 项目脚本
-                    kibana.yml                              # kibana配置文件
-                    nginx.conf                              # nginx配置文件
             -- test                                         # 测试目录
         pom.xml                                             # Maven 资源库配置文件
+        README.md                                           # 项目文档
 
 ### Elasticsearch
 &emsp;&emsp;ElasticSearch是一个基于Lucene的搜索服务器。它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口。<br/>

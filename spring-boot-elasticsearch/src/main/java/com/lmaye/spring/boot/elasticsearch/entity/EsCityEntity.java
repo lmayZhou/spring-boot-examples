@@ -46,9 +46,12 @@ public class EsCityEntity implements Serializable {
 
     /**
      * 城市名称
+     *
+     * Field(type = FieldType.Keyword) 报错:
+     * mapper [cityName] of different type, current_type [text], merged_type [keyword]
      */
     @NotBlank
-    @Field(type = FieldType.Keyword)
+//    @Field(type = FieldType.Keyword)
     @ApiModelProperty(value = "城市名称", required = true, dataType = "String")
     private String cityName;
 

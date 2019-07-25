@@ -1,5 +1,6 @@
 package com.lmaye.spring.boot.elasticsearch.service.impl;
 
+import com.google.common.collect.Lists;
 import com.lmaye.spring.boot.elasticsearch.entity.EsCityEntity;
 import com.lmaye.spring.boot.elasticsearch.param.EsSearchParam;
 import com.lmaye.spring.boot.elasticsearch.repository.EsCityRepository;
@@ -77,11 +78,12 @@ public class EsCityServiceImpl implements EsCityService {
     /**
      * 搜索所有的城市
      *
-     * @return  Iterator<EsCityEntity>
+     * @return ArrayList<EsCityEntity>
      */
     @Override
-    public Iterator<EsCityEntity> searchAll() {
-        return cityRepository.findAll().iterator();
+    public ArrayList<EsCityEntity> searchAll() {
+        Iterator<EsCityEntity> iterator = cityRepository.findAll().iterator();
+        return Lists.newArrayList(iterator);
     }
 
     /**
@@ -96,11 +98,12 @@ public class EsCityServiceImpl implements EsCityService {
      * }
      * searchRequestBuilder.setFrom(startRecord);
      * </pre>
+     *
      * @param searchParam 搜索参数
-     * @return List<EsCityEntity>
+     * @return Page<EsCityEntity>
      */
     @Override
-    public List<EsCityEntity> searchCities(EsSearchParam searchParam) {
+    public Page<EsCityEntity> searchCities(EsSearchParam searchParam) {
         String searchContent = searchParam.getSearchContent();
         // 分页参数（传入页码 - 1）
         Pageable pageable = PageRequest.of(searchParam.getPageNumber() - 1, searchParam.getPageSize());
@@ -116,7 +119,6 @@ public class EsCityServiceImpl implements EsCityService {
         // 创建搜索 DSL 查询
         SearchQuery searchQuery = new NativeSearchQueryBuilder().withPageable(pageable).withQuery(builder).build();
         log.info("\n searchCity(): searchContent [{}] \n DSL  = \n {}", searchContent, searchQuery.getQuery().toString());
-        Page<EsCityEntity> searchPageResults = cityRepository.search(searchQuery);
-        return searchPageResults.getContent();
+        return cityRepository.search(searchQuery);
     }
 }

@@ -18,7 +18,6 @@ import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -82,8 +81,7 @@ public class EsCityServiceImpl implements EsCityService {
      */
     @Override
     public ArrayList<EsCityEntity> searchAll() {
-        Iterator<EsCityEntity> iterator = cityRepository.findAll().iterator();
-        return Lists.newArrayList(iterator);
+        return Lists.newArrayList(cityRepository.findAll().iterator());
     }
 
     /**

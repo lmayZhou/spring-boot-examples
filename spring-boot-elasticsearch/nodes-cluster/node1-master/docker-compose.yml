@@ -20,6 +20,8 @@ services:
     ports:
       - 9200:9200
 #      - 9300:9300
+    # 配置网络模式
+#    network_mode: "host"
     volumes:
       - ./elasticsearch/master/conf/es-master.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - ./elasticsearch/master/data:/usr/share/elasticsearch/data

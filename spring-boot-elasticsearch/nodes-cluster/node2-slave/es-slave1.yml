@@ -21,10 +21,17 @@ cluster.name: es-cluster
 # Use a descriptive name for the node:
 # 节点名称
 node.name: es-node2
-# 是否可以成为master节点
+# 启用node.master角色
 node.master: true
-# 是否允许该节点存储数据,默认开启
+# 启用node.data角色
 node.data: true
+# 禁用node.ingest角色
+node.ingest: false
+# 禁用node.ml角色
+node.ml: false
+xpack.ml.enabled: true
+# 禁用跨群集搜索
+cluster.remote.connect: false
 #
 # Add custom attributes to the node:
 #
@@ -57,12 +64,13 @@ node.data: true
 # Set the bind address to a specific IP (IPv4 or IPv6):
 # 网络绑定
 network.host: 0.0.0.0
+network.publish_host: 192.168.0.111
 #
 # Set a custom port for HTTP:
 # 设置对外服务的http端口
 http.port: 9200
 # 设置节点间交互的tcp端口
-transport.port: 9300
+transport.tcp.port: 9300
 #
 # For more information, consult the network module documentation.
 #
@@ -89,7 +97,7 @@ cluster.initial_master_nodes:
 #
 # Block initial recovery after a full cluster restart until N nodes are started:
 #
-#gateway.recover_after_nodes: 3
+gateway.recover_after_nodes: 2
 #
 # For more information, consult the gateway module documentation.
 #

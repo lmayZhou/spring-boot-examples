@@ -1,0 +1,35 @@
+version: "3"
+services:
+  mysql:
+    container_name: lmay-mysql
+    image: mysql:8.0.16
+    environment:
+      MYSQL_DATABASE: my-docker
+      MYSQL_ROOT_PASSWORD: 123456
+      MYSQL_ROOT_HOST: '%'
+      TZ: Asia/Shanghai
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql/my.cnf:/etc/my.cnf
+      - ./mysql/data:/var/lib/mysql
+
+  redis:
+    container_name: lmay-redis
+    image: redis:5.0.5
+    restart: always
+    #    command: redis-server --requirepass 123456
+    command: redis-server
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf
+      - ./redis/data:/data
+
+  zookeeper:
+    container_name: lmay-zookeeper
+    image: zookeeper:3.5.5
+    restart: always
+    ports:
+      - 2181:2181

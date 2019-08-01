@@ -1,0 +1,18 @@
+version: "3"
+services:
+  mysql:
+    container_name: lmay-mysql
+    image: mysql:8.0.16
+    environment:
+      MYSQL_DATABASE: my-docker
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: '%'
+      TZ: Asia/Shanghai
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql/my.cnf:/etc/my.cnf
+      - ./mysql/data:/var/lib/mysql
+      # 初始化数据脚本
+      # - ./mysql/init:/docker-entrypoint-initdb.d/

@@ -2,6 +2,7 @@ package com.lmaye.spring.boot.elasticsearch.param;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.models.properties.IntegerProperty;
 import lombok.Data;
 import lombok.ToString;
 
@@ -27,12 +28,12 @@ public class EsPageParam implements Serializable {
     /**
      * 页码
      */
-    @ApiModelProperty(value = "页码", required = true, dataType = "Integer", example = "1")
+    @ApiModelProperty(value = "页码", required = true, dataType = IntegerProperty.TYPE, example = "1")
     private Integer pageNumber = 1;
 
     /**
      * 页数
      */
-    @ApiModelProperty(value = "页数", required = true, dataType = "Integer", example = "10")
+    @ApiModelProperty(value = "页数", required = true, dataType = IntegerProperty.TYPE, example = "10")
     private Integer pageSize = 10;
 }

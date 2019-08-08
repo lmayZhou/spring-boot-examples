@@ -2,6 +2,7 @@ package com.lmaye.spring.boot.elasticsearch.param;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.models.properties.StringProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -22,6 +23,6 @@ public class EsSearchParam extends EsPageParam {
     /**
      * 搜索内容
      */
-    @ApiModelProperty(value = "搜索内容", required = true, dataType = "String")
+    @ApiModelProperty(value = "搜索内容", required = true, dataType = StringProperty.TYPE)
     private String searchContent;
 }

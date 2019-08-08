@@ -2,11 +2,11 @@ package com.lmaye.spring.boot.elasticsearch.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.models.properties.LongProperty;
+import io.swagger.models.properties.StringProperty;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -34,14 +34,14 @@ public class EsCityEntity implements Serializable {
      */
     @Id
     @NotNull
-    @ApiModelProperty(value = "城市编号", required = true, dataType = "Long")
+    @ApiModelProperty(value = "城市编号", required = true, dataType = LongProperty.TYPE, example = "0")
     private Long id;
 
     /**
      * 省份编号
      */
     @NotNull
-    @ApiModelProperty(value = "省份编号", required = true, dataType = "Long")
+    @ApiModelProperty(value = "省份编号", required = true, dataType = LongProperty.TYPE, example = "0")
     private Long provinceId;
 
     /**
@@ -52,13 +52,13 @@ public class EsCityEntity implements Serializable {
      */
     @NotBlank
 //    @Field(type = FieldType.Keyword)
-    @ApiModelProperty(value = "城市名称", required = true, dataType = "String")
+    @ApiModelProperty(value = "城市名称", required = true, dataType = StringProperty.TYPE)
     private String cityName;
 
     /**
      * 描述
      */
     @NotBlank
-    @ApiModelProperty(value = "描述", dataType = "String")
+    @ApiModelProperty(value = "描述", dataType = StringProperty.TYPE)
     private String description;
 }

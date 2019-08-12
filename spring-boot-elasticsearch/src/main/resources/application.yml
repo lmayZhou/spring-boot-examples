@@ -16,9 +16,9 @@ spring:
         enabled: true
       cluster-name: es-cluster
       # stand alone nodes
-#      cluster-nodes: "192.168.0.189:9300, 192.168.0.189:9301, 192.168.0.189:9302"
+#      cluster-nodes: "192.168.0.10:9300, 192.168.0.10:9301, 192.168.0.10:9302"
       # cluster nodes
-      cluster-nodes: "192.168.0.8:9300, 192.168.0.9:9300, 192.168.0.10:9300"
+      cluster-nodes: "192.168.0.110:9300, 192.168.0.111:9300, 192.168.0.112:9300"
 
 # 日志配置
 logging:

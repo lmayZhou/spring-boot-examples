@@ -41,6 +41,8 @@ services:
     working_dir: /home
     # 编译
     build: .
+    ports:
+      - 60:60
     volumes:
       - ./logs:/logs
     depends_on:

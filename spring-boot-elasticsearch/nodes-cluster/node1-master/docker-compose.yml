@@ -19,7 +19,7 @@ services:
     restart: always
     ports:
       - 9200:9200
-#      - 9300:9300
+      - 9300:9300
     # 配置网络模式
 #    network_mode: "host"
     volumes:

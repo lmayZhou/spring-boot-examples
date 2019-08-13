@@ -13,6 +13,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.InetAddress;
 import java.util.Objects;
 
 /**
@@ -50,7 +51,7 @@ public class AppLogAspect {
         }
         HttpServletRequest request = attributes.getRequest();
         // 请求内容
-        log.info("Request Server: {}:{}", request.getServerName(), request.getServerPort());
+        log.info("Request Server: {}:{}", InetAddress.getLocalHost().getHostAddress(), request.getServerPort());
         log.info("Url: {}", request.getRequestURL().toString());
         log.info("HTTP Method: {}", request.getMethod());
         String ip = request.getHeader("x-forwarded-for");

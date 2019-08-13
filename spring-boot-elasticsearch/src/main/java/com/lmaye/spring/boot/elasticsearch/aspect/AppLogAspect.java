@@ -2,6 +2,7 @@ package com.lmaye.spring.boot.elasticsearch.aspect;
 
 import com.lmaye.examples.common.utils.GsonUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -52,7 +53,17 @@ public class AppLogAspect {
         log.info("Request Server: {}:{}", request.getServerName(), request.getServerPort());
         log.info("Url: {}", request.getRequestURL().toString());
         log.info("HTTP Method: {}", request.getMethod());
-        log.info("IP: {}", request.getRemoteAddr());
+        String ip = request.getHeader("x-forwarded-for");
+        if (StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (StringUtils.isBlank(ip) || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        log.info("IP: {}", ip);
         log.info("Class Method: {}", joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
         log.info("Args: {}", GsonUtils.toJson(joinPoint.getArgs()));
     }

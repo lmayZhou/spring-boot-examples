@@ -7,6 +7,7 @@ import com.lmaye.spring.boot.elasticsearch.service.EsCityService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.models.properties.LongProperty;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
@@ -43,7 +44,7 @@ public class EsCityController {
      * @return Mono<Response>
      */
     @PostMapping
-    @ApiOperation(value = "新增", response = Response.class)
+    @ApiOperation(value = "新增", notes = "新增城市", response = Response.class)
     public Mono<Response> save(@RequestBody @Valid EsCityEntity param) {
         if (Objects.isNull(cityService.saveCity(param))) {
             return Mono.just(Response.failed());
@@ -58,8 +59,9 @@ public class EsCityController {
      * @return Mono<Response>
      */
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "根据城市编号删除", response = Response.class)
-    public Mono<Response> delete(@ApiParam(required = true, name = "id", value = "城市编号") @PathVariable long id) {
+    @ApiOperation(value = "根据城市编号删除", notes = "根据城市编号删除", response = Response.class)
+    public Mono<Response> delete(@ApiParam(required = true, name = "id", value = "城市编号", type = LongProperty.TYPE, example = "1")
+                                     @PathVariable long id) {
         cityService.deleteCityById(id);
         return Mono.just(Response.success("删除成功"));
     }
@@ -73,7 +75,7 @@ public class EsCityController {
      */
     @GetMapping("/{id}")
     @ApiOperation(value = "根据城市编号搜索", notes = "根据城市编号搜索城市")
-    public Response<EsCityEntity> searchById(@ApiParam(required = true, name = "id", value = "城市编号")
+    public Response<EsCityEntity> searchById(@ApiParam(required = true, name = "id", value = "城市编号", type = LongProperty.TYPE, example = "1")
                                              @PathVariable long id) {
         return Response.success(cityService.searchById(id));
     }

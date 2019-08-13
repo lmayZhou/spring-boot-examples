@@ -84,6 +84,7 @@ services:
     volumes:
       # 映射到容器中
       - ./logstash/conf/logstash-filebeat.conf:/usr/share/logstash/conf/logstash-filebeat.conf
+      - ./logstash/conf/logstash.yml:/usr/share/logstash/config/logstash.yml
     environment:
       - elasticsearch.hosts=http://192.168.0.110:9200
     ports:

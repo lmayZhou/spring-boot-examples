@@ -219,7 +219,7 @@
 xpack.monitoring.enabled: true
 #xpack.monitoring.elasticsearch.username: logstash_system
 #xpack.monitoring.elasticsearch.password: password
-xpack.monitoring.elasticsearch.hosts: ["https://192.168.0.110:9200", "https://192.168.0.111:9200", "https://192.168.0.112:9200"]
+xpack.monitoring.elasticsearch.hosts: ["http://192.168.0.110:9200", "http://192.168.0.111:9200", "http://192.168.0.112:9200"]
 #xpack.monitoring.elasticsearch.ssl.certificate_authority: [ "/path/to/ca.crt" ]
 #xpack.monitoring.elasticsearch.ssl.truststore.path: path/to/file
 #xpack.monitoring.elasticsearch.ssl.truststore.password: password

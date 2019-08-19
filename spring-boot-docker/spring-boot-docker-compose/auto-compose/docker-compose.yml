@@ -44,3 +44,4 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: 123456
     volumes:
       - ./mongo/data:/data/db
+    command: --auth

@@ -1,5 +1,7 @@
 package com.lmaye.examples.common.constant;
 
+import lombok.Getter;
+
 import java.util.Objects;
 
 /**
@@ -10,15 +12,22 @@ import java.util.Objects;
  * @qq 379839355
  * @email lmay@lmaye.com
  */
+@Getter
 public enum YesOrNo {
-
-    /* 否 */
+    /**
+     * 枚举
+     */
     NO(0, "否"),
-
-    /* 是 */
     YES(1, "是");
 
+    /**
+     * 枚举值
+     */
     private Integer value;
+
+    /**
+     * 枚举描述
+     */
     private String desc;
 
     YesOrNo(Integer value, String desc) {
@@ -34,31 +43,11 @@ public enum YesOrNo {
      */
     public static YesOrNo valueOf(Integer value) {
         Objects.requireNonNull(value, "The matching value cannot be empty");
-
         for (YesOrNo object : values()) {
             if (value.equals(object.getValue())) {
                 return object;
             }
         }
-
         throw new IllegalArgumentException("No matching constant for [" + value + "]");
-    }
-
-    /**
-     * 获取枚举对象的具体值
-     *
-     * @return 具体值
-     */
-    public Integer getValue() {
-        return value;
-    }
-
-    /**
-     * 获取枚举对象的描述
-     *
-     * @return 具体值
-     */
-    public String getDesc() {
-        return desc;
     }
 }

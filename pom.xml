@@ -22,5 +22,7 @@
         <module>spring-boot-websocket</module>
         <!-- Api2doc Module -->
         <module>spring-boot-api2doc</module>
+        <!-- WebRTC Module -->
+        <module>spring-boot-webrtc</module>
     </modules>
 </project>

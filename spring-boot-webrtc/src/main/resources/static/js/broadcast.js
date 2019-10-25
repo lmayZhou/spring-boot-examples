@@ -16,6 +16,7 @@ var iceServer = {
         "credential": "muazkh"
     }]
 };
+debugger
 //兼容浏览器的getUserMedia写法
 var getUserMedia = (navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia || navigator.msGetUserMedia);
 //兼容浏览器的PeerConnection写法

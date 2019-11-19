@@ -3,6 +3,7 @@ package com.lmaye.examples.common.utils;
 import com.google.common.base.Strings;
 
 import java.nio.charset.Charset;
+import java.util.Objects;
 import java.util.Random;
 import java.util.UUID;
 import java.util.regex.Matcher;
@@ -29,7 +30,7 @@ public abstract class StringUtils {
      *
      * @param str     字符串
      * @param message 异常描述
-     * @return 字符串
+     * @return String
      */
     public static String requireNonEmpty(String str, String message) {
         if (Strings.isNullOrEmpty(str)) {
@@ -43,7 +44,7 @@ public abstract class StringUtils {
      *
      * @return 字符串
      */
-    public static String generateUUID() {
+    public static String generateUuid() {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
@@ -51,7 +52,7 @@ public abstract class StringUtils {
      * 生产随机字符串
      *
      * @param length 字符串长度
-     * @return 字符串
+     * @return String
      */
     public static String generateStr(int length) {
         String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -68,11 +69,10 @@ public abstract class StringUtils {
      * 转下划线
      *
      * @param str 字符串
-     * @return 大写转下划线的字符串
+     * @return String
      */
     public static String toUnderline(String str) {
         requireNonEmpty(str, "The transform string cannot be empty");
-
         Matcher matcher = UPPERCASE_PATTERN.matcher(str);
         StringBuffer sb = new StringBuffer();
         while (matcher.find()) {
@@ -87,17 +87,15 @@ public abstract class StringUtils {
      *
      * @param str    字符串
      * @param length 最大长度
-     * @return 新字符串
+     * @return String
      */
     public static String substr(String str, int length) {
         if (Strings.isNullOrEmpty(str)) {
             return str;
         }
-
         if (str.length() <= length) {
             return str;
         }
-
         return str.substring(0, length - 3) + "...";
     }
 
@@ -107,17 +105,15 @@ public abstract class StringUtils {
      * @param str   字符串
      * @param start 前面显示位数
      * @param end   后面显示位数
-     * @return 字符串
+     * @return String
      */
     public static String substr(String str, int start, int end) {
         if (Strings.isNullOrEmpty(str)) {
             return str;
         }
-
         if (str.length() <= start + end) {
             return str;
         }
-
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = start; i < (str.length() - end); i++) {
             stringBuilder.append("*");
@@ -126,11 +122,11 @@ public abstract class StringUtils {
     }
 
     /**
-     * 编码字符串<br>
-     * 使用系统默认编码
+     * 编码字符串
+     * - 使用系统默认编码
      *
      * @param str 字符串
-     * @return 编码后的字节码
+     * @return byte[]
      */
     public static byte[] bytes(CharSequence str) {
         return bytes(str, Charset.defaultCharset());
@@ -141,14 +137,13 @@ public abstract class StringUtils {
      *
      * @param str     字符串
      * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
-     * @return 编码后的字节码
+     * @return byte[]
      */
     public static byte[] bytes(CharSequence str, Charset charset) {
-        if (str == null) {
+        if (Objects.isNull(str)) {
             return null;
         }
-
-        if (null == charset) {
+        if (Objects.isNull(charset)) {
             return str.toString().getBytes();
         }
         return str.toString().getBytes(charset);
@@ -158,13 +153,12 @@ public abstract class StringUtils {
      * 解码字节码
      *
      * @param data 字符串
-     * @return 解码后的字符串
+     * @return String
      */
     public static String str(byte[] data) {
-        if (data == null) {
+        if (Objects.isNull(data)) {
             return null;
         }
-
         return new String(data, Charset.defaultCharset());
     }
 
@@ -173,14 +167,13 @@ public abstract class StringUtils {
      *
      * @param data    字符串
      * @param charset 字符集，如果此字段为空，则解码的结果取决于平台
-     * @return 解码后的字符串
+     * @return String
      */
     public static String str(byte[] data, Charset charset) {
-        if (data == null) {
+        if (Objects.isNull(data)) {
             return null;
         }
-
-        if (null == charset) {
+        if (Objects.isNull(charset)) {
             return new String(data);
         }
         return new String(data, charset);
@@ -205,7 +198,7 @@ public abstract class StringUtils {
      *
      * @param str       字符串
      * @param searchStr 需要查找位置的字符串
-     * @return 位置
+     * @return int
      * @since 3.2.1
      */
     public static int indexOfIgnoreCase(final CharSequence str, final CharSequence searchStr) {
@@ -232,7 +225,7 @@ public abstract class StringUtils {
      * @param str       字符串
      * @param searchStr 需要查找位置的字符串
      * @param fromIndex 起始位置
-     * @return 位置
+     * @return int
      * @since 3.2.1
      */
     public static int indexOfIgnoreCase(final CharSequence str, final CharSequence searchStr, int fromIndex) {
@@ -246,17 +239,16 @@ public abstract class StringUtils {
      * @param searchStr  需要查找位置的字符串
      * @param fromIndex  起始位置
      * @param ignoreCase 是否忽略大小写
-     * @return 位置
+     * @return int
      * @since 3.2.1
      */
     public static int indexOf(final CharSequence str, CharSequence searchStr, int fromIndex, boolean ignoreCase) {
-        if (str == null || searchStr == null) {
+        if (Objects.isNull(str) || Objects.isNull(searchStr)) {
             return INDEX_NOT_FOUND;
         }
         if (fromIndex < 0) {
             fromIndex = 0;
         }
-
         final int endLimit = str.length() - searchStr.length() + 1;
         if (fromIndex > endLimit) {
             return INDEX_NOT_FOUND;
@@ -264,12 +256,10 @@ public abstract class StringUtils {
         if (searchStr.length() == 0) {
             return fromIndex;
         }
-
         if (!ignoreCase) {
             // 不忽略大小写调用JDK方法
             return str.toString().indexOf(searchStr.toString(), fromIndex);
         }
-
         for (int i = fromIndex; i < endLimit; i++) {
             if (isSubEquals(str, i, searchStr, 0, searchStr.length(), true)) {
                 return i;
@@ -288,14 +278,13 @@ public abstract class StringUtils {
      * @param start2     第二个字符串开始的位置
      * @param length     截取长度
      * @param ignoreCase 是否忽略大小写
-     * @return 子串是否相同
+     * @return boolean
      * @since 3.2.1
      */
     public static boolean isSubEquals(CharSequence str1, int start1, CharSequence str2, int start2, int length, boolean ignoreCase) {
-        if (null == str1 || null == str2) {
+        if (Objects.isNull(str1) || Objects.isNull(str2)) {
             return false;
         }
-
         return str1.toString().regionMatches(ignoreCase, start1, str2.toString(), start2, length);
     }
 
@@ -304,11 +293,10 @@ public abstract class StringUtils {
      *
      * @param string 字符串
      * @param times  次数
-     * @return 字符串
+     * @return String
      */
     public static String repeat(String string, int times) {
         StringBuilder sb = new StringBuilder();
-
         for (int i = 0; i < times; i++) {
             sb.append(string);
         }
@@ -321,17 +309,15 @@ public abstract class StringUtils {
      * @param param 字符串
      * @param start 前面显示位数
      * @param end   后面显示位数
-     * @return
+     * @return String
      */
     public static String hideString(String param, int start, int end) {
         if (Strings.isNullOrEmpty(param)) {
             return param;
         }
-
         if (param.length() <= start + end) {
             return param;
         }
-
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = start; i < (param.length() - end); i++) {
             stringBuilder.append("*");

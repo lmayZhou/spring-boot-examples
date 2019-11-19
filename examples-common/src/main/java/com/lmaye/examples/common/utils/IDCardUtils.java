@@ -81,6 +81,7 @@ public final class IDCardUtils {
     /**
      * 获取地址编码
      *
+     * @param cardNumber 身份证号
      * @return String
      */
     public static String getAddressCode(String cardNumber) {
@@ -93,7 +94,8 @@ public final class IDCardUtils {
     /**
      * 获取出生日期
      *
-     * @return
+     * @param cardNumber 身份证号
+     * @return Date
      */
     public static Date getBirthDate(String cardNumber) {
         try {
@@ -106,6 +108,7 @@ public final class IDCardUtils {
     /**
      * 男
      *
+     * @param cardNumber 身份证号
      * @return boolean
      */
     public static boolean isMale(String cardNumber) {
@@ -115,15 +118,17 @@ public final class IDCardUtils {
     /**
      * 女
      *
+     * @param cardNumber 身份证号
      * @return boolean
      */
-    public static boolean isFemal(String cardNumber) {
+    public static boolean isFemale(String cardNumber) {
         return !isMale(cardNumber);
     }
 
     /**
      * 获取身份证的第17位，奇数为男性，偶数为女性
      *
+     * @param cardNumber 身份证号
      * @return int
      */
     public static int getGenderCode(String cardNumber) {
@@ -137,6 +142,7 @@ public final class IDCardUtils {
     /**
      * 获取出生日期字符串
      *
+     * @param cardNumber 身份证号
      * @return String
      */
     public static String getBirthDayPart(String cardNumber) {

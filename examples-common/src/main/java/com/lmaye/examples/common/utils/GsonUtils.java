@@ -17,7 +17,7 @@ public abstract class GsonUtils {
      *
      * @param json  Json字符串
      * @param clazz Java对象
-     * @return      Class<T>
+     * @return T
      */
     public static <T> T fromJson(String json, Class<T> clazz) {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.S").create();
@@ -27,8 +27,8 @@ public abstract class GsonUtils {
     /**
      * 把Java对象转成字符串
      *
-     * @param   object 对象
-     * @return  Json String
+     * @param object 对象
+     * @return String
      */
     public static String toJson(Object object) {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss.S").create();

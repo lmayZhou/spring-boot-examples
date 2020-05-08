@@ -45,7 +45,7 @@ public class EsCityController {
      */
     @PostMapping
     @ApiOperation(value = "新增", notes = "新增城市", response = Response.class)
-    public Mono<Response> save(@RequestBody @Valid EsCityEntity param) {
+    public Mono<Response<String>> save(@RequestBody @Valid EsCityEntity param) {
         if (Objects.isNull(cityService.saveCity(param))) {
             return Mono.just(Response.failed());
         }
@@ -60,7 +60,7 @@ public class EsCityController {
      */
     @DeleteMapping("/{id}")
     @ApiOperation(value = "根据城市编号删除", notes = "根据城市编号删除", response = Response.class)
-    public Mono<Response> delete(@ApiParam(required = true, name = "id", value = "城市编号", type = LongProperty.TYPE, example = "1")
+    public Mono<Response<String>> delete(@ApiParam(required = true, name = "id", value = "城市编号", type = LongProperty.TYPE, example = "1")
                                      @PathVariable long id) {
         cityService.deleteCityById(id);
         return Mono.just(Response.success("删除成功"));

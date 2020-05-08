@@ -1,0 +1,8 @@
+# ·şÎñÅäÖÃ
+server:
+  port: 88
+
+# spring ÅäÖÃ
+spring:
+  application:
+    name: guava-cache

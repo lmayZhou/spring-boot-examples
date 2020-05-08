@@ -24,5 +24,7 @@
         <module>spring-boot-api2doc</module>
         <!-- WebRTC Module -->
         <module>spring-boot-webrtc</module>
+        <!-- Guava Cache -->
+        <module>spring-boot-cache-guava</module>
     </modules>
 </project>

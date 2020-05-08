@@ -42,7 +42,7 @@ public class Swagger2Config {
         pars.add(tokenPar.build());
 
         return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("ES")
+                .groupName("Guava Cache")
                 .apiInfo(apiInfo())
                 .select()
                 //选择controller包

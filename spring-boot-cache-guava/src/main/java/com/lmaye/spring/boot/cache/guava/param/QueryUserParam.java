@@ -8,7 +8,6 @@ import io.swagger.models.properties.StringProperty;
 import lombok.Data;
 import lombok.ToString;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
@@ -31,8 +30,9 @@ public class QueryUserParam implements Serializable {
     /**
      * 主键ID
      */
-    @NotNull
-    @ApiModelProperty(value = "主键ID", required = true, dataType = IntegerProperty.TYPE, example = "10000")
+//    @NotNull
+//    @ApiModelProperty(value = "主键ID", required = true, dataType = IntegerProperty.TYPE, example = "10000")
+    @ApiModelProperty(value = "主键ID", dataType = IntegerProperty.TYPE, example = "10000")
     private Integer id;
 
     /**

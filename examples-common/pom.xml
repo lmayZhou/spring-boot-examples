@@ -7,7 +7,7 @@
     <version>1.0.1-SNAPSHOT</version>
     <name>examples-common</name>
     <packaging>jar</packaging>
-    <description>Examples Common project for Spring Boot</description>
+    <description>Common project for Spring Boot</description>
 
     <!-- lookup parent from repository -->
     <parent>

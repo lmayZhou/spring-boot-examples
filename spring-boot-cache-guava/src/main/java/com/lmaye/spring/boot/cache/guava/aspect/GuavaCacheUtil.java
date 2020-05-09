@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * -- Guava 本地高效缓存
+ * - 缓存单例模式
  *
  * @author lmay.Zhou
  * @date 2020/5/9 14:46 星期六

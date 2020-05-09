@@ -1,7 +1,6 @@
 package com.lmaye.spring.boot.cache.guava.annotation;
 
 import java.lang.annotation.Documented;
-import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -18,9 +17,8 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Target({FIELD, METHOD, PARAMETER, ANNOTATION_TYPE})
 @Retention(RUNTIME)
-@Inherited
 @Documented
-public @interface Cache {
+public @interface CacheStorage {
     /**
      * 键前缀
      * - 缓存Key前缀(eg: User-xxx)
@@ -43,11 +41,4 @@ public @interface Cache {
      * @return String
      */
     String description() default "";
-
-    /**
-     * 过期时间(单位: 毫秒)
-     *
-     * @return int
-     */
-    int expiredTime() default -1;
 }

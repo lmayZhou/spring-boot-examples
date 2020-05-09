@@ -1,11 +1,12 @@
 package com.lmaye.spring.boot.cache.guava.controller;
 
 import com.lmaye.examples.common.common.Response;
-import com.lmaye.spring.boot.cache.guava.annotation.Cache;
+import com.lmaye.spring.boot.cache.guava.annotation.CacheStorage;
 import com.lmaye.spring.boot.cache.guava.entity.UserEntity;
 import com.lmaye.spring.boot.cache.guava.param.QueryUserParam;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ import java.util.stream.Collectors;
  * @date 2020/5/8 18:47 星期五
  * @email lmay_zlm@meten.com
  */
+@Slf4j
 @Api(value = "UserController", tags = "用户相关接口")
 @RequestMapping("/user")
 @RestController
@@ -32,10 +34,11 @@ public class UserController {
      * @param param 请求参数
      * @return Mono<Response<UserEntity>>
      */
-    @Cache(value = "User:", tags = {"id", "name", "email", "mobile"}, expiredTime = 30000, description = "用户列表缓存")
+    @CacheStorage(value = "User:", tags = {"id", "name", "email", "mobile"}, description = "缓存用户列表数据")
     @PostMapping("/getUsers")
     @ApiOperation(value = "查看用户列表", notes = "查看用户列表的信息")
     public Response<List<UserEntity>> getUsers(@RequestBody @Valid QueryUserParam param) {
+        log.info("<<<<<<<< 读取业务数据 >>>>>>>>");
         List<UserEntity> userEntities = new ArrayList<>();
         userEntities.add(new UserEntity(1, "T-1", "123456@qq.com", 123456L));
         userEntities.add(new UserEntity(2, "T-2", "123456@qq.com", 456789L));
@@ -55,6 +58,17 @@ public class UserController {
         if(!Objects.isNull(mobile)) {
             return Response.success(userEntities.stream().filter(it -> it.getMobile().equals(mobile)).collect(Collectors.toList()));
         }
-        return Response.success(null);
+        return Response.success(userEntities);
+    }
+
+    /**
+     * Test
+     *
+     * @return Response<String>
+     */
+    @GetMapping("/test")
+    @ApiOperation(value = "Test", notes = "Test")
+    public Response<String> test() {
+        return Response.success("Hello World!");
     }
 }

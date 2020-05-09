@@ -22,7 +22,11 @@ import java.lang.reflect.Method;
 import java.util.Objects;
 
 /**
+ * <pre>
  * -- 缓存AOP切面
+ * - 后置处理: 请求后的缓存
+ * - 前置处理: 读取缓存数据
+ * </pre>
  *
  * @author lmay.Zhou
  * @date 2020/5/9 10:26 星期六

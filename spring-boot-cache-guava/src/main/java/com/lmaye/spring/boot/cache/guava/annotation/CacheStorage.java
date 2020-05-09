@@ -21,7 +21,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 public @interface CacheStorage {
     /**
      * 键前缀
-     * - 缓存Key前缀(eg: User-xxx)
+     * - 缓存Key前缀(eg: User:xxx)
      *
      * @return String
      */
@@ -29,7 +29,7 @@ public @interface CacheStorage {
 
     /**
      * 键标签
-     * - 传入值作为缓存Key(eg: User-ID&Name)
+     * - 传入值作为缓存Key(eg: User:id&name)
      *
      * @return String[]
      */

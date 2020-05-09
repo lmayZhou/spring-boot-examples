@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -68,7 +69,7 @@ public class UserController {
      */
     @GetMapping("/test")
     @ApiOperation(value = "Test", notes = "Test")
-    public Response<String> test() {
-        return Response.success("Hello World!");
+    public Mono<Response<String>> test() {
+        return Mono.just(Response.success("Test !"));
     }
 }

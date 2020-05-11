@@ -35,7 +35,8 @@ public class UserController {
      * @param param 请求参数
      * @return Mono<Response<UserEntity>>
      */
-    @CacheStorage(value = "User:", tags = {"id", "name", "email", "mobile"}, description = "缓存用户列表数据")
+//    @CacheStorage(value = "User:", tags = {"id", "name", "email", "mobile"}, description = "缓存用户列表数据")
+    @CacheStorage(value = "User:", description = "缓存用户列表数据")
     @PostMapping("/getUsers")
     @ApiOperation(value = "查看用户列表", notes = "查看用户列表的信息")
     public Response<List<UserEntity>> getUsers(@RequestBody @Valid QueryUserParam param) {

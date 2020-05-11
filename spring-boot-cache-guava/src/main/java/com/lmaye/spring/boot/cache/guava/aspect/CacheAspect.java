@@ -37,6 +37,11 @@ import java.util.Objects;
 @Component
 public class CacheAspect {
     /**
+     * Key连接符
+     */
+    private static final String JOINER = "&";
+
+    /**
      * 定义切点
      */
     @Pointcut("@annotation(com.lmaye.spring.boot.cache.guava.annotation.CacheStorage)")
@@ -107,14 +112,21 @@ public class CacheAspect {
         StringBuilder cacheKeyBuilder = new StringBuilder(cacheStorage.value());
         JsonObject json = GsonUtils.fromJson(GsonUtils.toJson(arg), JsonObject.class);
         for (String tag : tags) {
+            if("All".equalsIgnoreCase(tag)) {
+                cacheKeyBuilder.append(tag);
+                break;
+            }
             JsonElement jsonElement = json.has(tag) ? json.get(tag) : null;
             if (!Objects.isNull(jsonElement) && StringUtils.isNotBlank(jsonElement.getAsString())) {
                 cacheKeyBuilder.append(jsonElement.getAsString());
             } else {
                 cacheKeyBuilder.append(tag);
             }
-            cacheKeyBuilder.append("&");
+            cacheKeyBuilder.append(JOINER);
         }
-        return cacheKeyBuilder.substring(0, cacheKeyBuilder.lastIndexOf("&"));
+        if(cacheKeyBuilder.indexOf(JOINER) != -1) {
+            return cacheKeyBuilder.substring(0, cacheKeyBuilder.lastIndexOf(JOINER));
+        }
+        return cacheKeyBuilder.toString();
     }
 }

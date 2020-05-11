@@ -33,7 +33,7 @@ public @interface CacheStorage {
      *
      * @return String[]
      */
-    String[] tags() default "";
+    String[] tags() default "All";
 
     /**
      * 描述

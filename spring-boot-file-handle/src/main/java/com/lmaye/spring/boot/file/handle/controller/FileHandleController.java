@@ -29,7 +29,6 @@ public class FileHandleController {
      */
     @GetMapping("/downloadBatch")
     public void downloadBatch(HttpServletResponse response) throws Exception {
-        // 需要编码否则中文乱码
         response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("测试.zip", "UTF-8"));
         response.setContentType("application/zip;charset=utf-8");
         response.setCharacterEncoding("UTF-8");

@@ -26,5 +26,7 @@
         <module>spring-boot-webrtc</module>
         <!-- Guava Cache -->
         <module>spring-boot-cache-guava</module>
+        <!-- File Handle -->
+        <module>spring-boot-file-handle</module>
     </modules>
 </project>

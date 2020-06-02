@@ -25,7 +25,7 @@
         <swagger-bootstrap-ui>1.9.4</swagger-bootstrap-ui>
         <!-- 版本类型异常问题: long totalHits = response.getHits().getTotalHits(); -->
         <elasticsearch.version>6.8.0</elasticsearch.version>
-        <spring-data-elasticsearch.version>3.2.0.RC1</spring-data-elasticsearch.version>
+        <spring-data-elasticsearch.version>3.2.0.RELEASE</spring-data-elasticsearch.version>
         <x-pack-transport.version>5.6.1</x-pack-transport.version>
     </properties>
 
@@ -116,13 +116,13 @@
     </dependencies>
 
     <!-- 配置源 -->
-    <repositories>
+    <!--<repositories>
         <repository>
             <id>spring-libs-snapshot</id>
             <name>Spring Snapshot Repository</name>
             <url>https://repo.spring.io/libs-snapshot</url>
         </repository>
-    </repositories>
+    </repositories>-->
 
     <build>
         <plugins>

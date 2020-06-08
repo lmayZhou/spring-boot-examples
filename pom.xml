@@ -10,9 +10,9 @@
     <description>Examples project for Spring Boot</description>
 
     <modules>
-        <!-- 案例公共资源 -->
+        <!-- 案例公共资源 Module -->
         <module>examples-common</module>
-        <!-- Configuration Metadata(配置元数据) -->
+        <!-- Configuration Metadata(配置元数据) Module -->
         <module>spring-boot-configuration-metadata</module>
         <!-- Docker Module -->
         <module>spring-boot-docker</module>
@@ -24,9 +24,11 @@
         <module>spring-boot-api2doc</module>
         <!-- WebRTC Module -->
         <module>spring-boot-webrtc</module>
-        <!-- Guava Cache -->
+        <!-- Guava Cache Module -->
         <module>spring-boot-cache-guava</module>
-        <!-- File Handle -->
+        <!-- File Handle Module -->
         <module>spring-boot-file-handle</module>
+        <!-- Contract Module -->
+        <module>spring-boot-contract</module>
     </modules>
 </project>

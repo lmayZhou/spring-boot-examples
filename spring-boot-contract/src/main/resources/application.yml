@@ -1,1 +1,14 @@
+# 服务配置
+server:
+  port: 88
 
+# spring 配置
+spring:
+  application:
+    name: contract
+#  freemarker:
+#    suffix: .ftl
+
+# 日志配置
+logging:
+  config: classpath:log4j2.xml

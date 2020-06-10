@@ -94,7 +94,6 @@
             <version>${swagger-bootstrap-ui.version}</version>
         </dependency>
 
-        <!-- https://www.jianshu.com/p/92c6faec0427 -->
         <dependency>
             <groupId>com.itextpdf</groupId>
             <artifactId>itextpdf</artifactId>

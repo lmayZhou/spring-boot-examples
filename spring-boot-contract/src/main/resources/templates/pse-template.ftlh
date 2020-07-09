@@ -73,7 +73,7 @@
         <div class="top-line-1"></div>
         <div class="top-line-2"></div>
         <ul>
-            <li><img src="http://localhost:88/img/pse_logo.png" width="170"/></li>
+            <li><img src="https://attach.likeshuo.online/Content/Images/landing/overseas/pse/pse_logo.png" width="170"/></li>
             <li>
                 <span style="font-size:21px;">Online PSE Registration Form</span>
                 <span style="font-size:21px;">在线预科班报名表格</span>

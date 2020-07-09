@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.ResourceUtils;
 import org.springframework.util.StringUtils;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
@@ -22,6 +21,7 @@ import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.security.cert.Certificate;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * -- ITextPdf 工具类
@@ -35,7 +35,6 @@ public class ITextPdfUtil {
     /**
      * 生成pdf
      *
-     * @param request
      * @param data
      * @param pdfName
      * @param pngName
@@ -46,10 +45,10 @@ public class ITextPdfUtil {
      * @throws IOException
      * @throws Exception
      */
-    public static ByteArrayOutputStream processPdf(HttpServletRequest request, Map<String, Object> data, String pdfName,
-                                                   String pngName, Float docurx, Float docury) throws TemplateException, IOException, Exception {
+    public static ByteArrayOutputStream processPdf(Map<String, Object> data, String pdfName, String pngName, Float docurx,
+                                                   Float docury) throws TemplateException, IOException, Exception {
         Configuration cfg = new Configuration(Configuration.VERSION_2_3_0);
-        //设置加载模板的目录
+        // 设置加载模板的目录
         String ftlUrl = ResourceUtils.getFile("classpath:templates").getPath();
         log.info("pdf模板路径:" + ftlUrl);
         cfg.setDirectoryForTemplateLoading(new File(ftlUrl));
@@ -63,15 +62,17 @@ public class ITextPdfUtil {
         log.info("生成HTML文件名：" + fileName);
         File file = new File(fileName);
         if (!file.exists()) {
-            file.createNewFile();
+            boolean isCreate = file.createNewFile();
+            if(!isCreate) {
+                return null;
+            }
         }
         Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8));
         temp.process(data, out);
         String outputFileName = ftlUrl + File.separator + System.currentTimeMillis() + ".pdf";
-        String outputSignFileName = ftlUrl + File.separator + System.currentTimeMillis() + "sign.pdf";
         log.info("生成PDF文件名：" + outputFileName);
-        Document document = null;
-        if (docurx == null || docury == null) {
+        Document document;
+        if (Objects.isNull(docurx) || Objects.isNull(docury)) {
             //默认设置,横向打印
             document = new Document(PageSize.A4);
         } else {
@@ -81,42 +82,33 @@ public class ITextPdfUtil {
         document.open();
         XMLWorkerHelper.getInstance().parseXHtml(writer, document, new FileInputStream(fileName), StandardCharsets.UTF_8);
         document.close();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        String DEST = outputFileName;
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         if (!StringUtils.isEmpty(pngName)) {
             /*=============================电子签章 Start===========================================*/
-            String KEYSTORE = ftlUrl + "/lib/pdf/zrong2.p12";
+            String keystore = ftlUrl + "/lib/pdf/zrong2.p12";
             // key story密码
-            char[] PASSWORD = "chinatex".toCharArray();
-            // 原始pdf
-            String SRC = outputFileName;
+            char[] password = "chinatex".toCharArray();
             // 签名完成的pdf
-            DEST = outputSignFileName;
+            String signFileName = ftlUrl + File.separator + System.currentTimeMillis() + "sign.pdf";
             // 签章图片
             String chapterPath = ftlUrl + "/lib/pdf/" + pngName + ".png";
             String reason = "理由";
             String location = "位置";
-            sign(new FileInputStream(SRC), new FileOutputStream(DEST),
-                    new FileInputStream(KEYSTORE), PASSWORD,
-                    reason, location, chapterPath);
+            sign(new FileInputStream(outputFileName), new FileOutputStream(signFileName),
+                    new FileInputStream(keystore), password, reason, location, chapterPath);
             /*=============================电子签章 Start==========================================*/
         }
-        InputStream is = new FileInputStream(DEST);
+        InputStream is = new FileInputStream(outputFileName);
         int buf;
         while ((buf = is.read()) != -1) {
-            baos.write(buf);
+            byteArrayOutputStream.write(buf);
         }
-        baos.flush();
+        byteArrayOutputStream.flush();
         is.close();
         out.close();
         writer.close();
-        file = new File(fileName);
-//        file.delete();
-        file = new File(outputFileName);
-//        file.delete();
-        file = new File(DEST);
-//        file.delete();
-        return baos;
+        file.delete();
+        return byteArrayOutputStream;
     }
 
 

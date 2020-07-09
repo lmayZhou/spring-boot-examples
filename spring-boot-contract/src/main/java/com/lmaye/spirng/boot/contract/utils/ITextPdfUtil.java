@@ -20,8 +20,11 @@ import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.security.cert.Certificate;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 /**
  * -- ITextPdf 工具类
@@ -163,5 +166,24 @@ public class ITextPdfUtil {
         // 调用IText签名方法完成pdf签章CryptoStandard.CMS 签名方式，建议采用这种
         MakeSignature.signDetached(appearance, digest, signature, chain, null, null, null,
                 0, MakeSignature.CryptoStandard.CMS);
+    }
+
+    public static void zipBatchDownload(OutputStream outputStream, List<ByteArrayOutputStream> outs) {
+        try(ZipOutputStream zos = new ZipOutputStream(outputStream)) {
+            for (ByteArrayOutputStream out : outs) {
+                zos.putNextEntry(new ZipEntry(System.currentTimeMillis() + ".pdf"));
+                try(ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray())) {
+                    byte[] buffer = new byte[1024];
+                    int red;
+                    while((red = in.read(buffer)) != -1) {
+                        zos.write(buffer, 0, red);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

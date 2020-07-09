@@ -26,10 +26,9 @@ import java.util.Map;
 public class ContractController {
     @GetMapping(value = "/ftlToPdf")
     public void ftlToPdf(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-        String pdfName = "contract-templates";
         Map<String, Object> data = new HashMap<>(1);
         data.put("companyFullName", "寻梦科技有限公司");
-        ByteArrayOutputStream out = ITextPdfUtil.processPdf(data, pdfName, null, 595.0F, 842.0F);
+        ByteArrayOutputStream out = ITextPdfUtil.processPdf(data, "contract-templates", null, 595.0F, 842.0F);
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setContentType("application/pdf");
         OutputStream sOut = httpServletResponse.getOutputStream();
@@ -40,10 +39,9 @@ public class ContractController {
 
     @GetMapping(value = "/pseToPdf")
     public void pseToPdf(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
-        String pdfName = "pse-template";
         Map<String, Object> data = new HashMap<>(1);
         data.put("courseNo", "寻梦科技有限公司");
-        ByteArrayOutputStream out = ITextPdfUtil.processPdf(data, pdfName, null, 595.0F, 842.0F);
+        ByteArrayOutputStream out = ITextPdfUtil.processPdf(data, "pse-template", null, null, null);
         httpServletResponse.setCharacterEncoding("UTF-8");
         httpServletResponse.setContentType("application/pdf");
         OutputStream sOut = httpServletResponse.getOutputStream();

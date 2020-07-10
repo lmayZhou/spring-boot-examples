@@ -21,8 +21,7 @@ import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.security.cert.Certificate;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -59,9 +58,9 @@ public class ITextPdfUtil {
         cfg.setDefaultEncoding("UTF-8");
         log.info("从指定的模板目录中加载对应的模板文件");
         // 从指定的模板目录中加载对应的模板文件
-        Template temp = cfg.getTemplate("" + pdfName + ".ftlh");
+        Template temp = cfg.getTemplate(pdfName + ".ftlh");
         data.put("basePath", ftlUrl);
-        String fileName = ftlUrl + File.separator + pdfName + System.currentTimeMillis() + ".html";
+        String fileName = ftlUrl + File.separator + System.currentTimeMillis() + ".html";
         log.info("生成HTML文件名：" + fileName);
         File file = new File(fileName);
         if (!file.exists()) {
@@ -110,10 +109,8 @@ public class ITextPdfUtil {
         is.close();
         out.close();
         writer.close();
-        file.delete();
         return byteArrayOutputStream;
     }
-
 
     /**
      * 在已经生成的pdf上添加电子签章，生成新的pdf并将其输出出来
@@ -168,18 +165,89 @@ public class ITextPdfUtil {
                 0, MakeSignature.CryptoStandard.CMS);
     }
 
-    public static void zipBatchDownload(OutputStream outputStream, List<ByteArrayOutputStream> outs) {
-        try(ZipOutputStream zos = new ZipOutputStream(outputStream)) {
-            for (ByteArrayOutputStream out : outs) {
-                zos.putNextEntry(new ZipEntry(System.currentTimeMillis() + ".pdf"));
-                try(ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray())) {
-                    byte[] buffer = new byte[1024];
-                    int red;
-                    while((red = in.read(buffer)) != -1) {
-                        zos.write(buffer, 0, red);
+    public static List<Map<String, ByteArrayOutputStream>> processPdf2(List<Map<String, Object>> dataList, String templateName) {
+        List<Map<String, ByteArrayOutputStream>> byteArrayOutputStreams = null;
+        try {
+            // 设置加载模板的目录
+            String ftlUrl = ResourceUtils.getFile("classpath:templates").getPath();
+            log.info("pdf模板路径: {}", ftlUrl);
+            Configuration cfg = new Configuration(Configuration.VERSION_2_3_0);
+            cfg.setDirectoryForTemplateLoading(new File(ftlUrl));
+            // 设置编码
+            cfg.setDefaultEncoding("UTF-8");
+            // 从指定的模板目录中加载对应的模板文件
+            Template template = cfg.getTemplate(templateName + ".ftlh");
+            String generatePath = ftlUrl + File.separator + "out";
+            File outFile = new File(generatePath);
+            if(!outFile.exists()) {
+                outFile.mkdir();
+            }
+            byteArrayOutputStreams = new ArrayList<>();
+            for (Map<String, Object> data : dataList) {
+                data.put("basePath", ftlUrl);
+                String fileName = generatePath + File.separator + System.currentTimeMillis() + ".html";
+                log.info("生成HTML文件名：{}", fileName);
+                File file = new File(fileName);
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+                try(Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8));
+                ) {
+                    template.process(data, out);
+                    String pdfName = data.get("courseNo").toString();
+                    String outputFileName = generatePath + File.separator + pdfName + ".pdf";
+                    log.info("生成PDF文件名：{}", outputFileName);
+                    // 默认设置,横向打印
+                    Document document = new Document(PageSize.A4);
+                    PdfWriter pdfWriter = PdfWriter.getInstance(document, new FileOutputStream(outputFileName));
+                    document.open();
+                    XMLWorkerHelper.getInstance().parseXHtml(pdfWriter, document, new FileInputStream(fileName), StandardCharsets.UTF_8);
+                    document.close();
+                    try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                        InputStream inputStream = new FileInputStream(outputFileName)) {
+                        int buf;
+                        while ((buf = inputStream.read()) != -1) {
+                            outputStream.write(buf);
+                        }
+                        outputStream.flush();
+                        pdfWriter.close();
+                        Map<String, ByteArrayOutputStream> dt = new HashMap<>(1);
+                        dt.put(pdfName, outputStream);
+                        byteArrayOutputStreams.add(dt);
+                        // 文件删除
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
+                }
+            }
+            File[] files = outFile.listFiles();
+            if(!Objects.isNull(files)) {
+                for (File it : files) {
+                    if(it.isFile()) {
+                        it.delete();
+                        log.info("文件删除: {}", it.getPath() + it.getName());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return byteArrayOutputStreams;
+    }
+
+    public static void zipBatchDownload(OutputStream outputStream, List<Map<String, ByteArrayOutputStream>> datas) {
+        try(ZipOutputStream zos = new ZipOutputStream(outputStream)) {
+            for (Map<String, ByteArrayOutputStream> data : datas) {
+                for(String key : data.keySet()) {
+                    zos.putNextEntry(new ZipEntry(key + ".pdf"));
+                    try(ByteArrayOutputStream out = data.get(key);
+                        ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray())) {
+                        byte[] buffer = new byte[1024];
+                        int red;
+                        while((red = in.read(buffer)) != -1) {
+                            zos.write(buffer, 0, red);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         } catch (Exception e) {

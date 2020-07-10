@@ -44,12 +44,13 @@ public class ContractController {
         response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode("测试.zip", "UTF-8"));
         response.setContentType("application/zip;charset=utf-8");
         response.setCharacterEncoding("UTF-8");
-        List<ByteArrayOutputStream> outs = new ArrayList<>();
+        List<Map<String, Object>> datas = new ArrayList<>();
         Map<String, Object> data = new HashMap<>(1);
         data.put("courseNo", "寻梦科技有限公司");
-        ByteArrayOutputStream out = ITextPdfUtil.processPdf(data, "pse-template", null, null, null);
-        outs.add(out);
-        outs.add(out);
-        ITextPdfUtil.zipBatchDownload(response.getOutputStream(), outs);
+        datas.add(data);
+        Map<String, Object> data2 = new HashMap<>(1);
+        data2.put("courseNo", "寻梦科技有限公司 123");
+        datas.add(data2);
+        ITextPdfUtil.zipBatchDownload(response.getOutputStream(), ITextPdfUtil.processPdf2(datas, "pse-template"));
     }
 }

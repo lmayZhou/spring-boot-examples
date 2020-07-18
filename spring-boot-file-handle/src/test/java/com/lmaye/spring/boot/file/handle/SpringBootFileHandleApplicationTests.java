@@ -1,9 +1,7 @@
 package com.lmaye.spring.boot.file.handle;
 
-import org.csource.fastdfs.ClientGlobal;
-import org.csource.fastdfs.StorageClient;
-import org.csource.fastdfs.TrackerClient;
-import org.csource.fastdfs.TrackerServer;
+import lombok.extern.slf4j.Slf4j;
+import org.csource.fastdfs.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.ResourceUtils;
@@ -11,6 +9,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.util.Arrays;
 
+@Slf4j
 @SpringBootTest
 class SpringBootFileHandleApplicationTests {
 
@@ -23,8 +22,16 @@ class SpringBootFileHandleApplicationTests {
         TrackerClient trackerClient = new TrackerClient();
         TrackerServer trackerServer = trackerClient.getConnection();
         StorageClient storageClient = new StorageClient(trackerServer, null);
-        String[] items = storageClient.upload_file("C:\\Users\\lmay\\Desktop\\git.jpeg", ".jpeg", null);
+        // 文件上传
+        String[] items = storageClient.upload_file("C:\\Users\\lmayZhou\\Desktop\\test.png", "png", null);
         Arrays.asList(items).forEach(System.out::println);
-        System.out.println("获取文件: " + storageClient.get_file_info("group1", "M00/00/00/wKjThF1VFfKAJRJDAANdC6JX9KA980.jpg"));
+
+        //获取Tracker地址
+        String host = "http://" + trackerServer.getInetSocketAddress().getHostString() + ":" + ClientGlobal.getG_tracker_http_port();
+        log.info("host: {}", host);
+        String fileUrl = host + "/" + items[0] + "/" + items[1];
+        log.info("访问地址: {}", fileUrl);
+        int count = storageClient.delete_file("group1", "wKgACl8SX3WAVU2wAAdH6FDo5_A449.png");
+        log.info("文件删除: {}", count);
     }
 }

@@ -1,1 +1,23 @@
+# 服务配置
+server:
+  port: 60
 
+# spring 配置
+spring:
+  application:
+    name: elasticsearch
+  output:
+    ansi:
+      enabled: always
+  # ES
+  elasticsearch:
+    rest:
+      uris: 192.168.0.10:9300
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+
+# 日志配置
+logging:
+  config: classpath:log4j2.xml

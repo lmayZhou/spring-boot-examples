@@ -15,5 +15,5 @@
 * *                                                 Blog: www.lmaye.com                                                         * *
 * *                                                 Email: lmay@lmaye.com                                                       * *
 ***********************************************************************************************************************************
-Application Name: >>> Spring Boot Elasticsearch <<<
+Application Name: >>> Spring Boot SkyWalking <<<
 Powered by：Spring Boot ${spring-boot.version}

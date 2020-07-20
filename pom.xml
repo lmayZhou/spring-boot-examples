@@ -30,5 +30,7 @@
         <module>spring-boot-file-handle</module>
         <!-- Contract Module -->
         <module>spring-boot-contract</module>
+        <!-- SkyWalking Module -->
+        <module>spring-boot-skywalking</module>
     </modules>
 </project>

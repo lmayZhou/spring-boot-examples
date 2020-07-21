@@ -13,7 +13,7 @@ APP_NAME=spring-boot-api2doc-1.0.1-SNAPSHOT.jar
 echo -e "${BLUE_COLOR}# ######################################################################${RES}"
 echo -e "${BLUE_COLOR}#                       ${APP_NAME} Shell Script                       #${RES}"
 echo -e "${BLUE_COLOR}#                       Blog: www.lmaye.com                            #${RES}"
-echo -e "${BLUE_COLOR}#                       Email: lmaye@lmaye.com                         #${RES}"
+echo -e "${BLUE_COLOR}#                       Email: lmay@lmaye.com                          #${RES}"
 echo -e "${BLUE_COLOR}# ######################################################################${RES}"
 
 # 使用说明，提示输入参数

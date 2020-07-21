@@ -3,7 +3,7 @@ services:
   nginx:
     container_name: lmay-nginx
     image: nginx:1.16
-    restart: always
+    restart: on-failure
     ports:
       - 80:80
       - 443:443
@@ -15,8 +15,8 @@ services:
   es-master:
     container_name: es-master
     hostname: es-master
-    image: elasticsearch:7.1.1
-    restart: always
+    image: elasticsearch:6.8.0
+    restart: on-failure
     ports:
       - 9200:9200
       - 9300:9300
@@ -30,7 +30,7 @@ services:
   es-head:
     container_name: es-head
     image: mobz/elasticsearch-head:5
-    restart: always
+    restart: on-failure
     ports:
       - 9100:9100
     depends_on:
@@ -39,8 +39,8 @@ services:
   kibana:
     container_name: kibana
     hostname: kibana
-    image: kibana:7.1.1
-    restart: always
+    image: kibana:6.8.0
+    restart: on-failure
     ports:
       - 5601:5601
     volumes:
@@ -51,29 +51,32 @@ services:
       - es-master
 
   skywalking-oap:
-    image: apache/skywalking-oap-server:6.2.0
+    image: apache/skywalking-oap-server:6.4.0
     container_name: skywalking-oap
-    restart: always
+    restart: on-failure
     ports:
       - 11800:11800
       - 12800:12800
     environment:
-      # Es的存储
-      - SW_STORAGE=es-master
+      # Es的存储: elasticsearch/h2/mysql
+      - SW_STORAGE=elasticsearch
       # Es的节点地址，从.env文件中取
       - SW_STORAGE_ES_CLUSTER_NODES=es-master:9200
       # 设定东八区的城市，防止Oap记录数据时用0时区
       - TZ=Asia/Shanghai
+    depends_on:
+      - es-master
 
   skywalking-ui:
-    image: apache/skywalking-ui:6.2.0
+    image: apache/skywalking-ui:6.4.0
     container_name: skywalking-ui
-    depends_on:
-      - oap
-    links:
-      - oap
-    restart: always
+    restart: on-failure
     ports:
-      - 18080:8080
+      - 8080:8080
     environment:
-      collector.ribbon.listOfServers: skywalking-oap:12800
+      - collector.ribbon.listOfServers=skywalking-oap:12800
+      - security.user.admin.password=root
+    depends_on:
+      - skywalking-oap
+    links:
+      - skywalking-oap

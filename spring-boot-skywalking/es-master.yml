@@ -24,7 +24,7 @@ node.name: es-master
 # 是否可以成为master节点
 node.master: true
 # 是否允许该节点存储数据,默认开启
-node.data: false
+node.data: true
 #
 # Add custom attributes to the node:
 #
@@ -73,8 +73,8 @@ transport.port: 9300
 #
 discovery.seed_hosts:
   - es-master
-  - es-slave1
-  - es-slave2
+#  - es-slave1
+#  - es-slave2
 #
 # Bootstrap the cluster using an initial set of master-eligible nodes:
 # 手动指定可以成为 mater 的所有节点的 name 或者 ip，这些配置将会在第一次选举中进行计算

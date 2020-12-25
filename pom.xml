@@ -32,5 +32,7 @@
         <module>spring-boot-contract</module>
         <!-- SkyWalking Module -->
         <module>spring-boot-skywalking</module>
+        <!-- Mybatis Generator Module -->
+        <module>spring-boot-mybatis-generator</module>
     </modules>
 </project>

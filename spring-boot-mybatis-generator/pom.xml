@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.lmaye</groupId>
+    <artifactId>spring-boot-mybatis-generator</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+    <name>spring-boot-mybatis-generator</name>
+    <description>Mybatis Generator project for Spring Boot</description>
+
+    <!-- lookup parent from repository -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.4.1</version>
+        <relativePath/>
+    </parent>
+
+    <!-- properties -->
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <mybatis-plus-generator.version>3.4.1</mybatis-plus-generator.version>
+        <velocity-engine-core.version>2.2</velocity-engine-core.version>
+        <freemarker.version>2.3.30</freemarker.version>
+        <beetl.version>3.3.1.RELEASE</beetl.version>
+        <mysql.version>8.0.22</mysql.version>
+    </properties>
+
+    <!-- dependencies -->
+    <dependencies>
+        <!-- mybatis plus generator -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>${mybatis-plus-generator.version}</version>
+        </dependency>
+        <!-- velocity engine core -->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+            <version>${velocity-engine-core.version}</version>
+        </dependency>
+        <!-- freemarker -->
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>${freemarker.version}</version>
+        </dependency>
+        <!-- beetl -->
+        <dependency>
+            <groupId>com.ibeetl</groupId>
+            <artifactId>beetl</artifactId>
+            <version>${beetl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
+        <!-- Spring Boot Configuration Processor -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- Spring Boot Json -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-json</artifactId>
+        </dependency>
+    </dependencies>
+</project>

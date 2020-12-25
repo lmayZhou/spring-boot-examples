@@ -65,8 +65,7 @@ public class MybatisCodeGenerator {
                         + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
             }
         });
-        /*
-        cfg.setFileCreate(new IFileCreate() {
+        /*cfg.setFileCreate(new IFileCreate() {
             @Override
             public boolean isCreate(ConfigBuilder configBuilder, FileType fileType, String filePath) {
                 // 判断自定义文件夹是否需要创建
@@ -78,8 +77,7 @@ public class MybatisCodeGenerator {
                 // 允许生成模板文件
                 return true;
             }
-        });
-        */
+        });*/
         cfg.setFileOutConfigList(focList);
         mpg.setCfg(cfg);
         // 配置模板

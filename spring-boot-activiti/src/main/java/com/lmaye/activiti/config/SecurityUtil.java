@@ -1,7 +1,6 @@
-package com.lmaye.activiti;
+package com.lmaye.activiti.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,20 +11,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.Objects;
 
+@Slf4j
 @Component
 public class SecurityUtil {
-    private final Logger logger = LoggerFactory.getLogger(SecurityUtil.class);
-
     @Autowired
-    private UserDetailsService userDetailsService;
+    private UserDetailsService myUserDetailsService;
 
     public void logInAs(String username) {
-        UserDetails user = userDetailsService.loadUserByUsername(username);
-        if (user == null) {
+        UserDetails user = myUserDetailsService.loadUserByUsername(username);
+        if (Objects.isNull(user)) {
             throw new IllegalStateException("User " + username + " doesn't exist, please provide a valid user");
         }
-        logger.info("> Logged in as: " + username);
+        log.info("> Logged in as: " + username);
         SecurityContextHolder.setContext(new SecurityContextImpl(new Authentication() {
             @Override
             public Collection<? extends GrantedAuthority> getAuthorities() {

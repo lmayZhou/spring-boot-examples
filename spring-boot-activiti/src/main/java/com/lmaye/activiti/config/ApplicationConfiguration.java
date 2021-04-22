@@ -1,7 +1,6 @@
-package com.lmaye.activiti;
+package com.lmaye.activiti.config;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,11 +19,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Configuration
 @EnableWebSecurity
 public class ApplicationConfiguration extends WebSecurityConfigurerAdapter {
-
-    private final Logger logger = LoggerFactory.getLogger(ApplicationConfiguration.class);
 
     @Override
     @Autowired
@@ -34,21 +32,21 @@ public class ApplicationConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public UserDetailsService myUserDetailsService() {
-        InMemoryUserDetailsManager inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
+        InMemoryUserDetailsManager userDetailsManager = new InMemoryUserDetailsManager();
         String[][] usersGroupsAndRoles = {
-                {"salaboy", "password", "ROLE_ACTIVITI_USER", "GROUP_activitiTeam"},
-                {"ryandawsonuk", "password", "ROLE_ACTIVITI_USER", "GROUP_activitiTeam"},
-                {"erdemedeiros", "password", "ROLE_ACTIVITI_USER", "GROUP_activitiTeam"},
-                {"other", "password", "ROLE_ACTIVITI_USER", "GROUP_otherTeam"},
-                {"admin", "password", "ROLE_ACTIVITI_ADMIN"},
+                {"salaboy", "123456", "ROLE_ACTIVITI_USER", "GROUP_activitiTeam"},
+                {"ryandawsonuk", "123456", "ROLE_ACTIVITI_USER", "GROUP_activitiTeam"},
+                {"erdemedeiros", "123456", "ROLE_ACTIVITI_USER", "GROUP_activitiTeam"},
+                {"other", "123456", "ROLE_ACTIVITI_USER", "GROUP_otherTeam"},
+                {"admin", "123456", "ROLE_ACTIVITI_ADMIN"},
         };
         for (String[] user : usersGroupsAndRoles) {
             List<String> authoritiesStrings = Arrays.asList(Arrays.copyOfRange(user, 2, user.length));
-            logger.info("> Registering new user: " + user[0] + " with the following Authorities[" + authoritiesStrings + "]");
-            inMemoryUserDetailsManager.createUser(new User(user[0], passwordEncoder().encode(user[1]),
+            log.info("> Registering new user: " + user[0] + " with the following Authorities[" + authoritiesStrings + "]");
+            userDetailsManager.createUser(new User(user[0], passwordEncoder().encode(user[1]),
                     authoritiesStrings.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList())));
         }
-        return inMemoryUserDetailsManager;
+        return userDetailsManager;
     }
 
     @Override

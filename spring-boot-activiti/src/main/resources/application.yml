@@ -1,0 +1,30 @@
+# 服务端口
+server:
+  port: 8003
+
+# Spring 配置
+spring:
+  application:
+    name: activiti-service
+  activiti:
+    database-schema-update: true
+    history-level: full
+    db-history-used: true
+    # 自动部署验证设置:true-开启（默认）、false-关闭
+    check-process-definitions: false
+    # 数据库配置
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/test?allowMultiQueries=true&useSSL=false&characterEncoding=utf8
+    username: root
+    password: root
+    hikari:
+      max-lifetime: 1800000
+      minimum-idle: 1
+      maximum-pool-size: 2
+      connection-timeout: 30000
+      idle-timeout: 30000
+      connection-test-query: select 1
+  security:
+    user:
+      name: admin
+      password: admin

@@ -34,5 +34,7 @@
         <module>spring-boot-skywalking</module>
         <!-- Mybatis Generator Module -->
         <module>spring-boot-mybatis-generator</module>
+        <!-- Activiti Module -->
+        <module>spring-boot-activiti</module>
     </modules>
 </project>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/processdef">
+    <process id="demo" name="demo" isExecutable="true">
+        <startEvent id="sid-aad2a881-aff7-4c17-aa4d-06c60628063f"/>
+        <userTask id="sid-81ac94d0-8c37-4bb8-823c-7cf62ea0882d" name="请假申请">
+            <documentation/>
+        </userTask>
+        <sequenceFlow id="sid-2a505928-8497-44ab-b72f-07418de9280d" sourceRef="sid-aad2a881-aff7-4c17-aa4d-06c60628063f" targetRef="sid-81ac94d0-8c37-4bb8-823c-7cf62ea0882d"/>
+        <userTask id="sid-08ec46db-7dd3-465a-8664-907d784ce3a0" name="经理审批"/>
+        <sequenceFlow id="sid-96b6ca32-9b71-45db-b20a-e3702825af1d" sourceRef="sid-81ac94d0-8c37-4bb8-823c-7cf62ea0882d" targetRef="sid-08ec46db-7dd3-465a-8664-907d784ce3a0"/>
+        <exclusiveGateway id="sid-3599c95c-f8f8-40f8-929d-26cac09d6768"/>
+        <sequenceFlow id="sid-a3aa776a-1a76-4e4b-b19f-a87a4a0cdfdc" sourceRef="sid-08ec46db-7dd3-465a-8664-907d784ce3a0" targetRef="sid-3599c95c-f8f8-40f8-929d-26cac09d6768"/>
+        <sequenceFlow id="sid-35877a10-7ebc-4cbd-a748-d6d532ef5e93" sourceRef="sid-3599c95c-f8f8-40f8-929d-26cac09d6768" targetRef="sid-81ac94d0-8c37-4bb8-823c-7cf62ea0882d" name="拒绝">
+            <conditionExpression xsi:type="tFormalExpression"/>
+        </sequenceFlow>
+        <userTask id="sid-39c6f0bf-a0b8-477b-8275-9a78243fd1e1" name="HR审批"/>
+        <sequenceFlow id="sid-e9592cec-d4c9-4caa-936b-af0e2e1cf366" sourceRef="sid-3599c95c-f8f8-40f8-929d-26cac09d6768" targetRef="sid-39c6f0bf-a0b8-477b-8275-9a78243fd1e1">
+            <conditionExpression xsi:type="tFormalExpression"/>
+        </sequenceFlow>
+        <exclusiveGateway id="sid-e296bd65-cd93-480c-b694-14a8a0c74898"/>
+        <sequenceFlow id="sid-08a5b621-4f71-482b-85e3-70149870e37d" sourceRef="sid-39c6f0bf-a0b8-477b-8275-9a78243fd1e1" targetRef="sid-e296bd65-cd93-480c-b694-14a8a0c74898"/>
+        <sequenceFlow id="sid-3276df9f-1cdd-4ece-a448-31d40de2e7b5" sourceRef="sid-e296bd65-cd93-480c-b694-14a8a0c74898" targetRef="sid-81ac94d0-8c37-4bb8-823c-7cf62ea0882d" name="拒绝">
+            <conditionExpression xsi:type="tFormalExpression"/>
+        </sequenceFlow>
+        <endEvent id="sid-e9ba7efe-e6ee-4dee-bf93-1e44f7e8953f"/>
+        <sequenceFlow id="sid-feb98552-db84-4dad-8916-0db6dda7cf99" sourceRef="sid-e296bd65-cd93-480c-b694-14a8a0c74898" targetRef="sid-e9ba7efe-e6ee-4dee-bf93-1e44f7e8953f">
+            <conditionExpression xsi:type="tFormalExpression"/>
+        </sequenceFlow>
+    </process>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_demo">
+        <bpmndi:BPMNPlane bpmnElement="demo" id="BPMNPlane_demo">
+            <bpmdi:BPMNShape xmlns:bpmdi="http://www.omg.org/spec/BPMN/20100524/DI" id="shape-2587b00d-5956-4d2d-9897-9f28f7542e82" bpmnElement="sid-aad2a881-aff7-4c17-aa4d-06c60628063f">
+                <omgdc:Bounds x="0.5" y="-123.75" width="30.0" height="30.0"/>
+            </bpmdi:BPMNShape>
+            <bpmdi:BPMNShape xmlns:bpmdi="http://www.omg.org/spec/BPMN/20100524/DI" id="shape-672feac6-d518-4f75-afab-eff128c9acc7" bpmnElement="sid-81ac94d0-8c37-4bb8-823c-7cf62ea0882d">
+                <omgdc:Bounds x="-9.75" y="-75.75" width="49.5" height="30.5"/>
+            </bpmdi:BPMNShape>
+            <bpmdi:BPMNEdge xmlns:bpmdi="http://www.omg.org/spec/BPMN/20100524/DI" id="edge-f7946997-a55d-4af0-9dab-8230c2830ac0" bpmnElement="sid-2a505928-8497-44ab-b72f-07418de9280d">
+                <omgdi:waypoint x="15.5" y="-93.75"/>
+                <omgdi:waypoint x="15.0" y="-75.75"/>
+            </bpmdi:BPMNEdge>
+            <bpmdi:BPMNShape xmlns:bpmdi="http://www.omg.org/spec/BPMN/20100524/DI" id="shape-bbc0690b-c2c8-4193-bdfd-05cba4502402" bpmnElement="sid-08ec46db-7dd3-465a-8664-907d784ce3a0">
+                <omgdc:Bounds x="-10.5" y="-12.75" width="50.999996" height="28.999998"/>
+            </bpmdi:BPMNShape>
+            <bpmdi:BPMNEdge xmlns:bpmdi="http://www.omg.org/spec/BPMN/20100524/DI" id="edge-c19bd005-2867-443c-88dd-93a767b325b1" bpmnElement="sid-96b6ca32-9b71-45db-b20a-e3702825af1d">
+                <omgdi:waypoint x="15.0" y="-45.25"/>
+                <omgdi:waypoint x="14.999998" y="-12.75"/>
+            </bpmdi:BPMNEdge>
+            <bpmdi:BPMNShape xmlns:bpmdi="http://www.omg.org/spec/BPMN/20100524/DI" id="shape-979253e2-4bab-4015-83bb-9ed806dffed7" bpmnElement="sid-3599c95c-f8f8-40f8-929d-26cac09d6768">
+                <omgdc:Bounds x="-5.000002" y="46.25" width="40.0" height="40.0"/>
+            </bpmdi:BPMNShape>
+            <bpmdi:BPMNEdge xmlns:bpmdi="http://www.omg.org/spec/BPMN/20100524/DI" id="edge-857fda33-5596-4a95-958a-9504d9dda87d" bpmnElement="sid-a3aa776a-1a76-4e4b-b19f-a87a4a0cdfdc">
+                <omgdi:waypoint x="14.999998" y="16.249998"/>
+                <omgdi:waypoint x="14.999998" y="46.25"/>
+            </bpmdi:BPMNEdge>
+            <bpmdi:BPMNEdge xmlns:bpmdi="http://www.omg.org/spec/BPMN/20100524/DI" id="edge-67437b4b-d3d1-4222-ac8f-101050b86886" bpmnElement="sid-35877a10-7ebc-4cbd-a748-d6d532ef5e93">
+                <omgdi:waypoint x="35.0" y="66.25"/>
+                <omgdi:waypoint x="80.2" y="66.25"/>
+                <omgdi:waypoint x="80.2" y="-60.5"/>
+                <omgdi:waypoint x="39.75" y="-60.5"/>
+            </bpmdi:BPMNEdge>
+            <bpmdi:BPMNShape xmlns:bpmdi="http://www.omg.org/spec/BPMN/20100524/DI" id="shape-3b2393d1-6d00-4174-9bbc-0d9e621eb39e" bpmnElement="sid-39c6f0bf-a0b8-477b-8275-9a78243fd1e1">
+                <omgdc:Bounds x="-13.0" y="107.25" width="56.0" height="32.5"/>
+            </bpmdi:BPMNShape>
+            <bpmdi:BPMNEdge xmlns:bpmdi="http://www.omg.org/spec/BPMN/20100524/DI" id="edge-1529793f-e2d8-4aa2-8dd2-9c859fa42369" bpmnElement="sid-e9592cec-d4c9-4caa-936b-af0e2e1cf366">
+                <omgdi:waypoint x="14.999998" y="86.25"/>
+                <omgdi:waypoint x="15.0" y="107.25"/>
+            </bpmdi:BPMNEdge>
+            <bpmdi:BPMNShape xmlns:bpmdi="http://www.omg.org/spec/BPMN/20100524/DI" id="shape-7b69918c-24ab-44a0-8005-1dc282e8ccba" bpmnElement="sid-e296bd65-cd93-480c-b694-14a8a0c74898">
+                <omgdc:Bounds x="-5.0" y="167.99849" width="40.0" height="40.0"/>
+            </bpmdi:BPMNShape>
+            <bpmdi:BPMNEdge xmlns:bpmdi="http://www.omg.org/spec/BPMN/20100524/DI" id="edge-7a3a09cb-b241-4711-b568-c71ff9bba4d8" bpmnElement="sid-08a5b621-4f71-482b-85e3-70149870e37d">
+                <omgdi:waypoint x="15.0" y="139.75"/>
+                <omgdi:waypoint x="15.0" y="167.99849"/>
+            </bpmdi:BPMNEdge>
+            <bpmdi:BPMNEdge xmlns:bpmdi="http://www.omg.org/spec/BPMN/20100524/DI" id="edge-726b7614-5404-4cda-8678-4b41069dd15f" bpmnElement="sid-3276df9f-1cdd-4ece-a448-31d40de2e7b5">
+                <omgdi:waypoint x="-5.0" y="187.99849"/>
+                <omgdi:waypoint x="-56.6875" y="187.99849"/>
+                <omgdi:waypoint x="-56.6875" y="-60.5"/>
+                <omgdi:waypoint x="-9.75" y="-60.5"/>
+            </bpmdi:BPMNEdge>
+            <bpmdi:BPMNShape xmlns:bpmdi="http://www.omg.org/spec/BPMN/20100524/DI" id="shape-0ebab9b7-bf1f-44f5-9cf1-95aa7a68f6b3" bpmnElement="sid-e9ba7efe-e6ee-4dee-bf93-1e44f7e8953f">
+                <omgdc:Bounds x="0.0" y="242.9985" width="30.0" height="30.0"/>
+            </bpmdi:BPMNShape>
+            <bpmdi:BPMNEdge xmlns:bpmdi="http://www.omg.org/spec/BPMN/20100524/DI" id="edge-50538265-5f31-47d1-be56-3081b3e67112" bpmnElement="sid-feb98552-db84-4dad-8916-0db6dda7cf99">
+                <omgdi:waypoint x="15.0" y="207.99849"/>
+                <omgdi:waypoint x="15.0" y="242.9985"/>
+            </bpmdi:BPMNEdge>
+        </bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</definitions>

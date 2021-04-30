@@ -35,7 +35,11 @@ project:
     file:
       path: classpath:/default-project.json
 
-logging:
-  level:
-    com.len.mapper: DEBUG
-    org.activiti.engine.impl.persistence.entity: debug
+#logging:
+#  level:
+#    com.len.mapper: DEBUG
+#    org.activiti.engine.impl.persistence.entity: debug
+
+# Swagger 配置
+swagger:
+  enabled: true

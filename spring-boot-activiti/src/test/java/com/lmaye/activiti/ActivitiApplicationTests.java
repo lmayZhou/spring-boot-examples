@@ -48,7 +48,6 @@ class ActivitiApplicationTests {
     /**
      * 流程定义的部署
      * <p>
-     * activiti 表:
      * act_re_deployment  部署信息
      * act_re_procdef     流程定义的一些信息
      * act_ge_bytearray   流程定义的bpmn文件及png文件
@@ -90,13 +89,13 @@ class ActivitiApplicationTests {
      */
     @Test
     void startInstance() {
-        securityUtil.logInAs("ryandawsonuk");
+        securityUtil.logInAs("salaboy");
         RuntimeService runtimeService = processEngine.getRuntimeService();
         // 设置assignee
         Map<String, Object> assignees = new HashMap<>();
         assignees.put("apply", "salaboy");
         //启动流程实例
-        ProcessInstance instance = runtimeService.startProcessInstanceByKey("demo2", assignees);
+        ProcessInstance instance = runtimeService.startProcessInstanceByKey("P00002", assignees);
 //        ProcessInstance instance = processRuntime.start(ProcessPayloadBuilder.start().withProcessDefinitionKey("demo2").build());
         log.info("流程定义ID：{}", instance.getProcessDefinitionId());
         log.info("流程实例ID：{}", instance.getId());
@@ -108,7 +107,7 @@ class ActivitiApplicationTests {
     @Test
     void getTask() {
         securityUtil.logInAs("salaboy");
-        GetTasksPayload payload = new GetTasksPayload();
+        /*GetTasksPayload payload = new GetTasksPayload();
         Page<Task> tasks = taskRuntime.tasks(Pageable.of(0, 10), payload);
         log.info("任务数量：{}", tasks.getTotalItems());
         if (tasks.getTotalItems() > 0) {
@@ -126,18 +125,34 @@ class ActivitiApplicationTests {
                 // 执行任务
                 taskRuntime.complete(TaskPayloadBuilder.complete().withTaskId(task.getId()).withVariables(assignees).build());
             }
-        }
+        }*/
 
-        /*TaskService taskService = processEngine.getTaskService();
+        TaskService taskService = processEngine.getTaskService();
         // 根据流程定义的key,负责人assignee来实现当前用户的任务列表查询
-        List<org.activiti.engine.task.Task> taskList = taskService.createTaskQuery().processDefinitionKey("demo2").taskAssignee("salaboy").list();
+        List<org.activiti.engine.task.Task> taskList = taskService.createTaskQuery().processDefinitionKey("P00002").taskAssignee("ryandawsonuk").list();
         for (org.activiti.engine.task.Task task : taskList) {
             log.info("--------------------------------------------------");
             log.info("流程实例ID: {}", task.getProcessInstanceId());
             log.info("任务ID: {}", task.getId());
             log.info("任务负责人: {}", task.getAssignee());
             log.info("任务名称: {}", task.getName());
-        }*/
+        }
+    }
+
+    /**
+     * 任务认领
+     */
+    @Test
+    public void claim() {
+        TaskService taskService = processEngine.getTaskService();
+        org.activiti.engine.task.Task task = taskService.createTaskQuery().processDefinitionKey("P00002")
+                .taskCandidateOrAssigned("ryandawsonuk").singleResult();
+        if (!Objects.isNull(task)) {
+            taskService.claim(task.getId(), "ryandawsonuk");
+            log.info("处理完成当前用户的任务");
+        } else {
+            log.info("当前用户暂无任务");
+        }
     }
 
     /**
@@ -154,11 +169,14 @@ class ActivitiApplicationTests {
         TaskService taskService = processEngine.getTaskService();
 //        taskService.setAssignee();
 //        taskService.claim();
-        org.activiti.engine.task.Task task = taskService.createTaskQuery().processDefinitionKey("demo2")
+        org.activiti.engine.task.Task task = taskService.createTaskQuery().processDefinitionKey("P00002")
                 .taskAssignee("salaboy").singleResult();
         if (!Objects.isNull(task)) {
             // 处理任务,结合当前用户任务列表的查询操作的话
-            taskService.complete(task.getId());
+            // 设置assignee
+            Map<String, Object> assignees = new HashMap<>();
+            assignees.put("approve", "ryandawsonuk,erdemedeiros");
+            taskService.complete(task.getId(), assignees);
             log.info("处理完成当前用户的任务");
         } else {
             log.info("当前用户暂无任务");

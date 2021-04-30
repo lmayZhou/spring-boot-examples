@@ -93,8 +93,8 @@ public class TaskController {
             taskService.claim(taskId, assignee);
             // TODO 动态获取上级审批用户
             Map<String, Object> variables = new HashMap<>(2);
-            variables.put("approve1", "A1");
-            variables.put("approve2", "A2");
+//            variables.put("approve", "ryandawsonuk, erdemedeiros");
+            variables.put("approveHR", "other, HR");
             taskService.complete(taskId, variables);
             return true;
         } catch (Exception e) {

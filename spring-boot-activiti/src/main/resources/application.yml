@@ -30,6 +30,7 @@ spring:
       name: admin
       password: admin
 
+# version初始化异常处理
 project:
   manifest:
     file:

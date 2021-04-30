@@ -79,10 +79,11 @@ public class DeployController {
      */
     @PostMapping("/bpmn")
     @ApiOperation(value = "部署流程", notes = "根据上传的文件部署流程")
-    public Deployment deployBpmn(@ApiParam(name = "bpmn", value = "bpmn文件", required = true) @RequestPart("bpmn") MultipartFile bpmn,
-                                 @ApiParam(name = "png", value = "png文件", required = true) @RequestPart("png") MultipartFile png) {
+    public Deployment deployBpmn(@ApiParam(name = "processKey", value = "流程key", required = true) @RequestParam String processKey,
+                                 @ApiParam(name = "bpmn", value = "bpmn文件", required = true) @RequestPart MultipartFile bpmn,
+                                 @ApiParam(name = "png", value = "png文件", required = true) @RequestPart MultipartFile png) {
         try {
-            return repositoryService.createDeployment().name("Manual Deployment").enableDuplicateFiltering()
+            return repositoryService.createDeployment().name("Manual Deployment").enableDuplicateFiltering().key(processKey)
                     .addInputStream(bpmn.getOriginalFilename(), bpmn.getInputStream())
                     .addInputStream(png.getOriginalFilename(), png.getInputStream()).deploy();
         } catch (IOException e) {

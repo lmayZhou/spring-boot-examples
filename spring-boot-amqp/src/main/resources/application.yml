@@ -1,0 +1,16 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: spring-boot-amqp
+  rabbitmq:
+    host: amqp-cn-xxx.mq-amqp.cn-hangzhou-249959-a.aliyuncs.com
+    virtual-host: xxx
+    username: xxx
+    password: xxx
+    port: 5672
+    publisher-confirms: true
+    publisher-returns: true
+    template:
+      mandatory: true

@@ -7,6 +7,7 @@ spring:
   application:
     # 应用名称
     name: spring-boot-amqp
+  # MQ
   rabbitmq:
     host: amqp-cn-xxx.mq-amqp.cn-hangzhou-249959-a.aliyuncs.com
     virtual-host: xxx

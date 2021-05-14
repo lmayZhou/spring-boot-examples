@@ -5,6 +5,7 @@ server:
 # Spring 配置
 spring:
   application:
+    # 应用名称
     name: spring-boot-amqp
   rabbitmq:
     host: amqp-cn-xxx.mq-amqp.cn-hangzhou-249959-a.aliyuncs.com

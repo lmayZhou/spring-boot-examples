@@ -2,6 +2,7 @@
 server:
   port: 8080
 
+# Spring 配置
 spring:
   application:
     name: spring-boot-amqp

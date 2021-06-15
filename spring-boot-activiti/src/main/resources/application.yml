@@ -12,7 +12,7 @@ spring:
     db-history-used: true
     # 自动部署验证设置:true-开启（默认）、false-关闭
     check-process-definitions: false
-    process-definition-location-prefix: classpath*:**/processes/
+    process-definition-location-prefix: classpath:**/processes
     # 数据库配置
   datasource:
     url: jdbc:mysql://192.168.30.240:33060/test?allowMultiQueries=true&useSSL=false&characterEncoding=utf8

@@ -104,8 +104,8 @@ activitiModeler
                 var modelUrl = KISBPM.URL.getModel(modelId);
 
                 $http({method: 'GET', url: modelUrl}).success(function (data, status, headers, config) {
-                    $rootScope.editor = new ORYX.Editor(data);
-                    $rootScope.modelData = angular.fromJson(data);
+                    $rootScope.editor = new ORYX.Editor(data["data"]);
+                    $rootScope.modelData = angular.fromJson(data["data"]);
                     $rootScope.editorFactory.resolve();
                 }).error(function (data, status, headers, config) {
                     console.log('Error loading model with id ' + modelId + ' ' + data);

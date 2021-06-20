@@ -6,41 +6,5 @@ server:
 spring:
   application:
     name: activiti-service
-  activiti:
-    database-schema-update: true
-    history-level: full
-    db-history-used: true
-    # 自动部署验证设置:true-开启（默认）、false-关闭
-    check-process-definitions: false
-    process-definition-location-prefix: classpath:**/processes
-    # 数据库配置
-  datasource:
-    url: jdbc:mysql://192.168.30.240:33060/test?allowMultiQueries=true&useSSL=false&characterEncoding=utf8&nullCatalogMeansCurrent=true
-    username: root
-    password: root@2020
-    hikari:
-      max-lifetime: 1800000
-      minimum-idle: 1
-      maximum-pool-size: 2
-      connection-timeout: 30000
-      idle-timeout: 30000
-      connection-test-query: select 1
-  security:
-    user:
-      name: admin
-      password: admin
-
-# version初始化异常处理
-project:
-  manifest:
-    file:
-      path: classpath:/default-project.json
-
-#logging:
-#  level:
-#    com.len.mapper: DEBUG
-#    org.activiti.engine.impl.persistence.entity: debug
-
-# Swagger 配置
-swagger:
-  enabled: true
+  profiles:
+    active: dev

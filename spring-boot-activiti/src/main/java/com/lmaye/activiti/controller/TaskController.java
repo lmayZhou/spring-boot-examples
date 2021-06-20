@@ -1,17 +1,29 @@
 package com.lmaye.activiti.controller;
 
+import com.lmaye.activiti.dto.TaskCompleteDTO;
+import com.lmaye.activiti.dto.TaskQueryDTO;
+import com.lmaye.activiti.dto.TaskTurnDTO;
+import com.lmaye.activiti.vo.TaskVO;
+import com.lmaye.app.common.context.ResultCode;
+import com.lmaye.app.common.exception.ServiceException;
+import com.lmaye.starter.web.context.PageResult;
+import com.lmaye.starter.web.context.ResultVO;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.activiti.engine.TaskService;
-import org.activiti.engine.impl.util.CollectionUtil;
 import org.activiti.engine.task.Task;
+import org.activiti.engine.task.TaskQuery;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -28,66 +40,72 @@ public class TaskController {
     /**
      * Task Service
      */
-    private final TaskService taskService;
-
-    public TaskController(TaskService taskService) {
-        this.taskService = taskService;
-    }
+    @Autowired
+    private TaskService taskService;
 
     /**
      * 查询个人任务
      * - 根据流程assignee
      *
-     * @param assignee 流程assignee
-     * @return List<Map < String, String>>
+     * @param param 请求参数
+     * @return ResultVO<List < TaskVO>>
      */
     @PostMapping("/searchPage")
     @ApiOperation(value = "查询个人任务", notes = "根据流程assignee查询个人任务")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "assignee", value = "代理人（当前用户）", dataTypeClass = String.class),
-    })
-    public List<Map<String, String>> searchPage(String assignee) {
+    public ResultVO<PageResult<TaskVO>> searchPage(@RequestBody TaskQueryDTO param) {
         try {
-            // 指定个人任务查询
-            List<Task> taskList = taskService.createTaskQuery().taskCandidateOrAssigned(assignee).listPage(0, 10);
-            if (CollectionUtil.isNotEmpty(taskList)) {
-                return taskList.stream().map(it -> {
-                    Map<String, String> map = new HashMap<>(2);
-                    map.put("taskID", it.getId());
-                    map.put("taskName", it.getName());
-                    map.put("taskCreateTime", it.getCreateTime().toString());
-                    map.put("taskAssignee", it.getAssignee());
-                    map.put("processInstanceId", it.getProcessInstanceId());
-                    map.put("executionId", it.getExecutionId());
-                    map.put("processDefinitionId", it.getProcessDefinitionId());
-                    return map;
-                }).collect(Collectors.toList());
+            String assignee = param.getAssignee();
+            PageResult<TaskVO> pageResult = new PageResult<>();
+            Long pageSize = param.getPageSize();
+            pageResult.setPageIndex(param.getPageIndex());
+            pageResult.setPageSize(pageSize);
+            // 任务查询条件
+            TaskQuery taskQuery = taskService.createTaskQuery();
+            if (StringUtils.isNotBlank(assignee)) {
+                taskQuery.taskCandidateOrAssigned(assignee);
             }
-            return new ArrayList<>();
+            String taskName = param.getTaskName();
+            if(StringUtils.isNotBlank(taskName)) {
+                taskQuery.taskName(taskName);
+            }
+            long total = taskQuery.count();
+            List<Task> taskList = taskQuery.listPage(param.getPageIndex().intValue() - 1, pageSize.intValue());
+            List<TaskVO> records = taskList.stream().map(it -> {
+                TaskVO vo = new TaskVO();
+                vo.setTaskId(it.getId());
+                vo.setTaskName(it.getName());
+                vo.setTaskCreateTime(it.getCreateTime());
+                vo.setTaskAssignee(it.getAssignee());
+                vo.setProcessInstanceId(it.getProcessInstanceId());
+                vo.setExecutionId(it.getExecutionId());
+                vo.setProcessDefinitionId(it.getProcessDefinitionId());
+                return vo;
+            }).collect(Collectors.toList());
+            pageResult.setRecords(records);
+            pageResult.setTotal(total);
+            pageResult.setPages(total % pageSize == 0 ? total / pageSize : total / pageSize + 1);
+            return ResultVO.success(pageResult);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new ServiceException(ResultCode.FAILURE, e);
         }
-        return new ArrayList<>();
     }
 
 
     /**
      * 完成任务
      *
-     * @param taskId    任务ID
-     * @return Boolean
+     * @param param 请求参数
+     * @return ResultVO<Boolean>
      */
     @PostMapping("/complete")
     @ApiOperation(value = "完成任务", notes = "完成任务，任务进入下一个节点")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "taskId", value = "任务ID", dataTypeClass = String.class),
-            @ApiImplicitParam(name = "assignee", value = "代理人（当前用户）", dataTypeClass = String.class),
-    })
-    public Boolean complete(String taskId, String assignee) {
+    public ResultVO<Boolean> complete(@RequestBody TaskCompleteDTO param) {
         try {
+            String taskId = param.getTaskId();
+            String assignee = param.getAssignee();
             Task task = taskService.createTaskQuery().taskId(taskId).taskCandidateOrAssigned(assignee).singleResult();
-            if(Objects.isNull(task)) {
-                return false;
+            if (Objects.isNull(task)) {
+                return ResultVO.success(false);
             }
             // 认领任务
             taskService.claim(taskId, assignee);
@@ -96,33 +114,26 @@ public class TaskController {
 //            variables.put("approve", "ryandawsonuk, erdemedeiros");
             variables.put("approveHR", "other, HR");
             taskService.complete(taskId, variables);
-            return true;
+            return ResultVO.success(true);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new ServiceException(ResultCode.FAILURE, e);
         }
-        return false;
     }
 
     /**
      * 任务转让
      *
-     * @param taskId  taskId
-     * @param userKey 用户Key
-     * @return Boolean
+     * @param param 请求参数
+     * @return ResultVO<Boolean>
      */
     @PostMapping("/turn")
     @ApiOperation(value = "任务转让", notes = "任务转让给指定用户")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "taskId", value = "任务ID", dataTypeClass = String.class),
-            @ApiImplicitParam(name = "userKey", value = "用户Key", dataTypeClass = String.class),
-    })
-    public Boolean turn(String taskId, String userKey) {
+    public ResultVO<Boolean> turn(@RequestBody TaskTurnDTO param) {
         try {
-            taskService.setAssignee(taskId, userKey);
-            return true;
+            taskService.setAssignee(param.getTaskId(), param.getUserId());
+            return ResultVO.success(true);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new ServiceException(ResultCode.FAILURE, e);
         }
-        return false;
     }
 }

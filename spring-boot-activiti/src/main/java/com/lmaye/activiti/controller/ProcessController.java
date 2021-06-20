@@ -1,5 +1,9 @@
 package com.lmaye.activiti.controller;
 
+import com.lmaye.activiti.vo.ProcessVO;
+import com.lmaye.app.common.context.ResultCode;
+import com.lmaye.app.common.exception.ServiceException;
+import com.lmaye.starter.web.context.ResultVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -57,7 +61,7 @@ public class ProcessController {
      *
      * @param processKey 流程key
      * @param startUser  启动流程的用户
-     * @return ProcessInstance
+     * @return ResultVO<String>
      */
     @PostMapping("/start")
     @ApiOperation(value = "启动流程", notes = "每一个流程有对应的一个key这个是某一个流程内固定的写在bpmn内的")
@@ -65,31 +69,30 @@ public class ProcessController {
             @ApiImplicitParam(name = "processKey", value = "流程key", required = true, dataTypeClass = String.class),
             @ApiImplicitParam(name = "startUser", value = "启动流程的用户", required = true, dataTypeClass = String.class)
     })
-    public String start(String processKey, String startUser) {
+    public ResultVO<String> start(String processKey, String startUser) {
         try {
             Map<String, Object> variables = new HashMap<>(1);
             variables.put("startUser", startUser);
             // TODO 业务关联id(businessKey)
             ProcessInstance processInstance = runtimeService.startProcessInstanceByKey(processKey, "", variables);
-            return processInstance.getProcessDefinitionId();
+            return ResultVO.success(processInstance.getProcessDefinitionId());
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new ServiceException(ResultCode.FAILURE, e);
         }
-        return null;
     }
 
     /**
      * 查询流程实例列表
      *
      * @param processDefinitionKey 流程key
-     * @return List<ProcessInstance>
+     * @return ResultVO<List<Map<String, Object>>>
      */
     @PostMapping("/searchPage")
     @ApiOperation(value = "查询流程实例列表", notes = "查询流程实例")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "processDefinitionKey", value = "流程key", dataTypeClass = String.class),
     })
-    public List<Map<String, Object>> searchPage(String processDefinitionKey) {
+    public ResultVO<List<Map<String, Object>>> searchPage(String processDefinitionKey) {
         try {
             ProcessInstanceQuery processInstanceQuery = runtimeService.createProcessInstanceQuery();
             List<ProcessInstance> instances;
@@ -98,7 +101,7 @@ public class ProcessController {
             } else {
                 instances = processInstanceQuery.listPage(0, 10);
             }
-            return instances.stream().map(it -> {
+            List<Map<String, Object>> rs = instances.stream().map(it -> {
                 Map<String, Object> data = new HashMap<>(2);
                 data.put("processId", it.getId());
                 data.put("startUser", it.getStartUserId());
@@ -106,10 +109,10 @@ public class ProcessController {
                 data.put("processDefinitionKey", it.getProcessDefinitionId());
                 return data;
             }).collect(Collectors.toList());
+            return ResultVO.success(rs);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new ServiceException(ResultCode.FAILURE, e);
         }
-        return new ArrayList<>();
     }
 
     /**
@@ -117,29 +120,28 @@ public class ProcessController {
      * - 根据流程ID
      *
      * @param processId 流程实例ID
-     * @return Map<String, Object>
+     * @return ResultVO<ProcessVO>
      */
     @GetMapping("/searchById/{processId}")
     @ApiOperation(value = "根据流程ID查询流程实例", notes = "查询流程实例")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "processId", value = "流程实例ID", dataTypeClass = String.class),
     })
-    public Map<String, Object> searchById(@PathVariable String processId) {
+    public ResultVO<ProcessVO> searchById(@PathVariable String processId) {
         try {
-            Map<String, Object> result = new HashMap<>(2);
             ProcessInstance instance = runtimeService.createProcessInstanceQuery().processInstanceId(processId).singleResult();
             if (Objects.isNull(instance)) {
-                return result;
+                return ResultVO.success(null);
             }
-            result.put("processId", instance.getId());
-            result.put("startUser", instance.getStartUserId());
-            result.put("startTime", instance.getStartTime());
-            result.put("processDefinitionKey", instance.getProcessDefinitionId());
-            return result;
+            ProcessVO result = new ProcessVO();
+            result.setProcessId(instance.getId());
+            result.setStartUser(instance.getStartUserId());
+            result.setStartTime(instance.getStartTime());
+            result.setProcessDefinitionKey(instance.getProcessDefinitionId());
+            return ResultVO.success(result);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new ServiceException(ResultCode.FAILURE, e);
         }
-        return null;
     }
 
     /**
@@ -147,21 +149,20 @@ public class ProcessController {
      * - 根据流程实例ID
      *
      * @param processId 流程实例ID
-     * @return Boolean
+     * @return ResultVO<Boolean>
      */
     @DeleteMapping("/{processId}")
     @ApiOperation(value = "删除流程实例", notes = "根据流程实例ID删除流程实例")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "processId", value = "流程实例ID", required = true, dataTypeClass = String.class)
     })
-    public Boolean delete(@PathVariable String processId) {
+    public ResultVO<Boolean> delete(@PathVariable String processId) {
         try {
             runtimeService.deleteProcessInstance(processId, "根据流程实例ID删除流程实例");
-            return true;
+            return ResultVO.success(true);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new ServiceException(ResultCode.FAILURE, e);
         }
-        return false;
     }
 
     /**
@@ -169,25 +170,24 @@ public class ProcessController {
      * - 根据流程实例key
      *
      * @param processDefinitionKey 流程实例key
-     * @return Boolean
+     * @return ResultVO<Boolean>
      */
     @DeleteMapping("/byKey/{processDefinitionKey}")
     @ApiOperation(value = "删除流程实例", notes = "根据流程实例key删除流程实例")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "processDefinitionKey", value = "流程实例Key", required = true, dataTypeClass = String.class),
     })
-    public Boolean deleteByKey(@PathVariable String processDefinitionKey) {
+    public ResultVO<Boolean> deleteByKey(@PathVariable String processDefinitionKey) {
         try {
             ProcessInstanceQuery processInstanceQuery = runtimeService.createProcessInstanceQuery();
             List<ProcessInstance> runningList = processInstanceQuery.processDefinitionKey(processDefinitionKey).list();
             if (CollectionUtil.isNotEmpty(runningList)) {
                 runningList.forEach(s -> runtimeService.deleteProcessInstance(s.getId(), "根据流程实例key删除流程实例"));
             }
-            return true;
+            return ResultVO.success(true);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new ServiceException(ResultCode.FAILURE, e);
         }
-        return false;
     }
 
     /**
@@ -222,7 +222,7 @@ public class ProcessController {
                 }
                 os.flush();
             } catch (Exception e) {
-                e.printStackTrace();
+                throw new ServiceException(ResultCode.FAILURE, e);
             }
         }
     }

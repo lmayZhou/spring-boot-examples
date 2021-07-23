@@ -38,5 +38,7 @@
         <module>spring-boot-activiti</module>
         <!-- AMQP Module -->
         <module>spring-boot-amqp</module>
+        <!-- LMS Cloud Examples -->
+        <module>lms-cloud-examples</module>
     </modules>
 </project>

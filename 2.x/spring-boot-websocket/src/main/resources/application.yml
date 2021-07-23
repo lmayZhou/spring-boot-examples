@@ -6,7 +6,14 @@ server:
 spring:
   application:
     name: websocket
-
-# 日志配置
-logging:
-  config: classpath:log4j2.xml
+  freemarker:
+    suffix: .ftl
+    content-type: text/html
+    # 缓存配置
+    cache: false
+    template-loader-path: classpath:/templates
+    # 编码格式
+    charset: UTF-8
+    settings:
+      # 数字格式化，无小数点
+      number_format: '0.##'

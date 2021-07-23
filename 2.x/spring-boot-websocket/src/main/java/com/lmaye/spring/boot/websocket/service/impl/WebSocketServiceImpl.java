@@ -1,7 +1,7 @@
 package com.lmaye.spring.boot.websocket.service.impl;
 
-import com.lmaye.examples.common.common.Response;
-import com.lmaye.examples.common.utils.GsonUtils;
+import com.lmaye.cloud.core.utils.GsonUtils;
+import com.lmaye.cloud.starter.web.context.ResultVO;
 import com.lmaye.spring.boot.websocket.handler.WebSocket;
 import com.lmaye.spring.boot.websocket.service.WebSocketService;
 import org.springframework.stereotype.Service;
@@ -25,24 +25,24 @@ public class WebSocketServiceImpl implements WebSocketService {
      * - 根据用户ID
      *
      * @param userId 用户ID
-     * @return Response
+     * @return ResultVO<Map<String, Object>>
      */
     @Override
-    public Response selectUserByUserId(String userId) {
+    public ResultVO<Map<String, Object>> selectUserByUserId(String userId) {
         Map<String, Object> user = new HashMap<>(2);
         user.put("userId", userId);
         user.put("userName", "WebSocket Test");
-        return Response.success(user);
+        return ResultVO.success(user);
     }
 
     /**
      * 服务器主动推送消息
      *
-     * @return Response
+     * @return ResultVO<String>
      */
     @Override
-    public Response initiativeSendMsg() {
-        Response<String> rs = Response.success("欢迎使用 WebSocket 服务！");
+    public ResultVO<String> initiativeSendMsg() {
+        ResultVO<String> rs = ResultVO.success("欢迎使用 WebSocket 服务！");
         // 推送消息给所有用户
         WebSocket.sendMessageAll(GsonUtils.toJson(rs));
         return rs;

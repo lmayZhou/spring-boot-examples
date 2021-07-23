@@ -1,11 +1,11 @@
 package com.lmaye.spring.boot.websocket.handler;
 
-import com.google.common.base.Strings;
-import com.lmaye.examples.common.common.Response;
-import com.lmaye.examples.common.exception.CommonException;
-import com.lmaye.examples.common.utils.GsonUtils;
+import com.lmaye.cloud.core.exception.CoreException;
+import com.lmaye.cloud.core.utils.GsonUtils;
+import com.lmaye.cloud.starter.web.context.ResultVO;
 import com.lmaye.spring.boot.websocket.service.WebSocketService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
@@ -31,7 +31,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class WebSocket {
     public static WebSocketService webSocketService;
 
-    private static ConcurrentHashMap<String, WebSocket> webSocket = new ConcurrentHashMap<>();
+    private static final ConcurrentHashMap<String, WebSocket> WEB_SOCKET = new ConcurrentHashMap<>();
 
     /**
      * 用户编号
@@ -54,12 +54,12 @@ public class WebSocket {
         try {
             this.session = session;
             this.userId = userId;
-            webSocket.put(this.userId, this);
-            long count = webSocket.size();
+            WEB_SOCKET.put(this.userId, this);
+            long count = WEB_SOCKET.size();
             log.info("用户[" + this.userId + "]加入连接在线总数[" + count + "]");
-            sendMessage(GsonUtils.toJson(Response.success("连接成功")));
-        } catch (CommonException e) {
-            sendMessage(GsonUtils.toJson(Response.failed(e.getError())));
+            sendMessage(GsonUtils.toJson(ResultVO.success("连接成功")));
+        } catch (CoreException e) {
+            sendMessage(GsonUtils.toJson(ResultVO.failed()));
         }
     }
 
@@ -68,8 +68,8 @@ public class WebSocket {
      */
     @OnClose
     public void onClose() {
-        webSocket.remove(this.userId);
-        long count = WebSocket.webSocket.size();
+        WEB_SOCKET.remove(this.userId);
+        long count = WebSocket.WEB_SOCKET.size();
         log.info("用户[" + this.userId + "]关闭连接在线总数[" + count + "]");
     }
 
@@ -80,12 +80,12 @@ public class WebSocket {
      */
     @OnMessage
     public void onMessage(String json, Session session) {
-        if (!Strings.isNullOrEmpty(json)) {
-            Response<Map<String, Object>> result = webSocketService.selectUserByUserId(userId);
+        if (StringUtils.isNotBlank(json)) {
+            ResultVO<Map<String, Object>> result = webSocketService.selectUserByUserId(userId);
             result.getData().put("msg", json);
             sendMessage(GsonUtils.toJson(result));
         } else {
-            sendMessage(GsonUtils.toJson(Response.failed("连接成功")));
+            sendMessage(GsonUtils.toJson(ResultVO.failed()));
         }
     }
 
@@ -119,11 +119,10 @@ public class WebSocket {
      *
      * @param userId  用户编号
      * @param message 消息
-     * @throws IOException IOException
      */
     private void sendMessage(String userId, String message) {
-        if (webSocket.get(userId) != null) {
-            webSocket.get(userId).sendMessage(message);
+        if (WEB_SOCKET.get(userId) != null) {
+            WEB_SOCKET.get(userId).sendMessage(message);
         }
     }
 
@@ -135,7 +134,7 @@ public class WebSocket {
      */
     public static void sendMessage(Set<String> userIds, String message) {
         for (String userId : userIds) {
-            webSocket.get(userId).sendMessage(message);
+            WEB_SOCKET.get(userId).sendMessage(message);
         }
     }
 
@@ -145,8 +144,8 @@ public class WebSocket {
      * @param message 消息
      */
     public static void sendMessageAll(String message) {
-        for (String userId : webSocket.keySet()) {
-            webSocket.get(userId).sendMessage(message);
+        for (String userId : WEB_SOCKET.keySet()) {
+            WEB_SOCKET.get(userId).sendMessage(message);
         }
     }
 
@@ -156,6 +155,6 @@ public class WebSocket {
      * @return long
      */
     public static synchronized long getCount() {
-        return webSocket.size();
+        return WEB_SOCKET.size();
     }
 }

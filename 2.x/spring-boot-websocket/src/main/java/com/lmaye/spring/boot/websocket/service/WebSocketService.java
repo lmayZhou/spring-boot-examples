@@ -1,6 +1,8 @@
 package com.lmaye.spring.boot.websocket.service;
 
-import com.lmaye.examples.common.common.Response;
+import com.lmaye.cloud.starter.web.context.ResultVO;
+
+import java.util.Map;
 
 /**
 
@@ -17,14 +19,14 @@ public interface WebSocketService {
      * - 根据用户ID
      *
      * @param userId 用户ID
-     * @return Response
+     * @return ResultVO<Map<String, Object>>
      */
-    Response selectUserByUserId(String userId);
+    ResultVO<Map<String, Object>> selectUserByUserId(String userId);
 
     /**
      * 服务器主动推送消息
      *
-     * @return Response
+     * @return ResultVO<Object>
      */
-    Response initiativeSendMsg();
+    ResultVO<String> initiativeSendMsg();
 }

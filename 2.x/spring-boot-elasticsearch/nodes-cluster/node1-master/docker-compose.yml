@@ -1,0 +1,109 @@
+version: "3"
+services:
+  nginx:
+    container_name: lmay-nginx
+    image: nginx:1.16
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/www:/usr/share/nginx/html
+      - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/logs:/var/log/nginx
+
+  es-master:
+    container_name: es-master
+    hostname: es-master
+    image: elasticsearch:7.1.1
+    restart: always
+    ports:
+      - 9200:9200
+      - 9300:9300
+    # 配置网络模式
+#    network_mode: "host"
+    volumes:
+      - ./elasticsearch/master/conf/es-master.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      - ./elasticsearch/master/data:/usr/share/elasticsearch/data
+      - ./elasticsearch/master/logs:/usr/share/elasticsearch/logs
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+
+  es-head:
+    container_name: es-head
+    image: mobz/elasticsearch-head:5
+    restart: always
+    ports:
+      - 9100:9100
+    depends_on:
+      - es-master
+
+  kibana:
+    container_name: kibana
+    hostname: kibana
+    image: kibana:7.1.1
+    restart: always
+    ports:
+      - 5601:5601
+    volumes:
+      - ./kibana/conf/kibana.yml:/usr/share/kibana/config/kibana.yml
+    environment:
+      - elasticsearch.hosts=http://192.168.0.110:9200
+    depends_on:
+      - es-master
+
+  filebeat:
+    # 容器名称
+    container_name: filebeat
+    # 主机名称
+    hostname: filebeat
+    # 镜像
+    image: docker.elastic.co/beats/filebeat:7.1.1
+    # 重启机制
+    restart: always
+    # 持久化挂载
+    volumes:
+      - ./filebeat/conf/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      # 映射到容器中[作为数据源]
+      - ./logs:/home/project/spring-boot-elasticsearch/logs
+      - ./filebeat/logs:/usr/share/filebeat/logs
+      - ./filebeat/data:/usr/share/filebeat/data
+    # 将指定容器连接到当前连接，可以设置别名，避免ip方式导致的容器重启动态改变的无法连接情况
+    links:
+      - logstash
+    # 依赖服务[可无]
+    depends_on:
+      - es-master
+
+  logstash:
+    container_name: logstash
+    hostname: logstash
+    image: logstash:7.1.1
+    command: logstash -f ./conf/logstash-filebeat.conf
+    restart: always
+    volumes:
+      # 映射到容器中
+      - ./logstash/conf/logstash-filebeat.conf:/usr/share/logstash/conf/logstash-filebeat.conf
+      - ./logstash/conf/logstash.yml:/usr/share/logstash/config/logstash.yml
+    environment:
+      - elasticsearch.hosts=http://192.168.0.110:9200
+    ports:
+      - 5044:5044
+    depends_on:
+      - es-master
+
+  spring-boot-elasticsearch:
+    container_name: spring-boot-elasticsearch
+    hostname: spring-boot-elasticsearch
+    image: lmay/spring-boot-elasticsearch:1.0
+    restart: always
+    working_dir: /home
+    # 编译
+    build: ""
+    ports:
+      - 60:60
+    volumes:
+      - ./logs:/logs
+    depends_on:
+      - es-master
+    command: mvn clean spring-boot:run -Dspring-boot.run.profiles=docker

@@ -11,33 +11,7 @@
 
     <modules>
         <!-- 案例公共资源 Module -->
-        <module>examples-common</module>
-        <!-- Configuration Metadata(配置元数据) Module -->
-        <module>spring-boot-configuration-metadata</module>
-        <!-- Docker Module -->
-        <module>spring-boot-docker</module>
-        <!-- Elasticsearch Module -->
-        <module>spring-boot-elasticsearch</module>
-        <!-- WebSocket Module -->
-        <module>spring-boot-websocket</module>
-        <!-- Api2doc Module -->
-        <module>spring-boot-api2doc</module>
-        <!-- WebRTC Module -->
-        <module>spring-boot-webrtc</module>
-        <!-- Guava Cache Module -->
-        <module>spring-boot-cache-guava</module>
-        <!-- File Handle Module -->
-        <module>spring-boot-file-handle</module>
-        <!-- Contract Module -->
-        <module>spring-boot-contract</module>
-        <!-- SkyWalking Module -->
-        <module>spring-boot-skywalking</module>
-        <!-- Mybatis Generator Module -->
-        <module>spring-boot-mybatis-generator</module>
-        <!-- Activiti Module -->
-        <module>spring-boot-activiti</module>
-        <!-- AMQP Module -->
-        <module>spring-boot-amqp</module>
+        <module>2.x</module>
         <!-- LMS Cloud Examples -->
         <module>lms-cloud-examples</module>
     </modules>

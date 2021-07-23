@@ -13,6 +13,7 @@
         <groupId>com.lmaye</groupId>
         <artifactId>lms-cloud</artifactId>
         <version>1.0.4</version>
+        <relativePath/>
     </parent>
 
     <!-- properties -->

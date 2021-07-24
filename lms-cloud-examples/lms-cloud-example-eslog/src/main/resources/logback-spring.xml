@@ -51,7 +51,11 @@
 
 	</appender>
 
-	<appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+	<appender name="async" class="ch.qos.logback.classic.AsyncAppender">
+		<neverBlock>true</neverBlock>
+		<includeCallerData>true</includeCallerData>
+		<discardingThreshold>0</discardingThreshold>
+		<queueSize>2048</queueSize>
 		<appender-ref ref="kafkaAppender"/>
 	</appender>
 
@@ -60,5 +64,6 @@
 		<appender-ref ref="console"/>
 		<appender-ref ref="debug"/>
 		<appender-ref ref="error"/>
+		<appender-ref ref="async"/>
 	</root>
 </configuration>

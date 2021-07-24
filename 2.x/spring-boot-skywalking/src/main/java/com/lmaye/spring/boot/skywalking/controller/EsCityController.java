@@ -1,6 +1,6 @@
 package com.lmaye.spring.boot.skywalking.controller;
 
-import com.lmaye.examples.common.common.Response;
+import com.lmaye.cloud.starter.web.context.ResultVO;
 import com.lmaye.spring.boot.skywalking.entity.EsCityEntity;
 import com.lmaye.spring.boot.skywalking.param.EsSearchParam;
 import com.lmaye.spring.boot.skywalking.service.EsCityService;
@@ -44,26 +44,26 @@ public class EsCityController {
      * @return Mono<Response>
      */
     @PostMapping
-    @ApiOperation(value = "新增", notes = "新增城市", response = Response.class)
-    public Mono<Response<String>> save(@RequestBody @Valid EsCityEntity param) {
+    @ApiOperation(value = "新增", notes = "新增城市", response = ResultVO.class)
+    public Mono<ResultVO<String>> save(@RequestBody @Valid EsCityEntity param) {
         if (Objects.isNull(cityService.saveCity(param))) {
-            return Mono.just(Response.failed());
+            return Mono.just(ResultVO.failed());
         }
-        return Mono.just(Response.success("新增成功"));
+        return Mono.just(ResultVO.success("新增成功"));
     }
 
     /**
      * 删除
      *
      * @param id 城市编号
-     * @return Mono<Response>
+     * @return Mono<ResultVO>
      */
     @DeleteMapping("/{id}")
-    @ApiOperation(value = "根据城市编号删除", notes = "根据城市编号删除", response = Response.class)
-    public Mono<Response<String>> delete(@ApiParam(required = true, name = "id", value = "城市编号", type = LongProperty.TYPE, example = "1")
+    @ApiOperation(value = "根据城市编号删除", notes = "根据城市编号删除", response = ResultVO.class)
+    public Mono<ResultVO<String>> delete(@ApiParam(required = true, name = "id", value = "城市编号", type = LongProperty.TYPE, example = "1")
                                      @PathVariable long id) {
         cityService.deleteCityById(id);
-        return Mono.just(Response.success("删除成功"));
+        return Mono.just(ResultVO.success("删除成功"));
     }
 
     /**
@@ -71,35 +71,35 @@ public class EsCityController {
      * - 根据ID
      *
      * @param id ID
-     * @return Response<EsCityEntity>
+     * @return ResultVO<EsCityEntity>
      */
     @GetMapping("/{id}")
     @ApiOperation(value = "根据城市编号搜索", notes = "根据城市编号搜索城市")
-    public Response<EsCityEntity> searchById(@ApiParam(required = true, name = "id", value = "城市编号", type = LongProperty.TYPE, example = "1")
+    public ResultVO<EsCityEntity> searchById(@ApiParam(required = true, name = "id", value = "城市编号", type = LongProperty.TYPE, example = "1")
                                              @PathVariable long id) {
-        return Response.success(cityService.searchById(id));
+        return ResultVO.success(cityService.searchById(id));
     }
 
     /**
      * 搜索所有的城市
      *
-     * @return Response<ArrayList<EsCityEntity>>
+     * @return ResultVO<ArrayList<EsCityEntity>>
      */
     @GetMapping("/all")
     @ApiOperation(value = "搜索所有的城市", notes = "搜索所有的城市")
-    public Response<ArrayList<EsCityEntity>> searchAll() {
-        return Response.success(cityService.searchAll());
+    public ResultVO<ArrayList<EsCityEntity>> searchAll() {
+        return ResultVO.success(cityService.searchAll());
     }
 
     /**
      * 搜索
      *
      * @param param 请求参数
-     * @return Response<Page<EsCityEntity>>
+     * @return ResultVO<Page<EsCityEntity>>
      */
     @PostMapping("/search")
     @ApiOperation(value = "搜索分页查询", notes = "搜索分页查询")
-    public Response<Page<EsCityEntity>> search(@RequestBody @Valid EsSearchParam param) {
-        return Response.success(cityService.searchCities(param));
+    public ResultVO<Page<EsCityEntity>> search(@RequestBody @Valid EsSearchParam param) {
+        return ResultVO.success(cityService.searchCities(param));
     }
 }

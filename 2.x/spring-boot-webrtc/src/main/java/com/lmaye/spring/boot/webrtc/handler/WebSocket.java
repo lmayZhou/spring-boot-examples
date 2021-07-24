@@ -1,8 +1,8 @@
 package com.lmaye.spring.boot.webrtc.handler;
 
-import com.lmaye.examples.common.common.Response;
-import com.lmaye.examples.common.exception.CommonException;
-import com.lmaye.examples.common.utils.GsonUtils;
+import com.lmaye.cloud.core.exception.CoreException;
+import com.lmaye.cloud.core.utils.GsonUtils;
+import com.lmaye.cloud.starter.web.context.ResultVO;
 import com.lmaye.spring.boot.webrtc.params.MessageParam;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -70,13 +70,13 @@ public class WebSocket {
                 MessageParam param = new MessageParam();
                 param.setName(name);
                 param.setReceiver(receiver);
-                this.onMessage(GsonUtils.toJson(Response.success(param)), session);
+                this.onMessage(GsonUtils.toJson(ResultVO.success(param)), session);
             }
             webSocketMap.put(name, this);
             onlineConnectCount = webSocketMap.size();
             log.info("用户[" + name + "]加入连接，在线总数[" + onlineConnectCount + "]");
-        } catch (CommonException e) {
-            sendMessage(GsonUtils.toJson(Response.failed(e.getError())));
+        } catch (CoreException e) {
+            sendMessage(GsonUtils.toJson(ResultVO.failed()));
         }
     }
 
@@ -99,7 +99,7 @@ public class WebSocket {
     @OnMessage
     public void onMessage(String message, Session session) {
         if (StringUtils.isNotBlank(message)) {
-            Response rs = GsonUtils.fromJson(message, Response.class);
+            ResultVO rs = GsonUtils.fromJson(message, ResultVO.class);
             MessageParam param = (MessageParam) rs.getData();
             webSocketMap.keySet().forEach(key -> {
                 if (Objects.equals(key, param.getReceiver())) {
@@ -108,7 +108,7 @@ public class WebSocket {
                 }
             });
         } else {
-            sendMessage(GsonUtils.toJson(Response.failed("连接成功")));
+            sendMessage(GsonUtils.toJson(ResultVO.failed()));
         }
     }
 

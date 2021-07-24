@@ -6,19 +6,12 @@ import com.lmaye.spring.boot.skywalking.param.EsSearchParam;
 import com.lmaye.spring.boot.skywalking.repository.EsCityRepository;
 import com.lmaye.spring.boot.skywalking.service.EsCityService;
 import lombok.extern.slf4j.Slf4j;
-import org.elasticsearch.common.lucene.search.function.FunctionScoreQuery;
-import org.elasticsearch.index.query.QueryBuilders;
-import org.elasticsearch.index.query.functionscore.FunctionScoreQueryBuilder;
-import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * -- ES城市 Service 实现类
@@ -105,18 +98,9 @@ public class EsCityServiceImpl implements EsCityService {
         String searchContent = searchParam.getSearchContent();
         // 分页参数（传入页码 - 1）
         Pageable pageable = PageRequest.of(searchParam.getPageNumber() - 1, searchParam.getPageSize());
-        // 权重查询
-        List<FunctionScoreQueryBuilder.FilterFunctionBuilder> filterFunctionBuilders = new ArrayList<>();
-        filterFunctionBuilders.add(new FunctionScoreQueryBuilder.FilterFunctionBuilder(
-                QueryBuilders.matchQuery("cityName", searchContent), ScoreFunctionBuilders.weightFactorFunction(3)));
-        filterFunctionBuilders.add(new FunctionScoreQueryBuilder.FilterFunctionBuilder(
-                QueryBuilders.matchQuery("description", searchContent), ScoreFunctionBuilders.weightFactorFunction(2)));
-        FunctionScoreQueryBuilder.FilterFunctionBuilder[] builders = new FunctionScoreQueryBuilder.FilterFunctionBuilder[filterFunctionBuilders.size()];
-        filterFunctionBuilders.toArray(builders);
-        FunctionScoreQueryBuilder builder = QueryBuilders.functionScoreQuery(builders).scoreMode(FunctionScoreQuery.ScoreMode.SUM).setMinScore(2);
-        // 创建搜索 DSL 查询
-        NativeSearchQuery searchQuery = new NativeSearchQueryBuilder().withPageable(pageable).withQuery(builder).build();
-        log.info("\n searchCity(): searchContent [{}] \n DSL  = \n {}", searchContent, searchQuery.getQuery().toString());
-        return cityRepository.search(searchQuery);
+        EsCityEntity query = new EsCityEntity();
+        query.setCityName(searchContent);
+        query.setDescription(searchContent);
+        return cityRepository.searchSimilar(query, new String[]{"cityName", "description"}, pageable);
     }
 }

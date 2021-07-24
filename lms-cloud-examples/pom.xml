@@ -32,7 +32,7 @@
     <!-- modules -->
     <modules>
         <!-- ElasticSearch Example -->
-        <module>lms-cloud-example-elasticsearch</module>
+        <module>lms-cloud-example-eslog</module>
         <!-- Email Example -->
         <module>lms-cloud-example-email</module>
     </modules>

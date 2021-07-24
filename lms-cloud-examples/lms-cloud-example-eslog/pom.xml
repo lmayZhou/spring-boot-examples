@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>lms-cloud-example-elasticsearch</artifactId>
+    <artifactId>lms-cloud-example-eslog</artifactId>
     <version>1.0.1-SNAPSHOT</version>
-    <name>lms-cloud-example-elasticsearch</name>
+    <name>lms-cloud-example-eslog</name>
     <description>ElasticSearch Example project for Spring Boot</description>
 
     <!-- lookup parent from repository -->

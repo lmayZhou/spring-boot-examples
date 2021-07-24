@@ -2,7 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.lmaye</groupId>
     <artifactId>spring-boot-cache-guava</artifactId>
     <version>1.0.1-SNAPSHOT</version>
     <name>spring-boot-cache-guava</name>
@@ -10,9 +9,9 @@
 
     <!-- lookup parent from repository -->
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.7.RELEASE</version>
+        <groupId>com.lmaye</groupId>
+        <artifactId>lms-cloud</artifactId>
+        <version>1.0.4</version>
         <relativePath/>
     </parent>
 
@@ -20,29 +19,18 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <swagger2.version>2.9.2</swagger2.version>
-        <swagger-bootstrap-ui>1.9.4</swagger-bootstrap-ui>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.lmaye</groupId>
-            <artifactId>examples-common</artifactId>
-            <version>${project.version}</version>
-            <!--
-                compile: 编译依赖范围，默认使用该范围，对于编译、测试、运行三宗classpath都有效。
-                test: 测试依赖范围，只对测试classpath有效
-                provided: 已体提供依赖范围。对于编译和测试classpath有效，运行时无效
-                runtime: 运行时依赖范围。对于测试和运行的claspath有效，编译无效
-                system: 系统依赖范围。和provided依赖范围完全一致。使用system范围的依赖，不许通过systemPath元素显示地制定依赖文件的路径。
-                import: 导入依赖范围。不会对三种classpath产生实际的影响。
-            -->
-            <scope>provided</scope>
+            <artifactId>lms-cloud-starter-web</artifactId>
         </dependency>
 
+        <!-- Swagger2 UI -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <groupId>com.lmaye</groupId>
+            <artifactId>lms-cloud-starter-swagger</artifactId>
         </dependency>
 
         <dependency>
@@ -67,44 +55,10 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- Swagger2 -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${swagger2.version}</version>
-        </dependency>
-
-        <!-- Swagger2 UI -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${swagger2.version}</version>
-        </dependency>
-
-        <!-- Swagger Doc -->
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>swagger-bootstrap-ui</artifactId>
-            <version>${swagger-bootstrap-ui}</version>
-        </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
         </dependency>
     </dependencies>
 

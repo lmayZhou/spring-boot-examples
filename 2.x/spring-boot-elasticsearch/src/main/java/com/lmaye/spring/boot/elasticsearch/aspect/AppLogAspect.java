@@ -1,6 +1,6 @@
 package com.lmaye.spring.boot.elasticsearch.aspect;
 
-import com.lmaye.examples.common.utils.GsonUtils;
+import com.lmaye.cloud.core.utils.GsonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.JoinPoint;

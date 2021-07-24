@@ -1,7 +1,7 @@
 package com.lmaye.cloud.future.controller;
 
 import com.lmaye.cloud.future.service.IFutureService;
-import com.lmaye.examples.common.common.Response;
+import com.lmaye.cloud.starter.web.context.ResultVO;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,17 +28,17 @@ public class FutureController {
     private final IFutureService futureService;
 
     @GetMapping("/asyncTask")
-    public Response<String> asyncTask() {
+    public ResultVO<String> asyncTask() {
         futureService.asyncTask();
-        return Response.success("OK");
+        return ResultVO.success("OK");
     }
 
     @GetMapping("/asyncTaskFuture")
-    public Response<Integer> asyncTaskFuture() throws Exception {
+    public ResultVO<Integer> asyncTaskFuture() throws Exception {
         // 执行异步任务
         Future<Integer> x = futureService.asyncTaskFuture1();
         Future<Integer> y = futureService.asyncTaskFuture2();
         // 获取结果
-        return Response.success(x.get(60, TimeUnit.SECONDS) + y.get());
+        return ResultVO.success(x.get(60, TimeUnit.SECONDS) + y.get());
     }
 }

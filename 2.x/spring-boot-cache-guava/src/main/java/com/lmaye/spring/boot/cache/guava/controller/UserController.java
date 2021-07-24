@@ -1,6 +1,6 @@
 package com.lmaye.spring.boot.cache.guava.controller;
 
-import com.lmaye.examples.common.common.Response;
+import com.lmaye.cloud.starter.web.context.ResultVO;
 import com.lmaye.spring.boot.cache.guava.annotation.CacheStorage;
 import com.lmaye.spring.boot.cache.guava.entity.UserEntity;
 import com.lmaye.spring.boot.cache.guava.param.QueryUserParam;
@@ -33,13 +33,13 @@ public class UserController {
      * 查看用户
      *
      * @param param 请求参数
-     * @return Mono<Response<UserEntity>>
+     * @return Mono<ResultVO<UserEntity>>
      */
 //    @CacheStorage(value = "User:", tags = {"id", "name", "email", "mobile"}, description = "缓存用户列表数据")
-    @CacheStorage(value = "User:", description = "缓存用户列表数据")
+    @CacheStorage(value = "User:", tags = {"id"}, description = "缓存用户列表数据")
     @PostMapping("/getUsers")
     @ApiOperation(value = "查看用户列表", notes = "查看用户列表的信息")
-    public Response<List<UserEntity>> getUsers(@RequestBody @Valid QueryUserParam param) {
+    public ResultVO<List<UserEntity>> getUsers(@RequestBody @Valid QueryUserParam param) {
         log.info("<<<<<<<< 读取业务数据 >>>>>>>>");
         List<UserEntity> userEntities = new ArrayList<>();
         userEntities.add(new UserEntity(1, "T-1", "123456@qq.com", 123456L));
@@ -49,28 +49,28 @@ public class UserController {
         String name = param.getName();
         Long mobile = param.getMobile();
         if(!Objects.isNull(id)) {
-            return Response.success(userEntities.stream().filter(it -> it.getId().equals(id)).collect(Collectors.toList()));
+            return ResultVO.success(userEntities.stream().filter(it -> it.getId().equals(id)).collect(Collectors.toList()));
         }
         if(StringUtils.isNotBlank(email)) {
-            return Response.success(userEntities.stream().filter(it -> it.getEmail().toLowerCase().contains(email.toLowerCase())).collect(Collectors.toList()));
+            return ResultVO.success(userEntities.stream().filter(it -> it.getEmail().toLowerCase().contains(email.toLowerCase())).collect(Collectors.toList()));
         }
         if(StringUtils.isNotBlank(name)) {
-            return Response.success(userEntities.stream().filter(it -> it.getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList()));
+            return ResultVO.success(userEntities.stream().filter(it -> it.getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList()));
         }
         if(!Objects.isNull(mobile)) {
-            return Response.success(userEntities.stream().filter(it -> it.getMobile().equals(mobile)).collect(Collectors.toList()));
+            return ResultVO.success(userEntities.stream().filter(it -> it.getMobile().equals(mobile)).collect(Collectors.toList()));
         }
-        return Response.success(userEntities);
+        return ResultVO.success(userEntities);
     }
 
     /**
      * Test
      *
-     * @return Response<String>
+     * @return ResultVO<String>
      */
     @GetMapping("/test")
     @ApiOperation(value = "Test", notes = "Test")
-    public Mono<Response<String>> test() {
-        return Mono.just(Response.success("Test !"));
+    public Mono<ResultVO<String>> test() {
+        return Mono.just(ResultVO.success("Test !"));
     }
 }

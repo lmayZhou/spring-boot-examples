@@ -1,6 +1,6 @@
 package com.lmaye.spring.boot.file.handle.controller;
 
-import com.lmaye.examples.common.utils.FileUtils;
+import com.lmaye.spring.boot.file.handle.utils.FileUtils;
 import io.swagger.annotations.Api;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.GetMapping;

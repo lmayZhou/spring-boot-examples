@@ -10,8 +10,6 @@
     <description>Examples project for Spring Boot</description>
 
     <modules>
-        <!-- 案例公共资源 Module -->
-        <module>examples-common</module>
         <!-- Configuration Metadata(配置元数据) Module -->
         <module>spring-boot-configuration-metadata</module>
         <!-- Docker Module -->

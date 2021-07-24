@@ -1,6 +1,0 @@
-server:
-  port: 83
-
-spring:
-  application:
-    name: spring-boot-docker-compose

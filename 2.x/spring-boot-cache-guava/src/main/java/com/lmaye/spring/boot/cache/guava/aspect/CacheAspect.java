@@ -3,8 +3,8 @@ package com.lmaye.spring.boot.cache.guava.aspect;
 import com.google.common.cache.Cache;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.lmaye.examples.common.common.Response;
-import com.lmaye.examples.common.utils.GsonUtils;
+import com.lmaye.cloud.core.utils.GsonUtils;
+import com.lmaye.cloud.starter.web.context.ResultVO;
 import com.lmaye.spring.boot.cache.guava.annotation.CacheStorage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -68,7 +68,7 @@ public class CacheAspect {
         Object data = cache.getIfPresent(cacheKey);
         if (!Objects.isNull(data)) {
             log.info(">>>>>>>> 读取缓存: [{}] <<<<<<<<", cacheKey);
-            return Response.success(data);
+            return ResultVO.success(data);
         }
         return joinPoint.proceed();
     }
@@ -92,7 +92,7 @@ public class CacheAspect {
         if (Objects.isNull(cacheData)) {
             // 缓存数据
             log.info(">>>>>>>> 缓存数据: [{}] <<<<<<<<", cacheKey);
-            cache.put(cacheKey, GsonUtils.fromJson(GsonUtils.toJson(rs), Response.class).getData());
+            cache.put(cacheKey, GsonUtils.fromJson(GsonUtils.toJson(rs), ResultVO.class).getData());
         }
     }
 

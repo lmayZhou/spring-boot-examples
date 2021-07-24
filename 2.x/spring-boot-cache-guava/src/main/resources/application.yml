@@ -6,3 +6,25 @@ server:
 spring:
   application:
     name: guava-cache
+
+# Swagger 配置
+swagger:
+  enabled: true
+  title: API Doc-在线接口文档
+  description: API Doc-在线接口文档
+  version: 1.0.1
+  termsOfServiceUrl: https://www.lmaye.com
+  basePackage: com.lmaye
+  basePath: /**
+  excludePath: /error
+  contact:
+    email: lmay@lmaye.com
+    name: lmay Zhou
+    url: https://www.lmaye.com
+  globalRequestParameters:
+    - description: 凭证
+      modelType: string
+      modelFormat:
+      name: Authorization
+      parameterType: header
+      required: false

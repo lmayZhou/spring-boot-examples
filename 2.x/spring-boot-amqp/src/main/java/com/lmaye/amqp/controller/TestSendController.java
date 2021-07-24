@@ -2,7 +2,7 @@ package com.lmaye.amqp.controller;
 
 import com.lmaye.amqp.config.RabbitConfirmCallback;
 import com.lmaye.amqp.config.RabbitReturnCallback;
-import com.lmaye.examples.common.common.Response;
+import com.lmaye.cloud.starter.web.context.ResultVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -42,7 +42,7 @@ public class TestSendController {
     }
 
     @GetMapping("/send")
-    public Response<Boolean> send() {
+    public ResultVO<Boolean> send() {
         String exchange = "exchange-rabbit-springboot-advance5";
         String routingKey = "product";
         String unRoutingKey = "norProduct";
@@ -58,7 +58,7 @@ public class TestSendController {
 
         // 3.直接向queue中发送测试, 供监听消费测试
         rabbitTemplate.convertAndSend("queue", "test queue message.");
-        return Response.success(true);
+        return ResultVO.success(true);
     }
 
 }

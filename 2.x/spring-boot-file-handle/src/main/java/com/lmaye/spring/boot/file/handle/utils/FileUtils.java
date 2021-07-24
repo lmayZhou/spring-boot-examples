@@ -1,4 +1,4 @@
-package com.lmaye.examples.common.utils;
+package com.lmaye.spring.boot.file.handle.utils;
 
 import java.io.File;
 import java.io.FileInputStream;

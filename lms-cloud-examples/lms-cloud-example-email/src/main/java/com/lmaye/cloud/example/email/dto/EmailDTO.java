@@ -48,25 +48,26 @@ public class EmailDTO implements Serializable {
     /**
      * 抄送
      */
-    @ApiModelProperty("邮件接收人")
+    @ApiModelProperty("抄送")
     private String[] cc;
 
     /**
      * 密送
      */
-    @ApiModelProperty("邮件接收人")
+    @ApiModelProperty("密送")
     private String[] bcc;
 
     /**
      * 邮件主题
      */
-    @ApiModelProperty(value = "邮件接收人", required = true)
+    @NotBlank
+    @ApiModelProperty(value = "邮件主题", required = true)
     private String subject;
 
     /**
      * 发送邮件格式为 HTML
      */
-    @ApiModelProperty(value = "邮件接收人", example = "false")
+    @ApiModelProperty(value = "是否HTML格式", example = "false")
     private Boolean html = false;
 
     /**

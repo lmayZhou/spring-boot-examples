@@ -10,10 +10,10 @@ import com.lmaye.cloud.starter.web.service.impl.RestConverterImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Mono;
 
 /**
@@ -42,8 +42,22 @@ public class EmailSendController extends RestConverterImpl<EmailRestConverter, E
      */
     @PostMapping("/send")
     @ApiOperation("发送邮件")
-    public Mono<ResultVO<Boolean>> sendEmail(@RequestBody EmailDTO param) {
+    public Mono<ResultVO<Boolean>> sendEmail(@RequestBody @Validated EmailDTO param) {
         return Mono.just(ResultVO.success(emailSendService.sendMail(restConverter.convertDtoToEntity(param))));
+    }
+
+    /**
+     * 发送邮件
+     *
+     * @param param 请求参数
+     * @return ResultVO<Boolean>
+     */
+    @PostMapping(value = "/sendA", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @ApiOperation("发送邮件-附件")
+    public Mono<ResultVO<Boolean>> sendEmailA(@RequestPart("files") MultipartFile[] files, @Validated EmailDTO param) {
+        Email entity = restConverter.convertDtoToEntity(param);
+        entity.setFiles(files);
+        return Mono.just(ResultVO.success(emailSendService.sendMail(entity)));
     }
 
     /**

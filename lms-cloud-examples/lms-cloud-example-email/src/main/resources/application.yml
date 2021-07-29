@@ -52,14 +52,22 @@ spring:
   # Email
   mail:
     host: smtp.163.com
+    port: 465
     protocol: smtp
-    username: lmay@163.com
-    password: 123456
+    username: xxxxxxxxx@163.com
+    password: NRGGXYSCEELBMYPU
     default-encoding: UTF-8
     properties:
       mail:
+        socketFactory:
+          class: javax.net.ssl.SSLSocketFactory
         smtp:
+          port: 465
           auth: true
+          socketFactory:
+            port: 465
+          ssl:
+            enable: true
           starttls:
             enable: true
             required: true

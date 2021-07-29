@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>lms-cloud-example-eslog</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
-    <name>lms-cloud-example-eslog</name>
-    <description>ElasticSearch Example project for Spring Boot</description>
+    <artifactId>lms-cloud-example-rabbitmq</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>lms-cloud-example-rabbitmq</name>
+    <description>RabbitMQ project for Spring Boot</description>
 
     <!-- lookup parent from repository -->
     <parent>
@@ -16,29 +16,10 @@
 
     <!-- dependencies -->
     <dependencies>
-        <!-- LMS Cloud ElasticSearch Starter -->
         <dependency>
             <groupId>com.lmaye</groupId>
-            <artifactId>lms-cloud-starter-elasticsearch</artifactId>
-        </dependency>
-
-        <!-- LMS Cloud OAuth2 Resource Starter -->
-        <dependency>
-            <groupId>com.lmaye</groupId>
-            <artifactId>lms-cloud-starter-oauth2-resource</artifactId>
-        </dependency>
-
-        <!-- Spring Boot AOP -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
-        </dependency>
-
-        <!-- log4j2 kafka -->
-        <dependency>
-            <groupId>org.springframework.kafka</groupId>
-            <artifactId>spring-kafka</artifactId>
-            <version>2.6.5</version>
+            <artifactId>lms-cloud-starter-rabbitmq</artifactId>
+            <version>1.0.5</version>
         </dependency>
     </dependencies>
 

@@ -1,5 +1,15 @@
 server:
-  port: 8082
+  port: 8081
+
+# spring 配置
+spring:
+  # ES配置
+  elasticsearch:
+    rest:
+      uris:
+        - http://127.0.0.1:9200
+      connectionTimeout: 60s
+      readTimeout: 10s
 
 web:
   # I18n 国际化
@@ -25,15 +35,16 @@ security:
         - /course/coursebase/**
         - /webjars/**
         - /api/**/v3/api-docs
+        - /**
 
 # Swagger 配置
 swagger:
   enabled: true
-  title: Email 测试-在线接口文档
-  description: Email 测试-在线接口文档
+  title: 搜索引擎(ES) 测试-在线接口文档
+  description: 搜索引擎(ES) 测试-在线接口文档
   version: 1.0.1
   termsOfServiceUrl: https://www.lmaye.com
-  basePackage: com.lmaye.cloud
+  basePackage: com.lmaye.cloud.example.elasticsearch.controller
   basePath: /**
   excludePath: /error
   contact:
@@ -47,53 +58,6 @@ swagger:
       name: Authorization
       parameterType: header
       required: false
-
-spring:
-  # Email
-  mail:
-    host: smtp.163.com
-    port: 465
-    protocol: smtp
-    username: xxxxxxxxx@163.com
-    password: NRGGXYSCEELBMYPU
-    default-encoding: UTF-8
-    properties:
-      mail:
-        socketFactory:
-          class: javax.net.ssl.SSLSocketFactory
-        smtp:
-          port: 465
-          auth: true
-          socketFactory:
-            port: 465
-          ssl:
-            enable: true
-          starttls:
-            enable: true
-            required: true
-
-# Email 多配置
-email:
-  enabled: false
-  host: smtp.gmail.com
-  port: 465
-  username: survey@gmail.com
-  password: 123456
-  protocol: smtp
-  default-encoding: UTF-8
-  configs:
-    - host: smtp.163.com
-      port: 465
-      username: lmay@163.com
-      password: 123456
-      protocol: smtp
-      default-encoding: UTF-8
-    - host: smtp.gmail.com
-      port: 465
-      username: survey@gmail.com
-      password: 123456
-      protocol: smtp
-      default-encoding: UTF-8
 
 # 日志配置
 logging:

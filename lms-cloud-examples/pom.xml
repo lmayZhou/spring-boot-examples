@@ -22,8 +22,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <docker.plugin.version>0.32.0</docker.plugin.version>
-        <docker.host>http://192.168.0.100:2375</docker.host>
-        <docker.registry>192.168.0.100</docker.registry>
+        <docker.host>http://127.0.0.1:2375</docker.host>
+        <docker.registry>127.0.0.1</docker.registry>
         <docker.namespace>lms-cloud</docker.namespace>
         <docker.username>username</docker.username>
         <docker.password>password</docker.password>
@@ -35,6 +35,8 @@
         <module>lms-cloud-example-eslog</module>
         <!-- Email Example -->
         <module>lms-cloud-example-email</module>
+        <!-- RabbitMQ Example -->
+        <module>lms-cloud-example-rabbitmq</module>
     </modules>
 
     <!-- dependencies -->
@@ -46,19 +48,50 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- swagger-ui 3 -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-boot-starter</artifactId>
-            <version>3.0.0</version>
-        </dependency>
-
         <!-- LMS Cloud Web Starter -->
         <dependency>
             <groupId>com.lmaye</groupId>
             <artifactId>lms-cloud-starter-web</artifactId>
         </dependency>
 
+        <!-- LMS Cloud Swagger Starter -->
+        <dependency>
+            <groupId>com.lmaye</groupId>
+            <artifactId>lms-cloud-starter-swagger</artifactId>
+        </dependency>
+
+        <!-- knife4j -->
+        <dependency>
+            <groupId>com.github.xiaoymin</groupId>
+            <artifactId>knife4j-spring-boot-starter</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- log4j2 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
+        </dependency>
+
+        <!-- 异步日志 -->
+        <dependency>
+            <groupId>com.lmax</groupId>
+            <artifactId>disruptor</artifactId>
+            <version>3.4.2</version>
+        </dependency>
+
+        <!-- Test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

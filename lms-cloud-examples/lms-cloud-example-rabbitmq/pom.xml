@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>lms-cloud-example-rabbitmq</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <name>lms-cloud-example-rabbitmq</name>
     <description>RabbitMQ project for Spring Boot</description>
 
@@ -19,7 +19,7 @@
         <dependency>
             <groupId>com.lmaye</groupId>
             <artifactId>lms-cloud-starter-rabbitmq</artifactId>
-            <version>1.0.5</version>
+            <version>1.0.6</version>
         </dependency>
     </dependencies>
 

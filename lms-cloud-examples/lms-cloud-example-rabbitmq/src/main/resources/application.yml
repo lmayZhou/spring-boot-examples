@@ -3,13 +3,17 @@ server:
 
 # spring 配置
 spring:
-  # ES配置
-  elasticsearch:
-    rest:
-      uris:
-        - http://127.0.0.1:9200
-      connectionTimeout: 60s
-      readTimeout: 10s
+  # MQ
+  rabbitmq:
+    host: 127.0.0.1
+    virtual-host: /
+    username: root
+    password: 123456
+    port: 5672
+    publisher-confirm-type: correlated
+    publisher-returns: true
+    template:
+      mandatory: true
 
 web:
   # I18n 国际化
@@ -21,30 +25,14 @@ web:
     # local分隔符, 与 localeName 组合使用
     localeDelimiter: "-"
 
-# OAuth2 权限认证
-security:
-  oauth2:
-    resource:
-      ignore-uris:
-        - /doc.html
-        - /v3/api-docs
-        - /swagger-ui/**
-        - /swagger-resources/configuration/ui
-        - /swagger-resources
-        - /swagger-resources/configuration/security
-        - /course/coursebase/**
-        - /webjars/**
-        - /api/**/v3/api-docs
-        - /**
-
 # Swagger 配置
 swagger:
   enabled: true
-  title: 搜索引擎(ES) 测试-在线接口文档
-  description: 搜索引擎(ES) 测试-在线接口文档
+  title: Api Doc-在线接口文档
+  description: Api Doc-在线接口文档
   version: 1.0.1
   termsOfServiceUrl: https://www.lmaye.com
-  basePackage: com.lmaye.cloud.example.elasticsearch.controller
+  basePackage: com.lmaye.cloud
   basePath: /**
   excludePath: /error
   contact:

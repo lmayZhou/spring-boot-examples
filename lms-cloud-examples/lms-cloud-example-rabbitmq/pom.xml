@@ -19,7 +19,6 @@
         <dependency>
             <groupId>com.lmaye</groupId>
             <artifactId>lms-cloud-starter-rabbitmq</artifactId>
-            <version>1.0.6</version>
         </dependency>
     </dependencies>
 

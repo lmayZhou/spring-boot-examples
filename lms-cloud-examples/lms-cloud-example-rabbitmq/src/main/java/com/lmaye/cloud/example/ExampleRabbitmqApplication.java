@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Lmay Zhou
  * @date 2021/7/29 23:05
  * @email lmay@lmaye.com
- * @sine jdk1.8
+ * @since jdk1.8
  */
 @SpringBootApplication
 public class ExampleRabbitmqApplication {

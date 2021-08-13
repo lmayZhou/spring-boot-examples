@@ -23,7 +23,7 @@
         <itext-asian.version>5.2.0</itext-asian.version>
         <xmlworker.version>5.5.13</xmlworker.version>
         <flying-saucer-pdf.version>9.1.16</flying-saucer-pdf.version>
-        <bcprov-jdk15on.version>1.56</bcprov-jdk15on.version>
+        <bcprov-jdk15on.version>1.67</bcprov-jdk15on.version>
     </properties>
 
     <dependencies>

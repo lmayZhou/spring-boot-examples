@@ -37,6 +37,8 @@
         <module>lms-cloud-example-email</module>
         <!-- RabbitMQ Example -->
         <module>lms-cloud-example-rabbitmq</module>
+        <!-- Logs Example -->
+        <module>lms-cloud-example-logs</module>
     </modules>
 
     <!-- dependencies -->

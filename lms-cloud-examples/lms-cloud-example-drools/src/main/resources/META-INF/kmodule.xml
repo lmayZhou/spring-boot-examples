@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <kmodule xmlns="http://www.drools.org/xsd/kmodule">
+    <!-- packages 与规则文件中的package一致 -->
     <kbase name="orderRuleKB" packages="rules.order">
         <ksession name="orderRuleKS" />
     </kbase>

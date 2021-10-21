@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<kmodule xmlns="http://www.drools.org/xsd/kmodule">
+    <kbase name="orderRuleKB" packages="rules.order">
+        <ksession name="orderRuleKS" />
+    </kbase>
+
+    <kbase name="personRuleKB" packages="rules">
+        <ksession name="personRuleKS" />
+    </kbase>
+</kmodule>

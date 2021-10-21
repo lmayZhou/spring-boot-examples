@@ -1,0 +1,19 @@
+package rules.order;
+dialect  "mvel"
+import com.lmaye.cloud.example.drools.entity.Order
+
+// 规则1: 总价小于100没有优惠
+rule "order_discount_1"
+    when $order:Order(originalPrice < 100)
+    then
+        $order.setRealPrice($order.getOriginalPrice());
+        System.out.println("规则1: 总价小于100没有优惠!");
+end
+
+// 规则2: 总价在100~200元, 优惠20元
+rule "order_discount_2"
+    when $order:Order(100 <= originalPrice && originalPrice < 200)
+    then
+        $order.setRealPrice($order.getOriginalPrice() - 20);
+        System.out.println("规则2: 总价在100~200元, 优惠20元!");
+end

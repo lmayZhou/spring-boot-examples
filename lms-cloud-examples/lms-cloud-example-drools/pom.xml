@@ -17,9 +17,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.kie</groupId>
-            <artifactId>kie-spring</artifactId>
-            <version>7.60.0.Final</version>
+            <groupId>com.lmaye</groupId>
+            <artifactId>lms-cloud-starter-drools</artifactId>
         </dependency>
 
         <dependency>

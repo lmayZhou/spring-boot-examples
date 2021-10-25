@@ -1,0 +1,3 @@
+drools:
+  enabled: true
+  rules-path: rules/

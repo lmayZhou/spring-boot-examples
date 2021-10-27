@@ -1,3 +1,62 @@
+# 服务端口
+server:
+  port: 8080
+
 drools:
   enabled: true
   rules-path: rules/
+
+spring:
+  # 数据库配置
+  datasource:
+    name: sys
+    url: jdbc:mysql://${MYSQL_HOST:lms-mysql}:${MYSQL_PORT:3306}/lms_drools?allowMultiQueries=true&useSSL=false&characterEncoding=utf8
+    username: root
+    password: root
+    hikari:
+      max-lifetime: 1800000
+      minimum-idle: 1
+      maximum-pool-size: 2
+      connection-timeout: 30000
+      idle-timeout: 30000
+      connection-test-query: select 1
+
+# Mybatis Plus
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  type-aliases-package: com.lmaye.cloud.example.drools.entity
+  global-config:
+    db-config:
+      id-type: ASSIGN_ID
+      insert-strategy: not_null
+      update-strategy: not_null
+      select-strategy: not_empty
+      table-underline: true
+      capital-mode: true
+  type-handlers-package: com.lmaye.cloud.starter.mybatis.type
+  configuration:
+    jdbc-type-for-null: null
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# Swagger 配置
+swagger:
+  enabled: true
+  title: Microservice API-在线接口文档
+  description: LmayE Software, Inc.
+  version: 1.0.1
+  termsOfServiceUrl: https://www.lmaye.com
+  basePackage: com.lmaye.cloud.example.drools.controller
+  basePath: /**
+  excludePath: /error
+  contact:
+    email: lmay@lmaye.com
+    name: lmay Zhou
+    url: https://www.lmaye.com
+  globalRequestParameters:
+    - description: 凭证
+      modelType: string
+      modelFormat:
+      name: Authorization
+      parameterType: header
+      required: false

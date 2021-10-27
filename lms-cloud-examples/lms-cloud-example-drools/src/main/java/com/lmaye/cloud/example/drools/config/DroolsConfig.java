@@ -1,5 +1,6 @@
 package com.lmaye.cloud.example.drools.config;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -11,5 +12,6 @@ import org.springframework.context.annotation.Configuration;
  * @since JDK1.8
  */
 @Configuration
+@MapperScan("com.lmaye.cloud.example.drools.mapper")
 public class DroolsConfig {
 }

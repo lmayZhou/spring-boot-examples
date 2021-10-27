@@ -2,6 +2,7 @@
 server:
   port: 8080
 
+# 规则引擎配置
 drools:
   enabled: true
   rules-path: rules/
@@ -39,7 +40,7 @@ mybatis-plus:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-# Swagger 配置
+# Swagger 配置, 接口文档V3.0访问地址: http://127.0.0.1:8080/swagger-ui/index.html
 swagger:
   enabled: true
   title: Microservice API-在线接口文档

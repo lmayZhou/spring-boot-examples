@@ -12,6 +12,8 @@
     <modules>
         <!-- 案例公共资源 Module -->
         <module>2.x</module>
+        <!-- Domain Driven Design Module -->
+        <module>ddd-examples</module>
         <!-- LMS Cloud Examples -->
         <module>lms-cloud-examples</module>
     </modules>

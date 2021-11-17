@@ -2,26 +2,31 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.lmaye</groupId>
-    <artifactId>ddd-example</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>ddd-example</name>
-    <description>Domain Driven Design example</description>
-
-    <!-- lookup parent from repository -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.5.6</version>
-        <relativePath/>
+        <relativePath/> <!-- lookup parent from repository -->
     </parent>
-
+    <groupId>com.lmaye</groupId>
+    <artifactId>life-services-example</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>life-services-example</name>
+    <description>life-services-example</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
-
     <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -32,4 +37,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

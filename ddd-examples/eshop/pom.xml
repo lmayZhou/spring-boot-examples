@@ -15,6 +15,14 @@
         <version>1.0.1-SNAPSHOT</version>
     </parent>
 
+    <modules>
+        <module>eshop-logistics</module>
+        <module>eshop-order</module>
+        <module>eshop-payment</module>
+        <module>eshop-product</module>
+        <module>eshop-user</module>
+    </modules>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

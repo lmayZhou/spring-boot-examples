@@ -1,4 +1,4 @@
-package com.lmaye.eshop.user;
+package com.lmaye.eshop.user.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

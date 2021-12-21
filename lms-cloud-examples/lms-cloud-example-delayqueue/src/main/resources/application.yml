@@ -25,3 +25,22 @@ spring:
     listener:
       ack-mode: manual_immediate
       poll-timeout: 500S
+
+# 延迟队列
+delay-queue:
+  # 是否启用
+  enabled: true
+  # 线程池大小
+  core-pool-size: 10
+  # 初始延迟时间(单位: s)，延迟第一次执行的时间
+  initial-delay: 0
+  # 线程延迟时间(单位: s)，一个执行的终止和下一个执行的开始之间的延迟
+  delay: 30
+  # 队列缓存Key
+  queue-cache-key: DelayQueue
+  # 分布式锁
+  lock-key: Locked
+  # 重试次数
+  retry-nums: 3
+  # 重试睡眠时间(单位: s)
+  retry-sleep-time: 3

@@ -25,7 +25,7 @@ public class KafkaRetryListener implements RetryListener {
             if (Objects.isNull(attempt.getResult())) {
                 log.error("[Retry] return data is null");
             } else {
-                log.error("[Retry] return data is: {}", GsonUtils.toJson(attempt.getResult()));
+                log.debug("[Retry] return data is: {}", GsonUtils.toJson(attempt.getResult()));
             }
         }
         if(Objects.equals(3L, attempt.getAttemptNumber())) {

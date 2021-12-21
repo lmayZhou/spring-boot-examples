@@ -16,6 +16,12 @@
     </parent>
 
     <dependencies>
+        <!-- Spring Boot Configuration Processor -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+        </dependency>
+
         <!-- LMS Cloud Redis Starter -->
         <dependency>
             <groupId>com.lmaye</groupId>

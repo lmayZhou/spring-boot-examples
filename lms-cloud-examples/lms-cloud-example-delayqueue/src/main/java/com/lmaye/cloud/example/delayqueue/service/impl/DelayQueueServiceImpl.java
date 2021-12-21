@@ -1,6 +1,7 @@
 package com.lmaye.cloud.example.delayqueue.service.impl;
 
 import com.lmaye.cloud.core.utils.GsonUtils;
+import com.lmaye.cloud.example.delayqueue.DelayQueueProperties;
 import com.lmaye.cloud.example.delayqueue.constant.QueueConstant;
 import com.lmaye.cloud.example.delayqueue.entity.DelayQueueBody;
 import com.lmaye.cloud.example.delayqueue.producer.KafkaProducer;
@@ -46,18 +47,24 @@ public class DelayQueueServiceImpl implements DelayQueueService {
     private KafkaProducer kafkaProducer;
 
     /**
+     * Delay Queue Properties
+     */
+    @Autowired
+    private DelayQueueProperties properties;
+
+    /**
      * 任务处理
      */
     @Async
     @Override
     public void taskHandle() {
-        Set<Object> dts = redisTemplate.opsForZSet().rangeByScore(QueueConstant.CACHE_KEY_DELAY_QUEUE, 0, System.currentTimeMillis());
+        Set<Object> dts = redisTemplate.opsForZSet().rangeByScore(properties.getQueueCacheKey(), 0, System.currentTimeMillis());
         assert dts != null;
         dts.forEach(it -> {
             log.debug("----- 任务开始，延迟队列Body: {}", it);
             DelayQueueBody body = GsonUtils.fromJson(it.toString(), DelayQueueBody.class);
             String serialNo = body.getSerialNo();
-            RLock lock = redissonClient.getLock(QueueConstant.CACHE_KEY_LOCK + serialNo);
+            RLock lock = redissonClient.getLock(properties.getLockKey() + serialNo);
             try {
                 lock.tryLock(100, 300, TimeUnit.SECONDS);
                 String key = QueueConstant.CACHE_KEY_CONSUME_FLAG + serialNo;
@@ -66,7 +73,7 @@ public class DelayQueueServiceImpl implements DelayQueueService {
                     kafkaProducer.send(body.getTopic(), GsonUtils.toJson(body));
                     redisTemplate.opsForValue().set(key, false);
                 }
-                redisTemplate.opsForZSet().remove(QueueConstant.CACHE_KEY_DELAY_QUEUE, it);
+                redisTemplate.opsForZSet().remove(properties.getQueueCacheKey(), it);
                 log.debug("===== 任务处理完成 =====");
             } catch (Exception e) {
                 log.error("处理失败: ", e);

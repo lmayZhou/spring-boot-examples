@@ -1,9 +1,11 @@
 package com.lmaye.cloud.example.delayqueue.config;
 
 import cn.hutool.core.thread.NamedThreadFactory;
+import com.lmaye.cloud.example.delayqueue.DelayQueueProperties;
 import com.lmaye.cloud.example.delayqueue.service.DelayQueueService;
 import com.lmaye.cloud.example.delayqueue.task.RedisDelayQueueTask;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +26,14 @@ import java.util.concurrent.*;
  */
 @Configuration
 @EnableCaching
+@EnableConfigurationProperties(DelayQueueProperties.class)
 public class DelayQueueConfig {
+    /**
+     * Delay Queue Properties
+     */
+    @Autowired
+    private DelayQueueProperties properties;
+
     /**
      * Delay Queue Service
      */
@@ -59,9 +68,10 @@ public class DelayQueueConfig {
      */
     @Bean(destroyMethod = "shutdown")
     ExecutorService executorService() {
-        ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(10,
+        ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(properties.getCorePoolSize(),
                 new NamedThreadFactory("scheduleThreadPool", false), new ThreadPoolExecutor.AbortPolicy());
-        executorService.scheduleWithFixedDelay(new RedisDelayQueueTask(delayQueueService), 0, 30, TimeUnit.SECONDS);
+        executorService.scheduleWithFixedDelay(new RedisDelayQueueTask(delayQueueService), properties.getInitialDelay(),
+                properties.getDelay(), TimeUnit.SECONDS);
         return executorService;
     }
 }

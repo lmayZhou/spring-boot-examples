@@ -1,8 +1,10 @@
-package com.lmaye.cloud.example.delayqueue.retrying;
+package com.lmaye.cloud.example.delayqueue.producer;
 
 import com.github.rholder.retry.Attempt;
 import com.github.rholder.retry.RetryListener;
 import com.lmaye.cloud.core.utils.GsonUtils;
+import com.lmaye.cloud.example.delayqueue.DelayQueueProperties;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Objects;
@@ -16,7 +18,13 @@ import java.util.Objects;
  * @since JDK1.8
  */
 @Slf4j
+@AllArgsConstructor
 public class KafkaRetryListener implements RetryListener {
+    /**
+     * Delay Queue Properties
+     */
+    private final DelayQueueProperties properties;
+
     @Override
     public <SendResult> void onRetry(Attempt<SendResult> attempt) {
         if (attempt.hasException()) {
@@ -28,7 +36,7 @@ public class KafkaRetryListener implements RetryListener {
                 log.debug("[Retry] return data is: {}", GsonUtils.toJson(attempt.getResult()));
             }
         }
-        if(Objects.equals(3L, attempt.getAttemptNumber())) {
+        if(Objects.equals(properties.getRetryNums(), attempt.getAttemptNumber())) {
             // TODO 重试多次处理
             log.error("-------------------> Send Massage <-------------------");
         }

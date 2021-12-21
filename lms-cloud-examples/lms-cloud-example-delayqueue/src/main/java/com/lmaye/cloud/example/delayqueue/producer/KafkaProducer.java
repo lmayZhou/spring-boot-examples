@@ -4,7 +4,7 @@ import com.github.rholder.retry.Retryer;
 import com.github.rholder.retry.RetryerBuilder;
 import com.github.rholder.retry.StopStrategies;
 import com.github.rholder.retry.WaitStrategies;
-import com.lmaye.cloud.example.delayqueue.retrying.KafkaRetryListener;
+import com.lmaye.cloud.example.delayqueue.DelayQueueProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -35,6 +35,12 @@ public class KafkaProducer {
     private KafkaTemplate<String, String> kafkaTemplate;
 
     /**
+     * Delay Queue Properties
+     */
+    @Autowired
+    private DelayQueueProperties properties;
+
+    /**
      * 发送消息
      *
      * @param topic 主题
@@ -55,9 +61,9 @@ public class KafkaProducer {
                 .retryIfResult(Objects::isNull)
                 .retryIfResult(result -> Objects.isNull(result.getRecordMetadata()))
                 .retryIfException()
-                .withStopStrategy(StopStrategies.stopAfterAttempt(3))
-                .withWaitStrategy(WaitStrategies.fixedWait(3, TimeUnit.SECONDS))
-                .withRetryListener(new KafkaRetryListener()).build();
+                .withStopStrategy(StopStrategies.stopAfterAttempt(properties.getRetryNums().intValue()))
+                .withWaitStrategy(WaitStrategies.fixedWait(properties.getRetrySleepTime(), TimeUnit.SECONDS))
+                .withRetryListener(new KafkaRetryListener(properties)).build();
         retry.call(callable);
     }
 }

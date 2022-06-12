@@ -22,7 +22,7 @@
 #### SkyWalking 链路追踪
 ```text
 -javaagent:/Users/lmay/software/apache-skywalking-apm-bin/agent/skywalking-agent.jar
-SW_AGENT_NAME=consumer;SW_AGENT_COLLECTOR_BACKEND_SERVICES=http://127.0.0.1:8080/;SW_AGENT_NAME=ExampleRabbitmq
+SW_AGENT_NAME=consumer;SW_AGENT_COLLECTOR_BACKEND_SERVICES=http://127.0.0.1:8080/
 ```
 
 ### 参与贡献

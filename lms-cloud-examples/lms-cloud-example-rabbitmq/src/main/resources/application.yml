@@ -26,26 +26,27 @@ web:
     localeDelimiter: "-"
 
 # Swagger 配置
+springfox:
+  documentation:
+    enabled: true
 swagger:
-  enabled: true
-  title: Api Doc-在线接口文档
-  description: Api Doc-在线接口文档
+  title: Microservice API-在线接口文档
+  description: LmayE Software, Inc.
   version: 1.0.1
   termsOfServiceUrl: https://www.lmaye.com
-  basePackage: com.lmaye.cloud
+  basePackage: com.lmaye.cloud.example.drools.controller
   basePath: /**
   excludePath: /error
   contact:
     email: lmay@lmaye.com
     name: lmay Zhou
     url: https://www.lmaye.com
-  globalRequestParameters:
+  global-operation-parameters:
     - description: 凭证
-      modelType: string
-      modelFormat:
+      modelRef: string
       name: Authorization
       parameterType: header
-      required: false
+      required: true
 
 # 日志配置
 logging:

@@ -39,6 +39,11 @@ class ExampleDroolsApplicationTests {
         // 无需配置文件(kmodule.xml)
         Person person = Person.builder().name("Tom").age(10).build();
         kieSession.insert(person);
+//        kieSession.fireAllRules();
+//        kieSession.dispose();
+
+        Order order = Order.builder().originalPrice(123.00).build();
+        kieSession.insert(order);
         kieSession.fireAllRules();
         kieSession.dispose();
     }

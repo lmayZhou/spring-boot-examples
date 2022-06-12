@@ -34,7 +34,7 @@ swagger:
   description: LmayE Software, Inc.
   version: 1.0.1
   termsOfServiceUrl: https://www.lmaye.com
-  basePackage: com.lmaye.cloud.example.*.controller
+  basePackage: com.lmaye.cloud.example
   basePath: /**
   excludePath: /error
   contact:

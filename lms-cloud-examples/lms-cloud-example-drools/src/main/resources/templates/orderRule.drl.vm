@@ -1,0 +1,19 @@
+package ${packageName};
+
+dialect  "mvel"
+#if(!${importPackages})
+#foreach($pkg in ${importPackages})
+import ${pkg}
+#end
+#end
+
+rule ${ruleName}
+    when ${ruleVar} : ${ruleType}(
+        #foreach($rule in ${rules})
+                ${rule}#if($foreach.hasNext) && #end
+        #end
+    )
+    then
+        ${ruleVar}.set${RealPrice}(${ruleVar}.get${OriginalPrice}() - ${discount});
+        System.out.println("${alertMsg}");
+end

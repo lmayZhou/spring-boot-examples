@@ -18,7 +18,7 @@ create table sys_user
     weibo                varchar(50) comment '微博',
     status               tinyint(1) not null default 0 comment '状态(0. 正常; 1. 停用; 2. 删除;)',
     create_at            datetime not null default CURRENT_TIMESTAMP comment '创建时间',
-    create_by            varchar(30) not null comment '创建人',
+    create_by            varchar(30) not null default 0 comment '创建人',
     update_at            datetime comment '更新时间',
     update_by            varchar(30) comment '更新人',
     remark               varchar(500) comment '备注',

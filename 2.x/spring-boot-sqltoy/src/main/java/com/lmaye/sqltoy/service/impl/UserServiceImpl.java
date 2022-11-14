@@ -1,5 +1,6 @@
 package com.lmaye.sqltoy.service.impl;
 
+import com.lmaye.cloud.core.utils.IdUtils;
 import com.lmaye.cloud.starter.web.context.PageResult;
 import com.lmaye.cloud.starter.web.service.impl.RestConverterImpl;
 import com.lmaye.sqltoy.converter.SysUserRestConverter;
@@ -40,7 +41,9 @@ public class UserServiceImpl extends RestConverterImpl<SysUserRestConverter, Sys
      */
     @Override
     public SysUserVO save(SysUserDTO dto) {
-        return restConverter.convertEntityToVo((SysUser) sqlToyLazyDao.save(restConverter.convertDtoToEntity(dto)));
+        SysUser user = restConverter.convertDtoToEntity(dto);
+        user.setId(IdUtils.nextId());
+        return restConverter.convertEntityToVo((SysUser) sqlToyLazyDao.save(user));
     }
 
     /**

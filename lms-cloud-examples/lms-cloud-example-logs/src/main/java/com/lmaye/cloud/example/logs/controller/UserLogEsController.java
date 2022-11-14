@@ -1,9 +1,9 @@
 package com.lmaye.cloud.example.logs.controller;
 
-import com.lmaye.cloud.example.controller.base.BaseEsController;
-import com.lmaye.cloud.example.service.IUserLogService;
-import com.lmaye.cloud.starter.logs.annotation.UserLog;
-import com.lmaye.cloud.starter.logs.entity.UserLogEntity;
+import com.lmaye.cloud.example.logs.controller.base.BaseEsController;
+import com.lmaye.cloud.example.logs.service.IUserLogService;
+import com.lmaye.cloud.starter.logs.annotation.SysLog;
+import com.lmaye.cloud.starter.logs.entity.SysLogEntity;
 import com.lmaye.cloud.starter.web.context.PageResult;
 import com.lmaye.cloud.starter.web.context.ResultVO;
 import com.lmaye.cloud.starter.web.query.ListQuery;
@@ -30,7 +30,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/es/log/user")
 @Api(tags = "用户日志ES相关接口")
-public class UserLogEsController extends BaseEsController<IUserLogService, UserLogEntity, Long> {
+public class UserLogEsController extends BaseEsController<IUserLogService, SysLogEntity, Long> {
     public UserLogEsController(IUserLogService service) {
         super(service);
     }
@@ -39,12 +39,12 @@ public class UserLogEsController extends BaseEsController<IUserLogService, UserL
      * 查询日志All
      *
      * @param query 查询参数
-     * @return ResultVO<List < UserLogEntity>>
+     * @return ResultVO<List < SysLogEntity>>
      */
     @PostMapping("/searchAll")
     @ApiOperation("查询日志All")
-    public ResultVO<List<UserLogEntity>> searchAll(@RequestBody ListQuery query) {
-        return ResultVO.success(service.findAll(query, UserLogEntity.class));
+    public ResultVO<List<SysLogEntity>> searchAll(@RequestBody ListQuery query) {
+        return ResultVO.success(service.findAll(query, SysLogEntity.class));
     }
 
     /**
@@ -52,24 +52,24 @@ public class UserLogEsController extends BaseEsController<IUserLogService, UserL
      * - 深度
      *
      * @param query 查询参数
-     * @return ResultVO<List < UserLogEntity>>
+     * @return ResultVO<List < SysLogEntity>>
      */
     @PostMapping("/searchScrollAll")
     @ApiOperation("查询日志All(深度)")
-    public ResultVO<List<UserLogEntity>> searchScrollAll(@RequestBody ListQuery query) {
-        return ResultVO.success(service.findScrollAll(query, UserLogEntity.class));
+    public ResultVO<List<SysLogEntity>> searchScrollAll(@RequestBody ListQuery query) {
+        return ResultVO.success(service.findScrollAll(query, SysLogEntity.class));
     }
 
     /**
      * 分页查询日志
      *
      * @param query 查询参数
-     * @return ResultVO<PageResult < UserLogEntity>>
+     * @return ResultVO<PageResult < SysLogEntity>>
      */
     @PostMapping("/searchPage")
     @ApiOperation("分页查询日志")
-    public ResultVO<PageResult<UserLogEntity>> searchPage(@RequestBody PageQuery query) {
-        return ResultVO.success(service.findPage(query, UserLogEntity.class));
+    public ResultVO<PageResult<SysLogEntity>> searchPage(@RequestBody PageQuery query) {
+        return ResultVO.success(service.findPage(query, SysLogEntity.class));
     }
 
     /**
@@ -77,12 +77,12 @@ public class UserLogEsController extends BaseEsController<IUserLogService, UserL
      * - 深度(不支持跨页)
      *
      * @param query 查询参数
-     * @return ResultVO<PageResult < UserLogEntity>>
+     * @return ResultVO<PageResult < SysLogEntity>>
      */
     @PostMapping("/searchScrollPage")
     @ApiOperation(value = "分页查询日志(深度)", notes = "不支持跨页")
-    public ResultVO<PageResult<UserLogEntity>> searchScrollPage(@RequestBody PageQuery query) {
-        return ResultVO.success(service.findScrollPage(query, UserLogEntity.class));
+    public ResultVO<PageResult<SysLogEntity>> searchScrollPage(@RequestBody PageQuery query) {
+        return ResultVO.success(service.findScrollPage(query, SysLogEntity.class));
     }
 
     /**
@@ -93,8 +93,8 @@ public class UserLogEsController extends BaseEsController<IUserLogService, UserL
      */
     @PostMapping("/count")
     @ApiOperation("查询日志总数")
-    @UserLog(appId = "LS10001", operateType = 0, desc = "查询日志总数")
+    @SysLog(appId = "LS10001", desc = "查询日志总数")
     public ResultVO<Long> count(@RequestBody Query query) {
-        return ResultVO.success(service.count(query, UserLogEntity.class));
+        return ResultVO.success(service.count(query, SysLogEntity.class));
     }
 }

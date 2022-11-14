@@ -38,5 +38,7 @@
         <module>spring-boot-amqp</module>
         <!-- Future Module -->
         <module>spring-boot-future</module>
+        <!-- SQL Toy Module -->
+        <module>spring-boot-sqltoy</module>
     </modules>
 </project>

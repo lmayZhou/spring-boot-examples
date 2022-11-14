@@ -1,9 +1,9 @@
 package com.lmaye.cloud.example.logs.controller;
 
-import com.lmaye.cloud.example.controller.base.BaseEsController;
-import com.lmaye.cloud.example.service.IFunctionLogService;
-import com.lmaye.cloud.starter.logs.annotation.FunctionLog;
-import com.lmaye.cloud.starter.logs.entity.FunctionLogEntity;
+import com.lmaye.cloud.example.logs.controller.base.BaseEsController;
+import com.lmaye.cloud.example.logs.service.IFunctionLogService;
+import com.lmaye.cloud.starter.logs.annotation.SysLog;
+import com.lmaye.cloud.starter.logs.entity.SysLogEntity;
 import com.lmaye.cloud.starter.web.context.PageResult;
 import com.lmaye.cloud.starter.web.context.ResultVO;
 import com.lmaye.cloud.starter.web.query.ListQuery;
@@ -28,8 +28,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/es/log/function")
 @Api(tags = "功能日志ES相关接口")
-@FunctionLog(appId = "LS10001", moduleId = "FunctionLog", logType = "0", desc = "全局日志")
-public class FunctionLogController extends BaseEsController<IFunctionLogService, FunctionLogEntity, Long> {
+@SysLog(appId = "LS10001", logType = "0", desc = "全局日志")
+public class FunctionLogController extends BaseEsController<IFunctionLogService, SysLogEntity, Long> {
     public FunctionLogController(IFunctionLogService service) {
         super(service);
     }
@@ -38,12 +38,12 @@ public class FunctionLogController extends BaseEsController<IFunctionLogService,
      * 查询日志All
      *
      * @param query 查询参数
-     * @return ResultVO<List < FunctionLogEntity>>
+     * @return ResultVO<List < SysLogEntity>>
      */
     @PostMapping("/searchAll")
     @ApiOperation("查询日志All")
-    public ResultVO<List<FunctionLogEntity>> searchAll(@RequestBody ListQuery query) {
-        return ResultVO.success(service.findAll(query, FunctionLogEntity.class));
+    public ResultVO<List<SysLogEntity>> searchAll(@RequestBody ListQuery query) {
+        return ResultVO.success(service.findAll(query, SysLogEntity.class));
     }
 
     /**
@@ -51,24 +51,24 @@ public class FunctionLogController extends BaseEsController<IFunctionLogService,
      * - 深度
      *
      * @param query 查询参数
-     * @return ResultVO<List < FunctionLogEntity>>
+     * @return ResultVO<List < SysLogEntity>>
      */
     @PostMapping("/searchScrollAll")
     @ApiOperation("查询日志All(深度)")
-    public ResultVO<List<FunctionLogEntity>> searchScrollAll(@RequestBody ListQuery query) {
-        return ResultVO.success(service.findScrollAll(query, FunctionLogEntity.class));
+    public ResultVO<List<SysLogEntity>> searchScrollAll(@RequestBody ListQuery query) {
+        return ResultVO.success(service.findScrollAll(query, SysLogEntity.class));
     }
 
     /**
      * 分页查询日志
      *
      * @param query 查询参数
-     * @return ResultVO<PageResult < FunctionLogEntity>>
+     * @return ResultVO<PageResult < SysLogEntity>>
      */
     @PostMapping("/searchPage")
     @ApiOperation("分页查询日志")
-    public ResultVO<PageResult<FunctionLogEntity>> searchPage(@RequestBody PageQuery query) {
-        return ResultVO.success(service.findPage(query, FunctionLogEntity.class));
+    public ResultVO<PageResult<SysLogEntity>> searchPage(@RequestBody PageQuery query) {
+        return ResultVO.success(service.findPage(query, SysLogEntity.class));
     }
 
     /**
@@ -76,12 +76,12 @@ public class FunctionLogController extends BaseEsController<IFunctionLogService,
      * - 深度(不支持跨页)
      *
      * @param query 查询参数
-     * @return ResultVO<PageResult < FunctionLogEntity>>
+     * @return ResultVO<PageResult < SysLogEntity>>
      */
     @PostMapping("/searchScrollPage")
     @ApiOperation(value = "分页查询日志(深度)", notes = "不支持跨页")
-    public ResultVO<PageResult<FunctionLogEntity>> searchScrollPage(@RequestBody PageQuery query) {
-        return ResultVO.success(service.findScrollPage(query, FunctionLogEntity.class));
+    public ResultVO<PageResult<SysLogEntity>> searchScrollPage(@RequestBody PageQuery query) {
+        return ResultVO.success(service.findScrollPage(query, SysLogEntity.class));
     }
 
     /**
@@ -93,6 +93,6 @@ public class FunctionLogController extends BaseEsController<IFunctionLogService,
     @PostMapping("/count")
     @ApiOperation("查询日志总数")
     public ResultVO<Long> count(@RequestBody Query query) {
-        return ResultVO.success(service.count(query, FunctionLogEntity.class));
+        return ResultVO.success(service.count(query, SysLogEntity.class));
     }
 }

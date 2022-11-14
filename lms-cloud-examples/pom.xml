@@ -41,6 +41,8 @@
         <module>lms-cloud-example-logs</module>
         <!-- Drools Example -->
         <module>lms-cloud-example-drools</module>
+        <!-- Delay Queue Example -->
+        <module>lms-cloud-example-delayqueue</module>
     </modules>
 
     <!-- dependencies -->

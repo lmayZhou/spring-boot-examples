@@ -1,7 +1,7 @@
 package com.lmaye.cloud.example.logs.service;
 
 import com.lmaye.cloud.starter.elasticsearch.service.IElasticSearchService;
-import com.lmaye.cloud.starter.logs.entity.FunctionLogEntity;
+import com.lmaye.cloud.starter.logs.entity.SysLogEntity;
 
 /**
  * -- FunctionLog Service
@@ -10,5 +10,5 @@ import com.lmaye.cloud.starter.logs.entity.FunctionLogEntity;
  * @date 2020/12/3 14:18
  * @email lmay@lmaye.com
  */
-public interface IFunctionLogService extends IElasticSearchService<FunctionLogEntity, Long> {
+public interface IFunctionLogService extends IElasticSearchService<SysLogEntity, Long> {
 }

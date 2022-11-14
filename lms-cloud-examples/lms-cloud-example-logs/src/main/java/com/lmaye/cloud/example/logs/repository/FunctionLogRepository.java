@@ -1,7 +1,7 @@
 package com.lmaye.cloud.example.logs.repository;
 
 import com.lmaye.cloud.starter.elasticsearch.repository.IElasticSearchRepository;
-import com.lmaye.cloud.starter.logs.entity.FunctionLogEntity;
+import com.lmaye.cloud.starter.logs.entity.SysLogEntity;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -12,5 +12,5 @@ import org.springframework.stereotype.Repository;
  * @email lmay@lmaye.com
  */
 @Repository
-public interface FunctionLogRepository extends IElasticSearchRepository<FunctionLogEntity, Long> {
+public interface FunctionLogRepository extends IElasticSearchRepository<SysLogEntity, Long> {
 }

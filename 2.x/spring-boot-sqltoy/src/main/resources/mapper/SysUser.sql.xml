@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sqltoy xmlns="http://www.sagframe.com/schema/sqltoy"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sagframe.com/schema/sqltoy http://www.sagframe.com/schema/sqltoy/sqltoy.xsd">
+    <!-- 示例 -->
+    <sql id="searchPage">
+        <value>
+			<![CDATA[
+            select id,
+                   dept_id,
+                   client_id,
+                   user_name,
+                   password,
+                   user_type,
+                   email,
+                   phone_number,
+                   sex,
+                   avatar,
+                   qq,
+                   wechat,
+                   weibo,
+                   status,
+                   create_at,
+                   create_by,
+                   update_at,
+                   update_by,
+                   remark,
+                   ext,
+                   version
+            from sys_user
+            where #[user_name like : userName]
+            ]]>
+		</value>
+    </sql>
+</sqltoy>

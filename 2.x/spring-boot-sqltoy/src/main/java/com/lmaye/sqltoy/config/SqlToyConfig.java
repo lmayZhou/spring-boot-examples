@@ -1,14 +1,15 @@
-package com.lmaye.cloud.example.logs.config;
+package com.lmaye.sqltoy.config;
 
 import org.springframework.context.annotation.Configuration;
 
 /**
- * -- Logs Config
+ * -- SqlToyConfig
  *
  * @author Lmay Zhou
- * @date 2021/8/6 17:31
+ * @date 2022/11/14 16:21
  * @email lmay@lmaye.com
+ * @since JDK17
  */
 @Configuration
-public class LogsConfig {
+public class SqlToyConfig {
 }

@@ -1,12 +1,13 @@
-package com.lmaye.cloud.example.delayqueue;
+package com.lmaye.sqltoy;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ExampleDelayQueueApplicationTests {
+class SqlToyApplicationTests {
+
     @Test
     void contextLoads() {
-
     }
+
 }

@@ -1,9 +1,9 @@
 package com.lmaye.cloud.example.logs.service.impl;
 
-import com.lmaye.cloud.example.repository.FunctionLogRepository;
-import com.lmaye.cloud.example.service.IFunctionLogService;
+import com.lmaye.cloud.example.logs.repository.FunctionLogRepository;
+import com.lmaye.cloud.example.logs.service.IFunctionLogService;
 import com.lmaye.cloud.starter.elasticsearch.service.impl.ElasticSearchServiceImpl;
-import com.lmaye.cloud.starter.logs.entity.FunctionLogEntity;
+import com.lmaye.cloud.starter.logs.entity.SysLogEntity;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
  * @email lmay@lmaye.com
  */
 @Service
-public class FunctionLogServiceImpl extends ElasticSearchServiceImpl<FunctionLogRepository, FunctionLogEntity, Long>
+public class FunctionLogServiceImpl extends ElasticSearchServiceImpl<FunctionLogRepository, SysLogEntity, Long>
         implements IFunctionLogService {
     public FunctionLogServiceImpl(FunctionLogRepository repository) {
         super(repository);

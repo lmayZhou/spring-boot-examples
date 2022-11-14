@@ -22,6 +22,12 @@ mvn clean install -DskipTests
         - ...                                   # 待续
         pom.xml                                 # Maven 资源库配置文件
 
+#### SkyWalking 链路追踪
+```text
+-javaagent:/Users/lmay/software/apache-skywalking-apm-bin/agent/skywalking-agent.jar
+SW_AGENT_NAME=consumer;SW_AGENT_COLLECTOR_BACKEND_SERVICES=http://127.0.0.1:8080/
+```
+
 ### 参与贡献
  1. 2018年12月05日: 构建 spring-boot-examples [Module]
  2. 2018年12月05日: 初始化 examples-common [Module]

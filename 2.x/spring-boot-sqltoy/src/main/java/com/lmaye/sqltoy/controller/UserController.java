@@ -36,11 +36,11 @@ public class UserController {
      * 用户新增
      *
      * @param param 请求参数
-     * @return ResultVO<SysUserVO>
+     * @return ResultVO<Boolean>
      */
     @PostMapping("/save")
     @ApiOperation(value = "用户新增", notes = "新增用户信息")
-    public ResultVO<SysUserVO> save(@RequestBody SysUserDTO param) {
+    public ResultVO<Boolean> save(@RequestBody SysUserDTO param) {
         return ResultVO.success(userService.save(param));
     }
 

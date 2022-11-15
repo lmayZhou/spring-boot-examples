@@ -18,9 +18,9 @@ public interface IUserService {
      * 新增记录
      *
      * @param dto 记录信息
-     * @return SysUserVO
+     * @return Boolean
      */
-    SysUserVO save(SysUserDTO dto);
+    Boolean save(SysUserDTO dto);
 
     /**
      * 查询记录

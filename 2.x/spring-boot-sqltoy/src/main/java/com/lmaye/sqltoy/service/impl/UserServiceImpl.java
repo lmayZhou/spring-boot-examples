@@ -14,6 +14,8 @@ import org.sagacity.sqltoy.model.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigInteger;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -37,13 +39,13 @@ public class UserServiceImpl extends RestConverterImpl<SysUserRestConverter, Sys
      * 新增记录
      *
      * @param dto 记录信息
-     * @return SysUserVO
+     * @return Boolean
      */
     @Override
-    public SysUserVO save(SysUserDTO dto) {
+    public Boolean save(SysUserDTO dto) {
         SysUser user = restConverter.convertDtoToEntity(dto);
-        user.setId(IdUtils.nextId());
-        return restConverter.convertEntityToVo((SysUser) sqlToyLazyDao.save(user));
+        user.setId(BigInteger.valueOf(IdUtils.nextId()));
+        return Objects.nonNull(sqlToyLazyDao.save(user));
     }
 
     /**

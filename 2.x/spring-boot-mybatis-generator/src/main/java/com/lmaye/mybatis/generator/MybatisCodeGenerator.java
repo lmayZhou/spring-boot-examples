@@ -32,15 +32,15 @@ public class MybatisCodeGenerator {
         mpg.setGlobalConfig(gc);
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://192.168.30.180:3306/ms_user?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://192.168.1.18:3306/dev_th_user?useUnicode=true&useSSL=false&characterEncoding=utf8");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.jdbc.Driver");
         dsc.setUsername("root");
-        dsc.setPassword("root");
+        dsc.setPassword("123456");
         mpg.setDataSource(dsc);
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("com.lmaye.ms.service");
+        pc.setParent("sg.sense.service");
         pc.setModuleName("user");
         mpg.setPackageInfo(pc);
         // 自定义配置
@@ -92,7 +92,7 @@ public class MybatisCodeGenerator {
         mpg.setTemplate(templateConfig);
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude("tb_user", "tb_order");
+//        strategy.setInclude("app_ui_conf");
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
 //        strategy.setSuperEntityClass("你自己的父类实体,没有就不用设置!");

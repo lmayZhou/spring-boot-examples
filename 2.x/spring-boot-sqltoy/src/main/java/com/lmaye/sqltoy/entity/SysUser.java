@@ -7,7 +7,6 @@ import org.sagacity.sqltoy.config.annotation.Entity;
 import org.sagacity.sqltoy.config.annotation.Id;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 /**
@@ -26,13 +25,13 @@ public class SysUser implements Serializable {
      */
     @Id(strategy = "generator", generator = "org.sagacity.sqltoy.plugins.id.impl.DefaultIdGenerator")
     @Column(name = "id", comment = "主键ID", length = 19L, type = java.sql.Types.BIGINT, nullable = false)
-    private BigInteger id;
+    private Long id;
 
     /**
      * 部门ID
      */
     @Column(name = "dept_id", comment = "部门ID", length = 19L, type = java.sql.Types.BIGINT, nullable = true)
-    private BigInteger deptId;
+    private Long deptId;
 
     /**
      * 客户端ID

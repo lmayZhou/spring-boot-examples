@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.time.LocalDateTime;
 
 /**
@@ -24,13 +23,13 @@ public class SysUserVO implements Serializable {
      * 主键ID
      */
     @Schema(name = "id", description = "主键ID")
-    private BigInteger id;
+    private Long id;
 
     /**
      * 部门ID
      */
     @Schema(name = "deptId", description = "部门ID")
-    private BigInteger deptId;
+    private Long deptId;
 
     /**
      * 客户端ID

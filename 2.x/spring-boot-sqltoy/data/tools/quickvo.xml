@@ -20,7 +20,7 @@
         <task datasource="ds1" author="lmayZhou" include="^sys_\w+" active="true" api-doc="swagger-v3">
             <!-- entity 配置中存在has-abstract:默认为true,可以设置extends="package.parentClass"指定父类,
                5.0开始支持 lombok="true" lombok-chain="true" -->
-            <entity package="${project.package}.vo" substr="Sqltoy" name="#{subName}VO" lombok-chain="true"/>
+            <entity package="${project.package}.entity" substr="Sqltoy" name="#{subName}" lombok-chain="true"/>
         </task>
     </tasks>
 
@@ -33,6 +33,6 @@
     <!-- 自定义类型映射 -->
     <type-mapping>
         <!-- 保留1个作为范例,一般无需配置 -->
-        <sql-type native-types="BIGINT" jdbc-type="BIGINT" java-type="java.math.BigInteger"/>
+        <sql-type native-types="BIGINT" jdbc-type="BIGINT" java-type="java.lang.Long"/>
     </type-mapping>
 </quickvo>

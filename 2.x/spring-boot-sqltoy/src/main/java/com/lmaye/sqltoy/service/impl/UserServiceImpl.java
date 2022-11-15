@@ -14,7 +14,6 @@ import org.sagacity.sqltoy.model.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigInteger;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -44,7 +43,7 @@ public class UserServiceImpl extends RestConverterImpl<SysUserRestConverter, Sys
     @Override
     public Boolean save(SysUserDTO dto) {
         SysUser user = restConverter.convertDtoToEntity(dto);
-        user.setId(BigInteger.valueOf(IdUtils.nextId()));
+        user.setId(IdUtils.nextId());
         return Objects.nonNull(sqlToyLazyDao.save(user));
     }
 

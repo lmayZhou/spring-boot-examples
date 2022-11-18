@@ -20,7 +20,8 @@
         <task datasource="ds1" author="lmayZhou" include="^sys_\w+" active="true" api-doc="swagger-v3">
             <!-- entity 配置中存在has-abstract:默认为true,可以设置extends="package.parentClass"指定父类,
                5.0开始支持 lombok="true" lombok-chain="true" -->
-            <entity package="${project.package}.entity" substr="Sqltoy" name="#{subName}" lombok-chain="true"/>
+            <entity package="${project.package}.test.entity" lombok="true" substr="Sqltoy" lombok-chain="true" name="#{subName}"/>
+            <vo package="${project.package}.test.vo" lombok="true" lombok-chain="true" substr="Sqltoy" name="#{subName}VO"/>
         </task>
     </tasks>
 

@@ -7,6 +7,8 @@ import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.Min;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 /**
  * -- QueryDTO
@@ -37,8 +39,32 @@ public class PageQueryDTO implements Serializable {
     private Long pageSize = 10L;
 
     /**
+     * 用户ID
+     */
+    @Schema(name = "userId", description = "用户ID")
+    private Long userId;
+
+    /**
+     * 角色ID
+     */
+    @Schema(name = "roleIds", description = "角色ID")
+    private List<Long> roleIds;
+
+    /**
      * 用户名
      */
     @Schema(name = "userName", description = "用户名")
     private String userName;
+
+    /**
+     * 开始时间
+     */
+    @Schema(name = "startDate", description = "开始时间")
+    private Date startDate;
+
+    /**
+     * 结束时间
+     */
+    @Schema(name = "endDate", description = "结束时间")
+    private Date endDate;
 }

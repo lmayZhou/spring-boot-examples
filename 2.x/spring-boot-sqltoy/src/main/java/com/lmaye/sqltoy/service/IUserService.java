@@ -24,6 +24,14 @@ public interface IUserService {
 
     /**
      * 查询记录
+     *
+     * @param id 主键ID
+     * @return SysUserVO
+     */
+    SysUserVO getUserInfo(Long id);
+
+    /**
+     * 查询记录
      * - 分页
      *
      * @param dto 查询信息

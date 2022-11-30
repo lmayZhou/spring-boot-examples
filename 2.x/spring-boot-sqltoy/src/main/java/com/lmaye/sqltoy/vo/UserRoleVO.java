@@ -36,7 +36,7 @@ public class UserRoleVO implements Serializable {
      * 用户名称
      */
     @Schema(name = "userName", description = "用户名称")
-    private Long userName;
+    private String userName;
 
     /**
      * 角色ID
@@ -54,7 +54,7 @@ public class UserRoleVO implements Serializable {
      * 状态(0. 正常; 1. 停用; 2. 删除;)
      */
     @Schema(name = "status", description = "状态(0. 正常; 1. 停用; 2. 删除;)")
-    private Boolean status;
+    private Integer status;
 
     /**
      * 创建时间

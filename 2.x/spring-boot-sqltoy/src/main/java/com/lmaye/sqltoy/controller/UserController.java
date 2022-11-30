@@ -8,11 +8,9 @@ import com.lmaye.sqltoy.service.IUserService;
 import com.lmaye.sqltoy.vo.SysUserVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * -- User Controller
@@ -33,25 +31,37 @@ public class UserController {
     private IUserService userService;
 
     /**
-     * 用户新增
+     * 新增记录
      *
      * @param param 请求参数
      * @return ResultVO<Boolean>
      */
     @PostMapping("/save")
-    @ApiOperation(value = "用户新增", notes = "新增用户信息")
+    @ApiOperation(value = "新增记录", notes = "新增记录")
     public ResultVO<Boolean> save(@RequestBody SysUserDTO param) {
         return ResultVO.success(userService.save(param));
     }
 
     /**
-     * 用户查询
+     * 查询记录
+     *
+     * @param id 主键ID
+     * @return ResultVO<SysUserVO>
+     */
+    @GetMapping("/info/{id}")
+    @ApiOperation("查询记录")
+    public ResultVO<SysUserVO> userInfo(@PathVariable @ApiParam(value = "主键ID", required = true) Long id) {
+        return ResultVO.success(userService.getUserInfo(id));
+    }
+
+    /**
+     * 分页查询记录
      *
      * @param param 请求参数
      * @return ResultVO<PageResult < SysUserVO>>
      */
     @PostMapping("/search")
-    @ApiOperation(value = "用户查询", notes = "分页查询用户信息")
+    @ApiOperation(value = "分页查询记录", notes = "分页查询记录")
     public ResultVO<PageResult<SysUserVO>> search(@RequestBody PageQueryDTO param) {
         return ResultVO.success(userService.search(param));
     }

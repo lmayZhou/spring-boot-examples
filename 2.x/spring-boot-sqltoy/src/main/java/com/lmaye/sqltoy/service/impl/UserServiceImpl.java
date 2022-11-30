@@ -43,8 +43,24 @@ public class UserServiceImpl extends RestConverterImpl<SysUserRestConverter, Sys
     @Override
     public Boolean save(SysUserDTO dto) {
         SysUser user = restConverter.convertDtoToEntity(dto);
-        user.setId(IdUtils.nextId());
-        return Objects.nonNull(sqlToyLazyDao.save(user));
+        Long id = dto.getId();
+        if (Objects.isNull(id)) {
+            user.setId(IdUtils.nextId());
+        }
+        return Objects.nonNull(sqlToyLazyDao.saveOrUpdate(user));
+    }
+
+    /**
+     * 查询记录
+     *
+     * @param id 主键ID
+     * @return SysUserVO
+     */
+    @Override
+    public SysUserVO getUserInfo(Long id) {
+        SysUser query = new SysUser();
+        query.setId(id);
+        return restConverter.convertEntityToVo(sqlToyLazyDao.load(query));
     }
 
     /**

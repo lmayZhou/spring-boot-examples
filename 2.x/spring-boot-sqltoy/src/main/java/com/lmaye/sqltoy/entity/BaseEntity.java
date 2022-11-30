@@ -24,7 +24,7 @@ public class BaseEntity implements Serializable {
      * 状态(0. 正常; 1. 停用; 2. 删除;)
      */
     @Column(name = "status", comment = "状态(0. 正常; 1. 停用; 2. 删除;)", length = 1L, defaultValue = "0", type = java.sql.Types.BIT, nullable = false)
-    private Boolean status;
+    private Integer status;
 
     /**
      * 创建时间

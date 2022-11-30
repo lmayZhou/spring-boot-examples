@@ -44,12 +44,6 @@ public class SysUserVO implements Serializable {
     private String userName;
 
     /**
-     * 密码
-     */
-    @Schema(name = "password", description = "密码")
-    private String password;
-
-    /**
      * 用户类型(00. 系统用户; 01. 注册用户;)
      */
     @Schema(name = "userType", description = "用户类型(00. 系统用户; 01. 注册用户;)")
@@ -101,7 +95,7 @@ public class SysUserVO implements Serializable {
      * 状态(0. 正常; 1. 停用; 2. 删除;)
      */
     @Schema(name = "status", description = "状态(0. 正常; 1. 停用; 2. 删除;)")
-    private Boolean status;
+    private Integer status;
 
     /**
      * 创建时间

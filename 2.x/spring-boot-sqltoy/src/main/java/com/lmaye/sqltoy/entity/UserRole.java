@@ -46,7 +46,7 @@ public class UserRole extends BaseEntity {
     /**
      * 用户名称
      */
-    private Long userName;
+    private String userName;
 
     /**
      * 角色名称

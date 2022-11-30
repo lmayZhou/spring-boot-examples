@@ -36,10 +36,4 @@ public class UserRoleDTO implements Serializable {
      */
     @Schema(name = "roleId", description = "角色ID")
     private Long roleId;
-
-    /**
-     * 状态(0. 正常; 1. 停用; 2. 删除;)
-     */
-    @Schema(name = "status", description = "状态(0. 正常; 1. 停用; 2. 删除;)")
-    private Boolean status;
 }

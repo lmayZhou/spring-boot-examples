@@ -3,9 +3,9 @@ package com.lmaye.sqltoy.controller;
 import com.lmaye.cloud.starter.web.context.PageResult;
 import com.lmaye.cloud.starter.web.context.ResultVO;
 import com.lmaye.sqltoy.dto.PageQueryDTO;
-import com.lmaye.sqltoy.dto.SysUserDTO;
-import com.lmaye.sqltoy.service.IUserService;
-import com.lmaye.sqltoy.vo.SysUserVO;
+import com.lmaye.sqltoy.dto.UserRoleDTO;
+import com.lmaye.sqltoy.service.IUserRoleService;
+import com.lmaye.sqltoy.vo.UserRoleVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,29 +30,29 @@ public class UserRoleController {
      * IUserService
      */
     @Autowired
-    private IUserService userService;
+    private IUserRoleService userRoleService;
 
     /**
-     * 用户新增
+     * 新增记录
      *
      * @param param 请求参数
      * @return ResultVO<Boolean>
      */
     @PostMapping("/save")
-    @ApiOperation(value = "用户新增", notes = "新增用户信息")
-    public ResultVO<Boolean> save(@RequestBody SysUserDTO param) {
-        return ResultVO.success(userService.save(param));
+    @ApiOperation(value = "新增记录", notes = "新增记录")
+    public ResultVO<Boolean> save(@RequestBody UserRoleDTO param) {
+        return ResultVO.success(userRoleService.save(param));
     }
 
     /**
-     * 用户查询
+     * 分页查询记录
      *
      * @param param 请求参数
-     * @return ResultVO<PageResult < SysUserVO>>
+     * @return ResultVO<PageResult < UserRoleVO>>
      */
     @PostMapping("/search")
-    @ApiOperation(value = "用户查询", notes = "分页查询用户信息")
-    public ResultVO<PageResult<SysUserVO>> search(@RequestBody PageQueryDTO param) {
-        return ResultVO.success(userService.search(param));
+    @ApiOperation(value = "分页查询记录", notes = "分页查询记录")
+    public ResultVO<PageResult<UserRoleVO>> search(@RequestBody PageQueryDTO param) {
+        return ResultVO.success(userRoleService.search(param));
     }
 }

@@ -59,7 +59,7 @@ public class UserServiceImpl extends RestConverterImpl<SysUserRestConverter, Sys
         Page<SysUser> page = new Page<>(dto.getPageSize().intValue(), dto.getPageIndex());
         SysUser query = new SysUser();
         query.setUserName(dto.getUserName());
-        Page<SysUser> pageInfo = sqlToyLazyDao.findPageBySql(page, "searchPage", query);
+        Page<SysUser> pageInfo = sqlToyLazyDao.findPageBySql(page, "searchUserPage", query);
         PageResult<SysUserVO> rs = new PageResult<>();
         rs.setPageIndex(dto.getPageIndex());
         rs.setPageSize(dto.getPageSize());

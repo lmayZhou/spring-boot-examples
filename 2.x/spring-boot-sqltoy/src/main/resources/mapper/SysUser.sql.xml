@@ -3,7 +3,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.sagframe.com/schema/sqltoy http://www.sagframe.com/schema/sqltoy/sqltoy.xsd">
     <!-- 示例 -->
-    <sql id="searchPage">
+    <sql id="searchUserPage">
         <value>
 			<![CDATA[
             select id,

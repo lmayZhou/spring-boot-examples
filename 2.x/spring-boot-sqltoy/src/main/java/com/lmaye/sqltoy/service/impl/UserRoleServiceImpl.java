@@ -62,7 +62,7 @@ public class UserRoleServiceImpl extends RestConverterImpl<UserRoleRestConverter
         query.setRoleIds(dto.getRoleIds());
         query.setStartDate(dto.getStartDate());
         query.setEndDate(dto.getEndDate());
-        Page<UserRole> pageInfo = sqlToyLazyDao.findPageBySql(page, "searchPage", query);
+        Page<UserRole> pageInfo = sqlToyLazyDao.findPageBySql(page, "searchUserRolePage", query);
         PageResult<UserRoleVO> rs = new PageResult<>();
         rs.setPageIndex(dto.getPageIndex());
         rs.setPageSize(dto.getPageSize());

@@ -20,6 +20,7 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <ehcache.version>3.10.6</ehcache.version>
     </properties>
 
     <dependencies>
@@ -71,6 +72,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jdbc</artifactId>
             <version>2.7.5</version>
+        </dependency>
+
+        <!-- 注意缓存翻译是默认依赖ehcache的,不要去除 -->
+        <dependency>
+            <groupId>org.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <scope>provided</scope>
+            <version>${ehcache.version}</version>
         </dependency>
 
         <dependency>

@@ -19,7 +19,7 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <itextpdf.version>5.5.13</itextpdf.version>
+        <itextpdf.version>5.5.13.3</itextpdf.version>
         <itext-asian.version>5.2.0</itext-asian.version>
         <xmlworker.version>5.5.13</xmlworker.version>
         <flying-saucer-pdf.version>9.1.16</flying-saucer-pdf.version>

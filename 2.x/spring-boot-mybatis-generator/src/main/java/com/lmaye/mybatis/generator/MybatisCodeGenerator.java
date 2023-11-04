@@ -48,7 +48,7 @@ public class MybatisCodeGenerator {
                         .addSuperEntityColumns("id", "is_deleted", "version", "remark", "ext", "created_by", "created_at", "last_modified_by", "last_modified_at")
                         .addTableFills(new Column("created_at", FieldFill.INSERT))
                         .addTableFills(new Property("last_modified_at", FieldFill.INSERT_UPDATE), new Property("last_modified_by", FieldFill.INSERT_UPDATE))
-                        .formatFileName("%sEntity").superClass(FullEntity.class).enableFileOverride()
+                        .superClass(FullEntity.class).enableFileOverride()
                     .mapperBuilder().mapperAnnotation(Mapper.class).enableBaseResultMap().enableBaseColumnList()
                         .formatMapperFileName("%sRepository").formatXmlFileName("%sMapper").superClass(IMyBatisRepository.class).enableFileOverride()
                     .serviceBuilder().formatServiceFileName("%sService").formatServiceImplFileName("%sServiceImpl")

@@ -3,11 +3,11 @@ package ${package.Entity};
 <#list table.importPackages as pkg>
     import ${pkg};
 </#list>
-import lombok.*;
-import java.io.Serializable;
-import lombok.experimental.Accessors;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.*;
+import lombok.experimental.Accessors;
+import java.io.Serializable;
 
 /**
 * -- ${entity}VO

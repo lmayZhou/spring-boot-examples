@@ -18,13 +18,13 @@ import lombok.experimental.Accessors;
 </#if>
 
 /**
-* -- ${entity}
-*
-* @author ${author}
-* @date ${date}
-* @email lmay@lmaye.com
-* @since JDK1.8
-*/
+ * -- ${entity}
+ *
+ * @author ${author}
+ * @date ${date}
+ * @email lmay@lmaye.com
+ * @since JDK1.8
+ */
 <#if entityLombokModel>
 @Getter
 @Setter

@@ -9,13 +9,13 @@ import ${superServiceImplClassPackage};
 import org.springframework.stereotype.Service;
 
 /**
-* -- ${table.serviceImplName}
-*
-* @author ${author}
-* @date ${date}
-* @email lmay@lmaye.com
-* @since JDK1.8
-*/
+ * -- ${table.serviceImplName}
+ *
+ * @author ${author}
+ * @date ${date}
+ * @email lmay@lmaye.com
+ * @since JDK1.8
+ */
 @Service
 <#if kotlin>
 open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>()<#if table.serviceInterface>, ${table.serviceName}</#if> {

@@ -7,13 +7,13 @@ import ${mapperAnnotationClass.name};
 </#if>
 
 /**
-* -- ${table.mapperName}
-*
-* @author ${author}
-* @date ${date}
-* @email lmay@lmaye.com
-* @since JDK1.8
-*/
+ * -- ${table.mapperName}
+ *
+ * @author ${author}
+ * @date ${date}
+ * @email lmay@lmaye.com
+ * @since JDK1.8
+ */
 <#if mapperAnnotationClass??>
 @${mapperAnnotationClass.simpleName}
 </#if>

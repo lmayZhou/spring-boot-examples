@@ -14,13 +14,13 @@ import ${package.Entity}.${entity};
 </#if>
 
 /**
-* -- ${table.controllerName}
-*
-* @author ${author}
-* @date ${date}
-* @email lmay@lmaye.com
-* @since JDK1.8
-*/
+ * -- ${table.controllerName}
+ *
+ * @author ${author}
+ * @date ${date}
+ * @email lmay@lmaye.com
+ * @since JDK1.8
+ */
 <#if restControllerStyle>
 @RestController
 <#else>

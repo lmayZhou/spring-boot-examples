@@ -10,13 +10,13 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 
 /**
-* -- ${entity}DTO
-*
-* @author ${author}
-* @date ${date}
-* @email lmay@lmaye.com
-* @since JDK1.8
-*/
+ * -- ${entity}DTO
+ *
+ * @author ${author}
+ * @date ${date}
+ * @email lmay@lmaye.com
+ * @since JDK1.8
+ */
 @Data
 @Builder
 @Accessors(chain = true)

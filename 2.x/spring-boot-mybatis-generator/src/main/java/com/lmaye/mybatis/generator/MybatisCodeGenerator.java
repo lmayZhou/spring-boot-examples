@@ -1,113 +1,63 @@
 package com.lmaye.mybatis.generator;
 
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.baomidou.mybatisplus.generator.AutoGenerator;
-import com.baomidou.mybatisplus.generator.InjectionConfig;
-import com.baomidou.mybatisplus.generator.config.*;
-import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.generator.FastAutoGenerator;
+import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
+import com.baomidou.mybatisplus.generator.config.OutputFile;
+import com.baomidou.mybatisplus.generator.config.builder.CustomFile;
+import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import com.baomidou.mybatisplus.generator.fill.Column;
+import com.baomidou.mybatisplus.generator.fill.Property;
+import com.lmaye.cloud.starter.mybatis.entity.FullEntity;
+import com.lmaye.cloud.starter.mybatis.repository.IMyBatisRepository;
+import com.lmaye.cloud.starter.mybatis.service.IMyBatisService;
+import com.lmaye.cloud.starter.mybatis.service.impl.MyBatisServiceImpl;
+import com.lmaye.cloud.starter.web.controller.BaseController;
+import org.apache.ibatis.annotations.Mapper;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
- * -- Mybatis Code Generator
+ * -- MybatisPlusGenerator
  *
- * @author lmay.Zhou
- * @date 2020/12/25 11:37
+ * @author Lmay Zhou
+ * @date 2023/11/3 17:44
  * @email lmay@lmaye.com
+ * @since JDK1.8
  */
 public class MybatisCodeGenerator {
+    /**
+     * 数据源配置
+     */
+    private static final DataSourceConfig.Builder DATA_SOURCE_CONFIG = new DataSourceConfig
+            .Builder("jdbc:mysql://127.0.0.1:3306/applet-voice?serverTimezone=Asia/Shanghai", "root", "root");
+
     public static void main(String[] args) {
-        // 代码生成器
-        AutoGenerator mpg = new AutoGenerator();
-        // 全局配置
-        GlobalConfig gc = new GlobalConfig();
-        String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor("Lmay Zhou");
-        gc.setOpen(false);
-        // gc.setSwagger2(true); 实体属性 Swagger2 注解
-        mpg.setGlobalConfig(gc);
-        // 数据源配置
-        DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://192.168.30.180:3306/ms_user?useUnicode=true&useSSL=false&characterEncoding=utf8");
-        // dsc.setSchemaName("public");
-        dsc.setDriverName("com.mysql.jdbc.Driver");
-        dsc.setUsername("root");
-        dsc.setPassword("root");
-        mpg.setDataSource(dsc);
-        // 包配置
-        PackageConfig pc = new PackageConfig();
-        pc.setParent("com.lmaye.ms.service");
-        pc.setModuleName("user");
-        mpg.setPackageInfo(pc);
-        // 自定义配置
-        InjectionConfig cfg = new InjectionConfig() {
-            @Override
-            public void initMap() {
-                // to do nothing
-            }
-        };
-        // 如果模板引擎是 freemarker
-        String templatePath = "/templates/mapper.xml.ftl";
-        // 如果模板引擎是 velocity
-        // String templatePath = "/templates/mapper.xml.vm";
-        // 自定义输出配置
-        List<FileOutConfig> focList = new ArrayList<>();
-        // 自定义配置会被优先输出
-        focList.add(new FileOutConfig(templatePath) {
-            @Override
-            public String outputFile(TableInfo tableInfo) {
-                // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                return projectPath + "/src/main/resources/mapper/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
-                /*return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
-                        + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;*/
-            }
-        });
-        /*cfg.setFileCreate(new IFileCreate() {
-            @Override
-            public boolean isCreate(ConfigBuilder configBuilder, FileType fileType, String filePath) {
-                // 判断自定义文件夹是否需要创建
-                checkDir("调用默认方法创建的目录，自定义目录用");
-                if (fileType == FileType.MAPPER) {
-                    // 已经生成 mapper 文件判断存在，不想重新生成返回 false
-                    return !new File(filePath).exists();
-                }
-                // 允许生成模板文件
-                return true;
-            }
-        });*/
-        cfg.setFileOutConfigList(focList);
-        mpg.setCfg(cfg);
-        // 配置模板
-        TemplateConfig templateConfig = new TemplateConfig();
-        // 配置自定义输出模板
-        //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
-        // templateConfig.setEntity("templates/entity2.java");
-        // templateConfig.setService();
-        // templateConfig.setController();
-        templateConfig.setXml(null);
-        mpg.setTemplate(templateConfig);
-        // 策略配置
-        StrategyConfig strategy = new StrategyConfig();
-        strategy.setInclude("tb_user", "tb_order");
-        strategy.setNaming(NamingStrategy.underline_to_camel);
-        strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-//        strategy.setSuperEntityClass("你自己的父类实体,没有就不用设置!");
-        strategy.setEntityLombokModel(true);
-        strategy.setRestControllerStyle(true);
-        strategy.setEntityTableFieldAnnotationEnable(true);
-        // 公共父类
-//        strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
-        // 写于父类中的公共字段
-//        strategy.setSuperEntityColumns("id");
-//        strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
-        strategy.setControllerMappingHyphenStyle(true);
-        strategy.setTablePrefix(pc.getModuleName() + "_");
-        mpg.setStrategy(strategy);
-        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
-        mpg.execute();
+        final String path = System.getProperty("user.dir");
+        FastAutoGenerator.create(DATA_SOURCE_CONFIG)
+            .globalConfig(builder -> builder.outputDir(path.concat("/src/main/java")).author("lmayZhou")
+                    .dateType(DateType.TIME_PACK).commentDate("yyyy-MM-dd HH:mm:ss").build())
+            .packageConfig(builder -> builder.parent("com.luckyturnfast.applet.voice.service").moduleName("user")
+                    .entity("entity").service("service").serviceImpl("service.impl").mapper("mapper").xml("mapper").controller("controller")
+                    .pathInfo(Collections.singletonMap(OutputFile.xml, path.concat("/src/main/resources/mapper/"))).build())
+            .strategyConfig(builder -> builder.enableCapitalMode().disableSqlFilter()
+                    .entityBuilder().disableSerialVersionUID().enableChainModel().enableLombok().enableRemoveIsPrefix()
+                        .enableTableFieldAnnotation().versionColumnName("version").logicDeleteColumnName("is_deleted")
+                        .addSuperEntityColumns("id", "is_deleted", "version", "remark", "ext", "created_by", "created_at", "last_modified_by", "last_modified_at")
+                        .addTableFills(new Column("created_at", FieldFill.INSERT))
+                        .addTableFills(new Property("last_modified_at", FieldFill.INSERT_UPDATE), new Property("last_modified_by", FieldFill.INSERT_UPDATE))
+                        .formatFileName("%sEntity").superClass(FullEntity.class).enableFileOverride()
+                    .mapperBuilder().mapperAnnotation(Mapper.class).enableBaseResultMap().enableBaseColumnList()
+                        .formatMapperFileName("%sRepository").formatXmlFileName("%sMapper").superClass(IMyBatisRepository.class).enableFileOverride()
+                    .serviceBuilder().formatServiceFileName("%sService").formatServiceImplFileName("%sServiceImpl")
+                        .superServiceClass(IMyBatisService.class).superServiceImplClass(MyBatisServiceImpl.class).enableFileOverride()
+                    .controllerBuilder().enableHyphenStyle().enableRestStyle().superClass(BaseController.class).enableFileOverride().build())
+            .injectionConfig(consumer -> consumer.customFile(Arrays.asList(
+                    new CustomFile.Builder().fileName("DTO.java").templatePath("templates/dto.java.ftl").packageName("dto").enableFileOverride().build(),
+                    new CustomFile.Builder().fileName("VO.java").templatePath("templates/vo.java.ftl").packageName("vo").enableFileOverride().build(),
+                    new CustomFile.Builder().fileName("RestConverter.java").templatePath("templates/convertor.java.ftl").packageName("converter").enableFileOverride().build()
+            ))).templateEngine(new FreemarkerTemplateEngine()).execute();
     }
 }

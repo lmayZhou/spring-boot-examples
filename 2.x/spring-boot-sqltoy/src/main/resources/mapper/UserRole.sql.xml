@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sqltoy xmlns="http://www.sagframe.com/schema/sqltoy"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sagframe.com/schema/sqltoy http://www.sagframe.com/schema/sqltoy/sqltoy.xsd">
+    <!-- 示例 -->
+    <sql id="searchUserRolePage">
+        <translate cache="userIdName" columns="userName" cache-indexs="1"/>
+
+        <value>
+			<![CDATA[
+            select id,
+                   user_id,
+                   user_id as userName,
+                   role_id,
+                   status,
+                   create_at,
+                   create_by,
+                   update_at,
+                   update_by,
+                   remark,
+                   ext,
+                   version
+            from user_role
+            where #[user_id =: userId]
+                  #[and role_id in(: roleIds)]
+                  #[and create_at >=: startDate]
+                  #[and create_at <: endDate]
+            ]]>
+		</value>
+    </sql>
+</sqltoy>

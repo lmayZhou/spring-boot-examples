@@ -1,9 +1,9 @@
 package com.lmaye.cloud.example.logs.controller;
 
-import com.lmaye.cloud.example.controller.base.BaseEsController;
-import com.lmaye.cloud.example.service.IServiceLogService;
-import com.lmaye.cloud.starter.logs.annotation.ServiceLog;
-import com.lmaye.cloud.starter.logs.entity.ServiceLogEntity;
+import com.lmaye.cloud.example.logs.controller.base.BaseEsController;
+import com.lmaye.cloud.example.logs.service.IServiceLogService;
+import com.lmaye.cloud.starter.logs.annotation.SysLog;
+import com.lmaye.cloud.starter.logs.entity.SysLogEntity;
 import com.lmaye.cloud.starter.web.context.PageResult;
 import com.lmaye.cloud.starter.web.context.ResultVO;
 import com.lmaye.cloud.starter.web.query.ListQuery;
@@ -28,7 +28,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/es/log/service")
 @Api(tags = "服务日志ES相关接口")
-public class ServiceLogController extends BaseEsController<IServiceLogService, ServiceLogEntity, Long> {
+public class ServiceLogController extends BaseEsController<IServiceLogService, SysLogEntity, Long> {
     public ServiceLogController(IServiceLogService service) {
         super(service);
     }
@@ -37,12 +37,12 @@ public class ServiceLogController extends BaseEsController<IServiceLogService, S
      * 查询日志All
      *
      * @param query 查询参数
-     * @return ResultVO<List < ServiceLogEntity>>
+     * @return ResultVO<List < SysLogEntity>>
      */
     @PostMapping("/searchAll")
     @ApiOperation("查询日志All")
-    public ResultVO<List<ServiceLogEntity>> searchAll(@RequestBody ListQuery query) {
-        return ResultVO.success(service.findAll(query, ServiceLogEntity.class));
+    public ResultVO<List<SysLogEntity>> searchAll(@RequestBody ListQuery query) {
+        return ResultVO.success(service.findAll(query, SysLogEntity.class));
     }
 
     /**
@@ -50,24 +50,24 @@ public class ServiceLogController extends BaseEsController<IServiceLogService, S
      * - 深度
      *
      * @param query 查询参数
-     * @return ResultVO<List < ServiceLogEntity>>
+     * @return ResultVO<List < SysLogEntity>>
      */
     @PostMapping("/searchScrollAll")
     @ApiOperation("查询日志All(深度)")
-    public ResultVO<List<ServiceLogEntity>> searchScrollAll(@RequestBody ListQuery query) {
-        return ResultVO.success(service.findScrollAll(query, ServiceLogEntity.class));
+    public ResultVO<List<SysLogEntity>> searchScrollAll(@RequestBody ListQuery query) {
+        return ResultVO.success(service.findScrollAll(query, SysLogEntity.class));
     }
 
     /**
      * 分页查询日志
      *
      * @param query 查询参数
-     * @return ResultVO<PageResult < ServiceLogEntity>>
+     * @return ResultVO<PageResult < SysLogEntity>>
      */
     @PostMapping("/searchPage")
     @ApiOperation("分页查询日志")
-    public ResultVO<PageResult<ServiceLogEntity>> searchPage(@RequestBody PageQuery query) {
-        return ResultVO.success(service.findPage(query, ServiceLogEntity.class));
+    public ResultVO<PageResult<SysLogEntity>> searchPage(@RequestBody PageQuery query) {
+        return ResultVO.success(service.findPage(query, SysLogEntity.class));
     }
 
     /**
@@ -75,12 +75,12 @@ public class ServiceLogController extends BaseEsController<IServiceLogService, S
      * - 深度(不支持跨页)
      *
      * @param query 查询参数
-     * @return ResultVO<PageResult < ServiceLogEntity>>
+     * @return ResultVO<PageResult < SysLogEntity>>
      */
     @PostMapping("/searchScrollPage")
     @ApiOperation(value = "分页查询日志(深度)", notes = "不支持跨页")
-    public ResultVO<PageResult<ServiceLogEntity>> searchScrollPage(@RequestBody PageQuery query) {
-        return ResultVO.success(service.findScrollPage(query, ServiceLogEntity.class));
+    public ResultVO<PageResult<SysLogEntity>> searchScrollPage(@RequestBody PageQuery query) {
+        return ResultVO.success(service.findScrollPage(query, SysLogEntity.class));
     }
 
     /**
@@ -91,8 +91,8 @@ public class ServiceLogController extends BaseEsController<IServiceLogService, S
      */
     @PostMapping("/count")
     @ApiOperation("查询日志总数")
-    @ServiceLog(appId = "LS10001", moduleId = "ServiceLog", businessType = "0", operationType = "0", title = "服务日志", desc = "查询日志总数")
+    @SysLog(appId = "LS10001", desc = "查询日志总数")
     public ResultVO<Long> count(@RequestBody Query query) {
-        return ResultVO.success(service.count(query, ServiceLogEntity.class));
+        return ResultVO.success(service.count(query, SysLogEntity.class));
     }
 }

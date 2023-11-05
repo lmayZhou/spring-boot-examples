@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.baomidou.mybatisplus.generator.fill.Column;
 import com.baomidou.mybatisplus.generator.fill.Property;
+import com.baomidou.mybatisplus.generator.keywords.MySqlKeyWordsHandler;
 import com.lmaye.cloud.starter.mybatis.entity.FullEntity;
 import com.lmaye.cloud.starter.mybatis.repository.IMyBatisRepository;
 import com.lmaye.cloud.starter.mybatis.service.IMyBatisService;
@@ -32,7 +33,8 @@ public class MybatisCodeGenerator {
      * 数据源配置
      */
     private static final DataSourceConfig.Builder DATA_SOURCE_CONFIG = new DataSourceConfig
-            .Builder("jdbc:mysql://127.0.0.1:3306/applet-voice?serverTimezone=Asia/Shanghai", "root", "root");
+            .Builder("jdbc:mysql://127.0.0.1:3306/applet-voice?serverTimezone=Asia/Shanghai", "root", "root")
+            .keyWordsHandler(new MySqlKeyWordsHandler());
 
     public static void main(String[] args) {
         final String path = System.getProperty("user.dir");
@@ -42,8 +44,8 @@ public class MybatisCodeGenerator {
             .packageConfig(builder -> builder.parent("com.luckyturnfast.applet.voice.service").moduleName("user")
                     .entity("entity").service("service").serviceImpl("service.impl").mapper("repository").xml("mapper").controller("controller")
                     .pathInfo(Collections.singletonMap(OutputFile.xml, path.concat("/src/main/resources/mapper/"))).build())
-            .strategyConfig(builder -> builder.enableCapitalMode().disableSqlFilter()
-                    .entityBuilder().disableSerialVersionUID().enableChainModel().enableLombok().enableRemoveIsPrefix()
+            .strategyConfig(builder -> builder.enableCapitalMode().disableSqlFilter().addExclude("oauth_client_details")
+                    .entityBuilder().enableChainModel().enableLombok().enableRemoveIsPrefix()
                         .enableTableFieldAnnotation().versionColumnName("version").logicDeleteColumnName("is_deleted")
                         .addSuperEntityColumns("id", "is_deleted", "version", "remark", "ext", "created_by", "created_at", "last_modified_by", "last_modified_at")
                         .addTableFills(new Column("created_at", FieldFill.INSERT))

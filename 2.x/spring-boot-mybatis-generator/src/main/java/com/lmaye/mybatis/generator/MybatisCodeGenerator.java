@@ -40,7 +40,7 @@ public class MybatisCodeGenerator {
             .globalConfig(builder -> builder.outputDir(path.concat("/src/main/java")).author("lmayZhou")
                     .dateType(DateType.TIME_PACK).commentDate("yyyy-MM-dd HH:mm:ss").build())
             .packageConfig(builder -> builder.parent("com.luckyturnfast.applet.voice.service").moduleName("user")
-                    .entity("entity").service("service").serviceImpl("service.impl").mapper("mapper").xml("mapper").controller("controller")
+                    .entity("entity").service("service").serviceImpl("service.impl").mapper("repository").xml("mapper").controller("controller")
                     .pathInfo(Collections.singletonMap(OutputFile.xml, path.concat("/src/main/resources/mapper/"))).build())
             .strategyConfig(builder -> builder.enableCapitalMode().disableSqlFilter()
                     .entityBuilder().disableSerialVersionUID().enableChainModel().enableLombok().enableRemoveIsPrefix()

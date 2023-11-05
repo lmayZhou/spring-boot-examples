@@ -32,7 +32,10 @@ import ${package.Entity}.${entity};
 class ${table.controllerName}<#if superControllerClass??> : ${superControllerClass}()</#if>
 <#else>
     <#if superControllerClass??>
-public class ${table.controllerName} extends ${superControllerClass}<${table.serviceName}, ${entity}, ${entity}RestConverter, ${entity}VO, ${entity}DTO, Long> {
+public class ${table.controllerName} extends ${superControllerClass}<${table.serviceName}, ${entity}RestConverter, ${entity}, ${entity}VO, ${entity}DTO, Long> {
+    public ${table.controllerName}(${table.serviceName} service, ${entity}RestConverter restConverter) {
+        super(service, restConverter);
+    }
     <#else>
 public class ${table.controllerName} {
     </#if>

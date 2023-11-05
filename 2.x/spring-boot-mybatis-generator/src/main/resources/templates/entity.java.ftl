@@ -10,8 +10,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 </#if>
 <#if entityLombokModel>
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
     <#if chainModel>
 import lombok.experimental.Accessors;
     </#if>
@@ -26,8 +25,11 @@ import lombok.experimental.Accessors;
  * @since JDK1.8
  */
 <#if entityLombokModel>
-@Getter
-@Setter
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = false)
     <#if chainModel>
 @Accessors(chain = true)
     </#if>
@@ -50,7 +52,7 @@ public class ${entity} implements Serializable {
 public class ${entity} {
 </#if>
 <#if entitySerialVersionUID>
-private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 </#if>
 <#-- ----------  BEGIN 字段循环遍历  ---------->
 <#list table.fields as field>

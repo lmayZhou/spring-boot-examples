@@ -25,11 +25,10 @@ import java.io.Serializable;
 @EqualsAndHashCode(callSuper = false)
 @ApiModel(value = "${entity}VO", description = "${table.comment!}")
 public class ${entity}VO implements Serializable {
-private static final long serialVersionUID = 1L;
-
+    private static final long serialVersionUID = 1L;
 <#list table.fields as field>
+
     @ApiModelProperty("${field.comment}")
     private ${field.propertyType} ${field.propertyName};
-
 </#list>
 }

@@ -26,10 +26,9 @@ import java.io.Serializable;
 @ApiModel(value = "${entity}DTO", description = "${table.comment!}")
 public class ${entity}DTO implements Serializable {
     private static final long serialVersionUID = 1L;
-
 <#list table.fields as field>
+
     @ApiModelProperty("${field.comment}")
     private ${field.propertyType} ${field.propertyName};
-
 </#list>
 }

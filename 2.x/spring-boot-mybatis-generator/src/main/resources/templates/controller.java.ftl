@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import ${superControllerClassPackage};
 import ${package.Service}.${table.serviceName};
 import ${package.Entity}.${entity};
+import ${package.Entity}.dto.${entity}DTO;
+import ${package.Entity}.vo.${entity}VO;
+import ${package.Entity}.converter.${entity}RestConverter;
 </#if>
 
 /**
@@ -33,9 +36,6 @@ class ${table.controllerName}<#if superControllerClass??> : ${superControllerCla
 <#else>
     <#if superControllerClass??>
 public class ${table.controllerName} extends ${superControllerClass}<${table.serviceName}, ${entity}RestConverter, ${entity}, ${entity}VO, ${entity}DTO, Long> {
-    public ${table.controllerName}(${table.serviceName} service, ${entity}RestConverter restConverter) {
-        super(service, restConverter);
-    }
     <#else>
 public class ${table.controllerName} {
     </#if>

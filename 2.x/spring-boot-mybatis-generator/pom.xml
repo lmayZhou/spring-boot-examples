@@ -70,13 +70,13 @@
         <dependency>
             <groupId>com.lmaye</groupId>
             <artifactId>lms-cloud-starter-mybatis</artifactId>
-            <version>1.2.15</version>
+            <version>1.2.16</version>
         </dependency>
 
         <dependency>
             <groupId>com.lmaye</groupId>
             <artifactId>lms-cloud-starter-web</artifactId>
-            <version>1.2.15</version>
+            <version>1.2.16</version>
         </dependency>
     </dependencies>
 </project>

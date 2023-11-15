@@ -29,8 +29,8 @@ public class ${entity}VO implements Serializable {
 <#list table.fields as field>
 
     /**
-    * ${field.comment}
-    */
+     * ${field.comment}
+     */
     @ApiModelProperty("${field.comment}")
     private ${field.propertyType} ${field.propertyName};
 </#list>

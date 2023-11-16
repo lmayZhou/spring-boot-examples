@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
     <#if chainModel>
 import lombok.experimental.Accessors;
+import lombok.experimental.SuperBuilder;
     </#if>
 </#if>
 
@@ -30,10 +31,10 @@ import lombok.experimental.Accessors;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
     <#if chainModel>
 @Accessors(chain = true)
     </#if>
+@EqualsAndHashCode(callSuper = false)
 </#if>
 <#if table.convert>
 @TableName("${schemaName}${table.name}")

@@ -33,7 +33,7 @@ public class MybatisCodeGenerator {
      * 数据源配置
      */
     private static final DataSourceConfig.Builder DATA_SOURCE_CONFIG = new DataSourceConfig
-            .Builder("jdbc:mysql://127.0.0.1:3306/applet-voice?serverTimezone=Asia/Shanghai", "root", "root")
+            .Builder("jdbc:mysql://127.0.0.1:3306/applet-voice?allowPublicKeyRetrieval=true&allowMultiQueries=true&useSSL=false&characterEncoding=utf8", "root", "root")
             .keyWordsHandler(new MySqlKeyWordsHandler());
 
     public static void main(String[] args) {
@@ -50,7 +50,8 @@ public class MybatisCodeGenerator {
                         .addSuperEntityColumns("id", "is_deleted", "version", "remark", "ext", "created_by", "created_at", "last_modified_by", "last_modified_at")
                         .addTableFills(new Column("created_at", FieldFill.INSERT))
                         .addTableFills(new Property("last_modified_at", FieldFill.INSERT_UPDATE), new Property("last_modified_by", FieldFill.INSERT_UPDATE))
-                        .superClass(FullEntity.class).enableFileOverride()
+                        .superClass(FullEntity.class)
+                    .enableFileOverride()
                     .mapperBuilder().mapperAnnotation(Mapper.class).enableBaseResultMap().enableBaseColumnList()
                         .formatMapperFileName("%sRepository").formatXmlFileName("%sMapper").superClass(IMyBatisRepository.class).enableFileOverride()
                     .serviceBuilder().formatServiceFileName("%sService").formatServiceImplFileName("%sServiceImpl")

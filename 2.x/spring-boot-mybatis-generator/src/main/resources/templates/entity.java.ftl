@@ -28,7 +28,7 @@ import lombok.experimental.SuperBuilder;
  */
 <#if entityLombokModel>
 @Data
-@Builder
+@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
     <#if chainModel>
